@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../PortfolioView.css';
+import './PortfolioView.css';
 
 const PortfolioView = ()=>{
   return(
@@ -16,3 +16,5 @@ const PortfolioView = ()=>{
     </div>
   );
 }
+
+export default PortfolioView;
