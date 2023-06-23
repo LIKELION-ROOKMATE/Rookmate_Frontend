@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import MainPage from './components/screens/MainPage/MainPage';
 import LoginPage from './components/screens/LoginPage/LoginPage';
-import PortfolioView from './components/screens/PortfolioPage/PortfolioView';
+import PortfolioEdit from './components/screens/PortfolioEditPage/PortfolioEdit';
 
 const App = () => {
 	return (
@@ -11,7 +11,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/portfolio" element={<PortfolioView/>}/>
+          <Route path="/portfolio/edit" element={<PortfolioEdit/>}/>
         </Routes>
       </Router>
     </div>
