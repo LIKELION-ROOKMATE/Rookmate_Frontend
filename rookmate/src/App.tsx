@@ -1,13 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import MainPage from './components/screens/MainPage/MainPage';
-import LoginPage from './components/screens/LoginPage/LoginPage';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "./components/screens/MainPage/MainPage";
+import LoginPage from "./components/screens/LoginPage/LoginPage";
 import PortfolioEdit from './components/screens/PortfolioEditPage/PortfolioEdit';
 import OutsourcingApply from './components/screens/Outsourcing/OutsourcingApply';
 
-const App = () => {
-	return (
-		<div className='App'>
+const App: React.FC = () => {
+  return (
+    <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
