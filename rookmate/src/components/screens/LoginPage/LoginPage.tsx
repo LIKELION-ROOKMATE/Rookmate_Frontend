@@ -17,7 +17,9 @@ interface Styles {
   kakaoButton: React.CSSProperties;
   continueWithKakao: React.CSSProperties;
   continueWithKakaoText: React.CSSProperties;
+  noAccountContainer: React.CSSProperties;
 }
+
 const styles: Styles = {
   loginContainer: {
     display: "flex",
@@ -91,7 +93,12 @@ const styles: Styles = {
     height: "2rem",
     backgroundColor: "#ECECEC",
   },
-  noAccountDescription: { display: "flex", marginTop: 20, marginBottom: 11 },
+  noAccountContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  noAccountDescription: { display: "flex" },
   kakaoButton: {
     display: "flex",
     justifyContent: "center",
@@ -110,6 +117,7 @@ const styles: Styles = {
     marginLeft: "0.8rem",
   },
 };
+
 const LoginPage: React.FC = (): ReactElement => {
   return (
     <div style={styles.loginContainer}>
@@ -148,7 +156,10 @@ const LoginPage: React.FC = (): ReactElement => {
             </div>
           </div>
           <div>
-            <h6 style={styles.noAccountDescription}>아직 계정이 없다면?</h6>
+            <div style={styles.noAccountContainer}>
+              <h6 style={styles.noAccountDescription}>아직 계정이 없다면?</h6>
+              <h6 style={{ marginLeft: "6rem" }}>회원가입</h6>
+            </div>
             <div style={styles.kakaoButton}>
               <div style={styles.continueWithKakao}>
                 <img src={images.kakao} />
