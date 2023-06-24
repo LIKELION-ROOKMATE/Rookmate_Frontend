@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Portfoliostart from './components/screens/PortfolioStartPage/portfoliostart';
+import Portfoliomake from './components/screens/PortfoliomakePage/Portfoliomake';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!!!  
-        </a>
-      </header>
+
+const App = () => {
+	return (
+		<div className='App'>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/portfolio" element={<PortfolioView/>}/>
+          <Route path="/portfolio/edit" element={<PortfolioEdit/>}/>
+          <Route path="/portfoliostart" element={<Portfoliostart/>}/>
+          <Route path="/portfoliomake" element={<Portfoliomake/>}/>
+        </Routes>
+      </Router>
     </div>
-  );
-}
-
+	);
+};
 export default App;
