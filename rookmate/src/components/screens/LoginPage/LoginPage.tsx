@@ -13,7 +13,6 @@ interface Styles {
   inputText: React.CSSProperties;
   loginButtonContainer: React.CSSProperties;
   loginButton: React.CSSProperties;
-  noAccountDescription: React.CSSProperties;
   kakaoButton: React.CSSProperties;
   continueWithKakao: React.CSSProperties;
   continueWithKakaoText: React.CSSProperties;
@@ -98,7 +97,6 @@ const styles: Styles = {
     flexDirection: "row",
     alignItems: "center",
   },
-  noAccountDescription: { display: "flex" },
   kakaoButton: {
     display: "flex",
     justifyContent: "center",
@@ -157,7 +155,7 @@ const LoginPage: React.FC = (): ReactElement => {
           </div>
           <div>
             <div style={styles.noAccountContainer}>
-              <h6 style={styles.noAccountDescription}>아직 계정이 없다면?</h6>
+              <h6>아직 계정이 없다면?</h6>
               <h6 style={{ marginLeft: "6rem" }}>회원가입</h6>
             </div>
             <div style={styles.kakaoButton}>
