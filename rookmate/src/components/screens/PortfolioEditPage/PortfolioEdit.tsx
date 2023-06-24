@@ -5,7 +5,7 @@ import addSomething from '../../../assets/images/addSomething.png';
 import instagram from '../../../assets/images/instagram.png';
 import github from '../../../assets/images/github.png';
 import kakao from '../../../assets/images/kakao.png';
-import facebook from '../../../assets/images/facebook.png';
+import facebook from '../../../assets/images/facebook';
 import './PortfolioEdit.css';
 import TopBar from '../../TopBar';
 
