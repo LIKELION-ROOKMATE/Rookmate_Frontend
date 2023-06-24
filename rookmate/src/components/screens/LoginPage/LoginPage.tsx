@@ -96,6 +96,7 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
   kakaoButton: {
     display: "flex",
@@ -155,8 +156,8 @@ const LoginPage: React.FC = (): ReactElement => {
           </div>
           <div>
             <div style={styles.noAccountContainer}>
-              <h6>아직 계정이 없다면?</h6>
-              <h6 style={{ marginLeft: "6rem" }}>회원가입</h6>
+              <h6 style={{ color: "gray" }}>아직 계정이 없다면?</h6>
+              <h6 style={{ marginLeft: "0.35rem" }}>회원가입 {">"}</h6>
             </div>
             <div style={styles.kakaoButton}>
               <div style={styles.continueWithKakao}>
