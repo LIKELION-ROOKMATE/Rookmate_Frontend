@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import mainImage from '../../../assets/images/portfolioMainImage.png';
 import noneProfile from '../../../assets/images/noneProfile.png';
 import addSomething from '../../../assets/images/addSomething.png';
@@ -7,14 +7,15 @@ import github from '../../../assets/images/github.png';
 import kakao from '../../../assets/images/kakao.png';
 import facebook from '../../../assets/images/facebook.png';
 import './PortfolioEdit.css';
+import TopBar from '../../TopBar';
 
 const style = {
-  DisplayNone:{
-    display:'none',
+  DisplayNone: {
+    display: 'none',
   },
-}
+};
 
-const PortfolioView = ()=>{
+const PortfolioView:React.FC  = ()=>{
 
   const [profileImage, setProfileImage] = useState(noneProfile);
   
@@ -38,10 +39,10 @@ const PortfolioView = ()=>{
 
   // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
   useEffect(() => {
-    const initialStack = [];
+    const initialStack:any = [];
     //get Data : dataList
-    const skillStack = ["Spring", "django", "Java", "React", "Algorithm"]
-    const dataList = [40, 50, 60,30, 80];
+    const skillStack:string[] = ["Spring", "django", "Java", "React", "Algorithm"]
+    const dataList:number[] = [40, 50, 60,30, 80];
     for (let i = 0; i < dataList.length; i++) {
       initialStack.push(
         <div className='stackBox'>
@@ -56,16 +57,17 @@ const PortfolioView = ()=>{
   }, []);
 
   // toolBox 버튼을 누르면 해당 요소 활성화/비활성화하는 이벤트
-  const checkViewListEvent = (e)=>{
-    const idName = e.target.id;
-    console.log(idName)
-    const value = viewList[idName]?false:true
-    setViewList(prev => ({...prev, [idName]:value}))
-    console.log(viewList.stack)
-  }
+  const checkViewListEvent = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+  const idName: keyof typeof viewList = e.currentTarget.id as keyof typeof viewList;
+  console.log(idName);
+  const value: boolean = viewList[idName] ? false : true;
+  setViewList((prev: typeof viewList) => ({ ...prev, [idName]: value }));
+  console.log(viewList.stack);
+};
 
   return(
     <div className='page'>
+      <TopBar></TopBar>
       <div className="img-timeline-box">
         <img src={mainImage} alt="main-img" className="main-img"/>
         <div className = 'timeline' style={viewList.timeline?{}:style.DisplayNone}>
@@ -126,7 +128,6 @@ const PortfolioView = ()=>{
             <img src={addSomething} className='addSomething'/>
           </div>
           <div className='templateEditTools'>
-            <button className='completeButton'>Complete</button>
             <div className='toolBoxGroup'>
               <p className='explain'>원하는 목록을 추가하세요.</p>
               <div className='toolBox'>
@@ -137,6 +138,7 @@ const PortfolioView = ()=>{
                 <button onClick={checkViewListEvent} id='competition' style={viewList.competition?{}:{color:'grey'}}>공모전</button>
               </div>
             </div>
+            <button className='completeButton'>Complete</button>
           </div>
         </div>
       </div>

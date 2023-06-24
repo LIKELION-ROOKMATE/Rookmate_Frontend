@@ -1,0 +1,39 @@
+@import url(./reset.css);
+
+.outsourcingApply{
+  margin: 6rem 13.5rem 0 13.5rem;
+
+  height: 10px;
+}
+
+.outsourcingInfo{
+  width: 94.9rem;
+}
+
+.outsourcingInfo .title{
+  font-size: 1.7rem;
+}
+
+.contentHead{
+  display: flex;
+  flex-direction: row;
+
+  width: 48%;
+}
+
+.userInfo .name{
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.userInfo .organization{
+
+}
+
+.contentHead .others{
+  display: flex;
+  gap: 0.5rem;
+
+  width: 2rem;
+  height: 1.7rem;
+}

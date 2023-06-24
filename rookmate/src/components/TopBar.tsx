@@ -69,17 +69,17 @@ const TopBar = () => {
     };
     
   return (
-    <div style={styles.topBarContainer}>
-      <img src={logo} style={styles.logoImage} alt="로고 이미지" onClick={handleLogoClick} />
-      <div style={styles.searchContainer}>
-        <img src={search} style={styles.searchImage} alt="검색" />
-      </div>
-      <span style={styles.portfolioMenu}>포트폴리오</span>
-      <span style={styles.alertMenu}>알림</span>
-      <span style={styles.messageMenu}>쪽지</span>
-      <img src={profile} style={styles.profileImage} alt="프로필 사진" />
+  <div style={styles.topBarContainer as React.CSSProperties}>
+    <img src={logo} style={styles.logoImage as React.CSSProperties} alt="로고 이미지" onClick={handleLogoClick} />
+    <div style={styles.searchContainer as React.CSSProperties}>
+      <img src={search} style={styles.searchImage as React.CSSProperties} alt="검색" />
     </div>
-  );
+    <span style={styles.portfolioMenu as React.CSSProperties}>포트폴리오</span>
+    <span style={styles.alertMenu as React.CSSProperties}>알림</span>
+    <span style={styles.messageMenu as React.CSSProperties}>쪽지</span>
+    <img src={profile} style={styles.profileImage as React.CSSProperties} alt="프로필 사진" />
+  </div>
+);
 };
 
 export default TopBar;
