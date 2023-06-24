@@ -13,6 +13,10 @@ interface Styles {
   inputText: React.CSSProperties;
   loginButtonContainer: React.CSSProperties;
   loginButton: React.CSSProperties;
+  noAccountDescription: React.CSSProperties;
+  kakaoButton: React.CSSProperties;
+  continueWithKakao: React.CSSProperties;
+  continueWithKakaoText: React.CSSProperties;
 }
 const styles: Styles = {
   loginContainer: {
@@ -87,6 +91,24 @@ const styles: Styles = {
     height: "2rem",
     backgroundColor: "#ECECEC",
   },
+  noAccountDescription: { display: "flex", marginTop: 20, marginBottom: 11 },
+  kakaoButton: {
+    display: "flex",
+    justifyContent: "center",
+    width: "14.4rem",
+    backgroundColor: "#FEE500",
+    borderRadius: 10,
+    height: "2rem",
+  },
+  continueWithKakao: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  continueWithKakaoText: {
+    display: "flex",
+    marginLeft: "0.8rem",
+  },
 };
 const LoginPage: React.FC = (): ReactElement => {
   return (
@@ -126,35 +148,11 @@ const LoginPage: React.FC = (): ReactElement => {
             </div>
           </div>
           <div>
-            <h6 style={{ display: "flex", marginTop: 20, marginBottom: 11 }}>
-              아직 계정이 없다면?
-            </h6>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                width: "14.4rem",
-                backgroundColor: "#FEE500",
-                borderRadius: 10,
-                height: "2rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            <h6 style={styles.noAccountDescription}>아직 계정이 없다면?</h6>
+            <div style={styles.kakaoButton}>
+              <div style={styles.continueWithKakao}>
                 <img src={images.kakao} />
-                <h6
-                  style={{
-                    display: "flex",
-                    marginLeft: "0.8rem",
-                  }}
-                >
-                  카카오로 계속하기
-                </h6>
+                <h6 style={styles.continueWithKakaoText}>카카오로 계속하기</h6>
               </div>
             </div>
           </div>
