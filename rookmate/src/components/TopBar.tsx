@@ -71,6 +71,9 @@ const TopBar: React.FC = () => {
   const handleLogoClick = () => {
     navigate("/");
   };
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
 
   return (
     <div style={styles.topBarContainer}>
@@ -86,7 +89,12 @@ const TopBar: React.FC = () => {
       <span style={styles.portfolioMenu}>포트폴리오</span>
       <span style={styles.alertMenu}>알림</span>
       <span style={styles.messageMenu}>쪽지</span>
-      <img src={Profile} style={styles.profileImage} alt="프로필 사진" />
+      <img
+        src={Profile}
+        style={styles.profileImage}
+        alt="프로필 사진"
+        onClick={handleLoginClick}
+      />
     </div>
   );
 };
