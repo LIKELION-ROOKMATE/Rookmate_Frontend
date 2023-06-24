@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import mainImage from '../../../assets/images/portfolioMainImage.png';
-import noneProfile from '../../../assets/images/noneProfile.png';
-import addSomething from '../../../assets/images/addSomething.png';
-import instagram from '../../../assets/images/instagram.png';
-import github from '../../../assets/images/github.png';
-import kakao from '../../../assets/images/kakao.png';
-import facebook from '../../../assets/images/facebook';
+import { images } from "../../../assets/images/images";
 import './PortfolioEdit.css';
 import TopBar from '../../TopBar';
 
@@ -17,7 +11,7 @@ const style = {
 
 const PortfolioView:React.FC  = ()=>{
 
-  const [profileImage, setProfileImage] = useState(noneProfile);
+  const [profileImage, setProfileImage] = useState(images.noneProfile);
   
   //사용자 기본 정보 관련 state
   const [name, setName] = useState('이름을 넣어주세요.');
@@ -69,7 +63,7 @@ const PortfolioView:React.FC  = ()=>{
     <div className='page'>
       <TopBar></TopBar>
       <div className="img-timeline-box">
-        <img src={mainImage} alt="main-img" className="main-img"/>
+        <img src={images.portfolioMainImage} alt="main-img" className="main-img"/>
         <div className = 'timeline' style={viewList.timeline?{}:style.DisplayNone}>
           <div className="timeline-element">
             <p className="point"></p>
@@ -103,19 +97,19 @@ const PortfolioView:React.FC  = ()=>{
             <div className='title'>SNS</div>
             <div className='snsList'>
               <div className='snsElement'>
-                <img src={kakao}/>
+                <img src={images.kakao}/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={instagram}/>
+                <img src={images.instagram}/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={github}/>
+                <img src={images.github}/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={facebook}/>
+                <img src={images.facebook}/>
                 <p className='snsId'>ID</p>
               </div>
             </div>
@@ -125,7 +119,7 @@ const PortfolioView:React.FC  = ()=>{
 
         <div className='portfolioContent'>
           <div className='workList'>
-            <img src={addSomething} className='addSomething'/>
+            <img src={images.addSomething} className='addSomething'/>
           </div>
           <div className='templateEditTools'>
             <div className='toolBoxGroup'>
