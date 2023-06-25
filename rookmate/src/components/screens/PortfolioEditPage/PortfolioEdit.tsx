@@ -77,7 +77,7 @@ const PortfolioView:React.FC  = ()=>{
       <div className='portfolioDetail'>
         <div className='profile'>
           <p className='title'>프로필</p>
-          <img src={profileImage} className='profileImage'/>
+          <img src={profileImage} alt='profileImage' className='profileImage'/>
 
           <div className='userInfo'>
             <p>Name : {name}</p>
@@ -97,19 +97,19 @@ const PortfolioView:React.FC  = ()=>{
             <div className='title'>SNS</div>
             <div className='snsList'>
               <div className='snsElement'>
-                <img src={images.kakao}/>
+                <img src={images.kakao} alt='kakao'/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={images.instagram}/>
+                <img src={images.instagram} alt='instagram'/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={images.github}/>
+                <img src={images.github} alt='github'/>
                 <p className='snsId'>ID</p>
               </div>
               <div className='snsElement'>
-                <img src={images.facebook}/>
+                <img src={images.facebook} alt='facebook'/>
                 <p className='snsId'>ID</p>
               </div>
             </div>
@@ -119,7 +119,7 @@ const PortfolioView:React.FC  = ()=>{
 
         <div className='portfolioContent'>
           <div className='workList'>
-            <img src={images.addSomething} className='addSomething'/>
+            <img src={images.addSomething} className='addSomething' alt='addSomething'/>
           </div>
           <div className='templateEditTools'>
             <div className='toolBoxGroup'>
