@@ -1,10 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { images } from "../../../assets/images/images";
-import TopBar from "../../TopBar";
-import PortfolioEditTimeline from './components/portfolioEditTimeline';
-import PortfolioEditProfile from './components/portfolioEditProfile';
-import PortfolioEditContent from './components/portfolioEditContent';
-import { relative } from 'path';
+import React, { useState, useEffect, MouseEventHandler } from "react";
+import { images } from "../../../../assets/images/images";
+
+type PortfolioEditContentType = {
+  props:{
+    profileImage:string,
+    name:string,
+    age:string,
+    collage:string,
+    departure:string,
+    viewList:{
+      stack: boolean,
+      timeline: boolean,
+      license: boolean,
+      sns: boolean,
+      competition: boolean,
+    },
+    stacks:any,
+  },
+  checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void;
+}
 
 interface Styles{
   DisplayNone:React.CSSProperties;
@@ -163,87 +177,62 @@ const styles:Styles = {
   },
 };
 
-const PortfolioEdit: React.FC = () => {
-  //사용자 기본 정보 관련 state
-  const [name, setName] = useState("홍길동");
-  const [age, setAge] = useState("22");
-  const [collage, setCollage] = useState("국민대학교");
-  const [departure, setDeparture] = useState("소프트웨어학부");
-  const [profileImage, setProfileImage]:any = useState(images.noneProfile);
-  //기술 스택 관련 state
-  const [stacks, setStack] = useState([]);
-  //요소들의 표시 여부를 나타내는 state
-  const [viewList, setViewList] = useState({
-    stack: true,
-    timeline: true,
-    license: true,
-    sns: true,
-    competition: true,
-  });
-  // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
-  useEffect(() => {
-    const initialStack: any = [];
-    //get Data : dataList
-    const skillStack: string[] = [
-      "Spring",
-      "django",
-      "Java",
-      "React",
-      "Algorithm",
-    ];
-    const dataList: number[] = [40, 50, 60, 30, 80];
-    for (let i = 0; i < dataList.length; i++) {
-      initialStack.push(
-        <div style={styles.stackBox}>
-          <p style={styles.stackName}>{skillStack[i]}</p>
-          <div style={styles.proficiencyBox}>
-            <div style={{...styles.proficiency, width: `${dataList[i]}%` }}>
-              &nbsp;
+const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent})=>{
+
+  const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    checkViewListEvent(e)
+  }
+
+  return(
+    <div style={styles.portfolioContent}>
+          <div style={styles.workList}>
+            <img src={images.addSomething} style={styles.addSomething} alt='addSomething'/>
+          </div>
+          <div style={styles.templateEditTools}>
+            <div style={styles.toolBoxGroup}>
+              <p style={styles.explain}>원하는 목록을 추가하세요.</p>
+              <div style={styles.toolBox}>
+                <button
+                  onClick={handleToolButtonClick}
+                  id="stack"
+                  style={props.viewList.stack ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+                >
+                  스택
+                </button>
+                <button
+                  onClick={handleToolButtonClick}
+                  id="timeline"
+                  style={props.viewList.timeline ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+                >
+                  타임라인
+                </button>
+                <button
+                  onClick={handleToolButtonClick}
+                  id="license"
+                  style={props.viewList.license ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+                >
+                  자격증
+                </button>
+                <button
+                  onClick={handleToolButtonClick}
+                  id="sns"
+                  style={props.viewList.sns ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+                >
+                  SNS
+                </button>
+                <button
+                  onClick={handleToolButtonClick}
+                  id="competition"
+                  style={props.viewList.competition ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+                >
+                  공모전
+                </button>
+              </div>
             </div>
+            <button style={styles.completeButton}>Complete</button>
           </div>
         </div>
-      );
-    }
-    setStack(initialStack);
-  }, []);
-  // toolBox 버튼을 누르면 해당 요소 활성화/비활성화하는 이벤트
-  const checkViewListEvent = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ): void => {
-    const idName: keyof typeof viewList = e.currentTarget
-      .id as keyof typeof viewList;
-    console.log(idName);
-    const value: boolean = viewList[idName] ? false : true;
-    setViewList((prev: typeof viewList) => ({ ...prev, [idName]: value }));
-    console.log(viewList.stack);
-  };
+  )
+}
 
-  return (
-    <div style={styles.page}>
-      <TopBar />
-      <PortfolioEditTimeline viewList={viewList} />
-      <div style={styles.portfolioDetail}>
-        <PortfolioEditProfile props={{
-          profileImage:profileImage,
-          name:name,
-          age:age,
-          collage:collage,
-          departure:departure,
-          viewList:viewList,
-          stacks:stacks,
-        }}/>
-        <PortfolioEditContent props={{
-          profileImage:profileImage,
-          name:name,
-          age:age,
-          collage:collage,
-          departure:departure,
-          viewList:viewList,
-          stacks:stacks,
-        }} checkViewListEvent={checkViewListEvent}/>
-      </div>
-    </div>
-  );
-};
-
-export default PortfolioEdit;
+export default PortfolioEditContent;

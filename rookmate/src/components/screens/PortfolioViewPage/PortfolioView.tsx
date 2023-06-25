@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
-import PortfolioEditTimeline from './components/portfolioEditTimeline';
-import PortfolioEditProfile from './components/portfolioEditProfile';
-import PortfolioEditContent from './components/portfolioEditContent';
+import PortfolioViewTimeline from './components/portfolioViewTimeline';
+import PortfolioViewProfile from './components/portfolioViewProfile';
+import PortfolioViewContent from './components/portfolioViewContent';
+import PortfolioEditUserComment from './components/portfolioViewUserComment';
+import PortfolioEditReview from './components/portfolioViewReview';
+
 import { relative } from 'path';
 
 interface Styles{
@@ -14,15 +17,6 @@ interface Styles{
   proficiency:React.CSSProperties;
   page:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
-  portfolioContent:React.CSSProperties;
-  workList:React.CSSProperties;
-  addSomething:React.CSSProperties;
-  templateEditTools:React.CSSProperties;
-  toolBoxGroup:React.CSSProperties;
-  explain:React.CSSProperties;
-  toolBox:React.CSSProperties;
-  toolBoxButton:React.CSSProperties;
-  completeButton:React.CSSProperties;
 }
 
 const styles:Styles = {
@@ -78,92 +72,9 @@ const styles:Styles = {
     width: "94.9rem",
     height: "73.8%",
   },
-  portfolioContent:{
-    width: "77%",
-    height: "100%",
-    boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
-
-    padding: "4.5rem 2rem 0 4.5rem",
-  },
-  workList:{
-    width: "100%",
-    height: "66.7%",
-  },
-  addSomething:{
-    width: "19rem",
-    height: "19rem",
-  },
-  templateEditTools:{
-    display: "flex",
-    alignItems:"end",
-    flexDirection: "column",
-  },
-  toolBoxGroup:{
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "33.3%",
-    fontWeight: "400",
-  },
-  explain:{
-    display: "flex",
-    alignItems: "end",
-
-    position: "relative",
-    left:"1rem",
-
-    height: "2.5rem",
-
-    marginBottom: "0.5rem",
-    textAlign: "left",
-    
-    fontSize: "1rem",
-    fontWeight: "400",
-  },
-  toolBox:{
-    display: "flex",
-    gap: "2rem",
-    alignItems: "center",
-
-    width: "96%",
-    height: "3.5rem",
-    
-    border: "0.3rem solid #7FA3C5",
-    boxShadow: "0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.25)",
-    borderRadius: "3.125rem",
-  },
-  toolBoxButton:{
-    position: "relative",
-    left: "2rem",
-
-    border: "none",
-    
-    backgroundColor: "#fff",
-
-    textDecoration: "none",
-    fontSize: "1.5rem",
-  },
-  completeButton:{
-    position: "relative",
-    right: "2rem",
-
-    width: "15rem",
-    height: "4rem",
-
-    border: "none",
-
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: "20px",
-    marginTop: "2.5rem",
-
-    backgroundColor: "#C0D9FF",
-
-    fontSize: "1.5rem",
-    color: "#fff",
-  },
 };
 
-const PortfolioEdit: React.FC = () => {
+const PortfolioView: React.FC = () => {
   //사용자 기본 정보 관련 state
   const [name, setName] = useState("홍길동");
   const [age, setAge] = useState("22");
@@ -221,9 +132,9 @@ const PortfolioEdit: React.FC = () => {
   return (
     <div style={styles.page}>
       <TopBar />
-      <PortfolioEditTimeline viewList={viewList} />
+      <PortfolioViewTimeline viewList={viewList} />
       <div style={styles.portfolioDetail}>
-        <PortfolioEditProfile props={{
+        <PortfolioViewProfile props={{
           profileImage:profileImage,
           name:name,
           age:age,
@@ -232,7 +143,7 @@ const PortfolioEdit: React.FC = () => {
           viewList:viewList,
           stacks:stacks,
         }}/>
-        <PortfolioEditContent props={{
+        <PortfolioViewContent props={{
           profileImage:profileImage,
           name:name,
           age:age,
@@ -246,4 +157,4 @@ const PortfolioEdit: React.FC = () => {
   );
 };
 
-export default PortfolioEdit;
+export default PortfolioView;
