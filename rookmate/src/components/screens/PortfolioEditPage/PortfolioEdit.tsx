@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./PortfolioEdit.css";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
 import PortfolioEditTimeline from './components/portfolioEditTimeline';
@@ -11,7 +12,6 @@ interface Styles{
   stackBox:React.CSSProperties;
   stackName:React.CSSProperties;
   proficiencyBox:React.CSSProperties;
-  proficiency:React.CSSProperties;
   page:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
   portfolioContent:React.CSSProperties;
@@ -39,35 +39,30 @@ const styles:Styles = {
   },
   stackName:{
     width: "20%",
-    fontSize: "0.8rem",
+    height: "1rem",
+
+    fontSize: "0.7rem",
 
     marginRight: "5%",
     
     overflowWrap: "break-word",
   },
   proficiencyBox:{
+    display: "flex",
+    alignItems: "center",
+
     position: "relative",
 
     width: "60%",
     height: "1.1rem",
 
     margin: "0 0 1rem 0",
-    border: "2px solid #7FA3C5",
-    borderRadius: "10px",
 
     fontSize: "1rem",
   },
-  proficiency:{
-  position: "relative",
-  right: "0.1rem",
-
-  backgroundColor: "#7FA3C5",
-  height: "100%",
-
-  borderRadius: "10px",
-  },
   page:{
     width: "100%",
+    maxWidth: "94.9rem",
     height: "65rem",
     fontFamily: 'TheJamsil5Bold',
   },
@@ -75,7 +70,7 @@ const styles:Styles = {
     display: "flex",
     flexDirection: "row",
 
-    width: "94.9rem",
+    width: "100%",
     height: "73.8%",
   },
   portfolioContent:{
@@ -97,6 +92,9 @@ const styles:Styles = {
     display: "flex",
     alignItems:"end",
     flexDirection: "column",
+
+    position:"fixed",
+    left: "2rem",
   },
   toolBoxGroup:{
     display: "flex",
@@ -180,26 +178,23 @@ const PortfolioEdit: React.FC = () => {
     sns: true,
     competition: true,
   });
-  // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
+  const inputEvent = (e:any)=>{
+    var gradient = 100 / e.target.attributes.max.value as number;
+     e.target.style.background = 
+      'linear-gradient(to right, #7FA3C5 0%, #7FA3C5 '
+      + gradient * e.target.value +'%, rgb(236, 236, 236) '
+      + gradient *  e.target.value + '%, rgb(236, 236, 236) 100%)';
+  };
+  // 사용자의 스택을 입력받는 요소 생성 effect
   useEffect(() => {
     const initialStack: any = [];
     //get Data : dataList
-    const skillStack: string[] = [
-      "Spring",
-      "django",
-      "Java",
-      "React",
-      "Algorithm",
-    ];
-    const dataList: number[] = [40, 50, 60, 30, 80];
-    for (let i = 0; i < dataList.length; i++) {
+    for (let i = 0; i < 5; i++) {
       initialStack.push(
         <div style={styles.stackBox}>
-          <p style={styles.stackName}>{skillStack[i]}</p>
+          <input style={styles.stackName} placeholder='기술 입력'/>
           <div style={styles.proficiencyBox}>
-            <div style={{...styles.proficiency, width: `${dataList[i]}%` }}>
-              &nbsp;
-            </div>
+            <input type='range' min="1" max="100" onInput={inputEvent}/>
           </div>
         </div>
       );

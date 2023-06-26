@@ -16,6 +16,9 @@ import Mail from '../images/mail.png'
 import Share from '../images/share.png'
 import ThumbsUp from '../images/thumbsup.png'
 import portfolioMainImage from '../images/portfolioMainImage.png'
+import outsourcingManage from '../images/outsourcingManage.png'
+import check from '../images/check.png'
+import greyMail from '../images/greymail.png'
 
 export const images = {
   deleteTag: DeleteTag,
@@ -36,4 +39,7 @@ export const images = {
   share: Share,
   thumbsUp: ThumbsUp,
   portfolioMainImage: portfolioMainImage,
+  outsourcingManage: outsourcingManage,
+  check: check,
+  greyMail: greyMail,
 };

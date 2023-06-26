@@ -136,7 +136,9 @@ const OutsourcingApplyOption = ()=>{
     for(let e in useOptionList){
       let src = ''
       if(useOptionList[e] == true){
-        src = images.thumbsUp
+        src = images.check
+      }else{
+        src = images.deleteTag
       }
       useOptionElement.push(
         <div style={styles.OptionStyle}>

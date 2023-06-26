@@ -4,8 +4,8 @@ import TopBar from "../../TopBar";
 import PortfolioViewTimeline from './components/portfolioViewTimeline';
 import PortfolioViewProfile from './components/portfolioViewProfile';
 import PortfolioViewContent from './components/portfolioViewContent';
-import PortfolioEditUserComment from './components/portfolioViewUserComment';
-import PortfolioEditReview from './components/portfolioViewReview';
+import PortfolioViewUserComment from './components/portfolioViewUserComment';
+import PortfolioViewReview from './components/portfolioViewReview';
 
 import { relative } from 'path';
 
@@ -17,6 +17,9 @@ interface Styles{
   proficiency:React.CSSProperties;
   page:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
+  portfolioDetailLeft:React.CSSProperties;
+  portfolioDetailLeftMenu:React.CSSProperties;
+  menuButton:React.CSSProperties;
 }
 
 const styles:Styles = {
@@ -52,34 +55,114 @@ const styles:Styles = {
     fontSize: "1rem",
   },
   proficiency:{
-  position: "relative",
-  right: "0.1rem",
+    position: "relative",
+    right: "0.1rem",
 
-  backgroundColor: "#7FA3C5",
-  height: "100%",
+    backgroundColor: "#7FA3C5",
+    height: "100%",
 
-  borderRadius: "10px",
+    borderRadius: "10px",
   },
   page:{
     width: "100%",
-    height: "65rem",
+    maxWidth: "95rem",
     fontFamily: 'TheJamsil5Bold',
   },
   portfolioDetail:{
     display: "flex",
     flexDirection: "row",
 
-    width: "94.9rem",
+    width: "100%",
     height: "73.8%",
+  },
+  portfolioDetailLeft:{
+    paddingLeft: "6.5%",
+    boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
+    width: "70%",
+  },
+  portfolioDetailLeftMenu:{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "start",
+    columnGap: "3.9rem",
+
+    width: "100%",
+    height: "3.5rem",
+  },
+  menuButton:{
+    border:"none",
+    paddingLeft:"0",
+
+    backgroundColor:"#fff",
+
+    fontSize: "1rem",
+    fontFamily: "Inter",
+    fontWeight: "600",
+  }
+};
+
+const userComment = {
+  user1:{
+    id:"kimym8821",
+    profile:images.github,
+    date:"2023-06-26",
+    comment: "I need very long long long long long long long long long long long long long long long long long long long long long long long text",
+    work:"work1",
+    prefer:"12",
+  },  
+  user2:{
+    id:"user2user2",
+    profile:images.github,
+    date:"2023-06-27",
+    comment: "hello world",
+    work:"work1",
+    prefer:"10",
+  },
+  user3:{
+    id:"3user3user",
+    profile:images.github,
+    date:"2023-06-28",
+    comment: "typescript && React",
+    work:"work2",
+    prefer:"8",
+  },
+}
+const userReview = {
+    user1:{
+    id:"kimym8821",
+    profile: images.github,
+    score: "매우 만족",
+    workImage:images.mainPageTopAdImage,
+    date:"2023-06-26",
+    comment: "user1 comment",
+    prefer:"12",
+  },  
+  user2:{
+    id:"user2user2",
+    profile: images.github,
+    score: "불만족",
+    workImage:images.mainPageTopAdImage,
+    date:"2023-06-27",
+    comment: "user2 comment",
+    prefer:"10",
+  },
+  user3:{
+    id:"3user3user",
+    profile: images.github,
+    score: "만족",
+    workImage:images.mainPageTopAdImage,
+    date:"2023-06-28",
+    comment: "user3 comment",
+    prefer:"8",
   },
 };
 
 const PortfolioView: React.FC = () => {
   //사용자 기본 정보 관련 state
-  const [name, setName] = useState("홍길동");
-  const [age, setAge] = useState("22");
-  const [collage, setCollage] = useState("국민대학교");
-  const [departure, setDeparture] = useState("소프트웨어학부");
+  const [name, setName] = useState("noName");
+  const [age, setAge] = useState("noAge");
+  const [collage, setCollage] = useState("noSchool");
+  const [departure, setDeparture] = useState("noDeparture");
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
   //기술 스택 관련 state
   const [stacks, setStack] = useState([]);
@@ -91,6 +174,11 @@ const PortfolioView: React.FC = () => {
     sns: true,
     competition: true,
   });
+  const [viewOption, setViewOption] = useState({
+    "work":true,
+    "comment":false,
+    "review":false,
+  })
   // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
   useEffect(() => {
     const initialStack: any = [];
@@ -128,7 +216,19 @@ const PortfolioView: React.FC = () => {
     setViewList((prev: typeof viewList) => ({ ...prev, [idName]: value }));
     console.log(viewList.stack);
   };
-
+  //profileDetailLeftMenu에서 활성화할 요소 선택
+  const activeMenu = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+    const id = e.currentTarget.id;
+    setViewOption((prev: typeof viewOption)=>({
+      ...prev,
+      "work":false,
+      "comment":false,
+      "review":false,
+    }))
+    setViewOption((prev: typeof viewOption)=>({
+      ...prev, [id]: true,
+    }))
+  }
   return (
     <div style={styles.page}>
       <TopBar />
@@ -143,15 +243,30 @@ const PortfolioView: React.FC = () => {
           viewList:viewList,
           stacks:stacks,
         }}/>
-        <PortfolioViewContent props={{
-          profileImage:profileImage,
-          name:name,
-          age:age,
-          collage:collage,
-          departure:departure,
-          viewList:viewList,
-          stacks:stacks,
-        }} checkViewListEvent={checkViewListEvent}/>
+        <div style={styles.portfolioDetailLeft}>
+          <div style={styles.portfolioDetailLeftMenu}>
+            <button style={viewOption.work?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="work" onClick={activeMenu}>작업물</button>
+            <button style={viewOption.comment?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="comment" onClick={activeMenu}>댓글</button>
+            <button style={viewOption.review?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="review" onClick={activeMenu}>외주후기</button>
+          </div>
+          {viewOption.work &&
+            <PortfolioViewContent props={{
+              profileImage:profileImage,
+              name:name,
+              age:age,
+              collage:collage,
+              departure:departure,
+              viewList:viewList,
+              stacks:stacks,
+            }} checkViewListEvent={checkViewListEvent}/>
+          }
+          {viewOption.comment && 
+            <PortfolioViewUserComment userComment={userComment}/>
+          }
+          {viewOption.review &&
+            <PortfolioViewReview userReview={userReview}/>
+          }
+        </div>
       </div>
     </div>
   );

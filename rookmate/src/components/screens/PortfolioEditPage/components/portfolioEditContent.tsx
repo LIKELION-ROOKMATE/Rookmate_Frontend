@@ -111,6 +111,14 @@ const styles:Styles = {
     display: "flex",
     alignItems:"end",
     flexDirection: "column",
+
+    position:"fixed",
+    left: "30%",
+    bottom: "5%",
+
+    width: "67rem",
+
+    zIndex: "3",
   },
   toolBoxGroup:{
     display: "flex",
@@ -118,6 +126,7 @@ const styles:Styles = {
     width: "100%",
     height: "33.3%",
     fontWeight: "400",
+
   },
   explain:{
     display: "flex",
@@ -136,8 +145,9 @@ const styles:Styles = {
   },
   toolBox:{
     display: "flex",
-    gap: "2rem",
+    gap: "5rem",
     alignItems: "center",
+    justifyContent: "center",
 
     width: "96%",
     height: "3.5rem",
@@ -145,8 +155,13 @@ const styles:Styles = {
     border: "0.3rem solid #7FA3C5",
     boxShadow: "0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.25)",
     borderRadius: "3.125rem",
+
+    backgroundColor: "#fff",
   },
   toolBoxButton:{
+    display: "flex",
+    justifyContent: "center",
+
     position: "relative",
     left: "2rem",
 
@@ -189,6 +204,7 @@ const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkVi
             <img src={images.addSomething} style={styles.addSomething} alt='addSomething'/>
           </div>
           <div style={styles.templateEditTools}>
+            <button style={styles.completeButton}>Complete</button>
             <div style={styles.toolBoxGroup}>
               <p style={styles.explain}>원하는 목록을 추가하세요.</p>
               <div style={styles.toolBox}>
@@ -229,7 +245,6 @@ const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkVi
                 </button>
               </div>
             </div>
-            <button style={styles.completeButton}>Complete</button>
           </div>
         </div>
   )

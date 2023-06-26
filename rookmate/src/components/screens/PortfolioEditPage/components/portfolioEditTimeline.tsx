@@ -30,7 +30,7 @@ const styles:Styles = {
     position: "relative",
     backgroundColor: "#000000",
 
-    width: "94.9rem",
+    width: "100%",
     height: "19%",
   },
   mainImg:{
@@ -45,10 +45,9 @@ const styles:Styles = {
     alignItems: "center",
 
     position: "absolute",
-    left: "10%",
     top: "50%",
 
-    width: "80%",
+    width: "100%",
     height: "3px",
 
     backgroundColor: "#ffffff",
@@ -104,6 +103,17 @@ const PortfolioEditTimeline:React.FC<PortfolioEditTimelineType> = ({viewList})=>
             <p style={styles.title}>rookmate</p>
             <p style={styles.content}>기록을 적어주세요. 최대 20자</p>
           </div>
+          <div style={styles.timelineElement}>
+            <p style={styles.point}></p>
+            <p style={styles.title}>rookmate</p>
+            <p style={styles.content}>기록을 적어주세요. 최대 20자</p>
+          </div>
+          <div style={styles.timelineElement}>
+            <p style={styles.point}></p>
+            <p style={styles.title}>rookmate</p>
+            <p style={styles.content}>기록을 적어주세요. 최대 20자</p>
+          </div>
+          
         </div>
       </div>
     </div>
