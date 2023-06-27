@@ -6,7 +6,7 @@ import PortfolioViewProfile from './components/portfolioViewProfile';
 import PortfolioViewContent from './components/portfolioViewContent';
 import PortfolioViewUserComment from './components/portfolioViewUserComment';
 import PortfolioViewReview from './components/portfolioViewReview';
-
+import StartOutsourcingModal from './components/startOutsourcingModal';
 import { relative } from 'path';
 
 interface Styles{
@@ -16,6 +16,7 @@ interface Styles{
   proficiencyBox:React.CSSProperties;
   proficiency:React.CSSProperties;
   page:React.CSSProperties;
+  modalBackground:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
   portfolioDetailLeft:React.CSSProperties;
   portfolioDetailLeftMenu:React.CSSProperties;
@@ -68,6 +69,20 @@ const styles:Styles = {
     maxWidth: "95rem",
     fontFamily: 'TheJamsil5Bold',
   },
+  modalBackground:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+
+    position: "fixed",
+    bottom: "0%",
+
+    width: "100%",
+    height: "100%",
+
+    zIndex:"100",
+    backgroundColor:"rgba(0,0,0,0.8)",
+  },
   portfolioDetail:{
     display: "flex",
     flexDirection: "row",
@@ -98,9 +113,13 @@ const styles:Styles = {
     fontSize: "1rem",
     fontFamily: "Inter",
     fontWeight: "600",
+    cursor:"pointer",
   }
 };
 
+const CurrentUserInfo = {
+  haveOutsourcing:false, 
+}
 const userComment = {
   user1:{
     id:"kimym8821",
@@ -164,6 +183,8 @@ const PortfolioView: React.FC = () => {
   const [collage, setCollage] = useState("noSchool");
   const [departure, setDeparture] = useState("noDeparture");
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
+  const [modalActive, setModalActive] = useState<boolean>(false)
+
   //기술 스택 관련 state
   const [stacks, setStack] = useState([]);
   //요소들의 표시 여부를 나타내는 state
@@ -229,9 +250,31 @@ const PortfolioView: React.FC = () => {
       ...prev, [id]: true,
     }))
   }
+  //외주 관리하기 클릭 시 현재 사용자의 외주 등록 여부에 따라 다른 창으로 이동하도록 함
+  const manageOutsourcingEvent = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+    if(CurrentUserInfo.haveOutsourcing === true){
+      console.log("have oustourcing")
+    }else{
+      setModalActive(true)
+      console.log("dont have outsourcing")
+    }
+  }
+
+  const setModalEvent = (e:any)=>{
+    const target = e.target as HTMLElement;
+    if(target.id == 'modal'){
+      setModalActive(false)
+    }
+  }
+
   return (
     <div style={styles.page}>
       <TopBar />
+      {modalActive &&
+        <div style={styles.modalBackground} onClick={setModalEvent} id='modal'>
+          <StartOutsourcingModal/>
+        </div>
+      }
       <PortfolioViewTimeline viewList={viewList} />
       <div style={styles.portfolioDetail}>
         <PortfolioViewProfile props={{
@@ -258,7 +301,8 @@ const PortfolioView: React.FC = () => {
               departure:departure,
               viewList:viewList,
               stacks:stacks,
-            }} checkViewListEvent={checkViewListEvent}/>
+            }} 
+            checkViewListEvent={checkViewListEvent} manageOutsourcingEvent={manageOutsourcingEvent}/>
           }
           {viewOption.comment && 
             <PortfolioViewUserComment userComment={userComment}/>

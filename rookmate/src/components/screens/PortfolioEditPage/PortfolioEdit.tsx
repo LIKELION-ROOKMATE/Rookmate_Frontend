@@ -5,6 +5,7 @@ import TopBar from "../../TopBar";
 import PortfolioEditTimeline from './components/portfolioEditTimeline';
 import PortfolioEditProfile from './components/portfolioEditProfile';
 import PortfolioEditContent from './components/portfolioEditContent';
+import AddWorkModal from './components/addWorkModal';
 import { relative } from 'path';
 
 interface Styles{
@@ -13,6 +14,7 @@ interface Styles{
   stackName:React.CSSProperties;
   proficiencyBox:React.CSSProperties;
   page:React.CSSProperties;
+  modal:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
   portfolioContent:React.CSSProperties;
   workList:React.CSSProperties;
@@ -65,6 +67,20 @@ const styles:Styles = {
     maxWidth: "94.9rem",
     height: "65rem",
     fontFamily: 'TheJamsil5Bold',
+  },
+  modal:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+
+    position:"fixed",
+    bottom:"0%",
+
+    width:"100%",
+    height:"100%",
+
+    backgroundColor:"rgba(0,0,0,0.8)",
+    zIndex:"100",
   },
   portfolioDetail:{
     display: "flex",
@@ -178,6 +194,8 @@ const PortfolioEdit: React.FC = () => {
     sns: true,
     competition: true,
   });
+  const [modalActive, setModalActive] = useState(false)
+
   const inputEvent = (e:any)=>{
     var gradient = 100 / e.target.attributes.max.value as number;
      e.target.style.background = 
@@ -213,9 +231,21 @@ const PortfolioEdit: React.FC = () => {
     console.log(viewList.stack);
   };
 
+  const setModalEvent = (e:any)=>{
+    const target = e.target as HTMLElement;
+    if(target.id == 'modal'){
+      setModalActive(false)
+    }
+  }
+
   return (
     <div style={styles.page}>
       <TopBar />
+      {modalActive &&
+        <div style={styles.modal} onClick={setModalEvent} id='modal'>
+          <AddWorkModal/>
+        </div>
+      }
       <PortfolioEditTimeline viewList={viewList} />
       <div style={styles.portfolioDetail}>
         <PortfolioEditProfile props={{
@@ -235,7 +265,9 @@ const PortfolioEdit: React.FC = () => {
           departure:departure,
           viewList:viewList,
           stacks:stacks,
-        }} checkViewListEvent={checkViewListEvent}/>
+          }} 
+          checkViewListEvent={checkViewListEvent}
+          setModalActive={setModalActive} />
       </div>
     </div>
   );

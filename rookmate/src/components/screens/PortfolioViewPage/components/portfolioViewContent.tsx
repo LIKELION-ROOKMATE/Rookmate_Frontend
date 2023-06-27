@@ -18,6 +18,7 @@ type PortfolioViewContentType = {
     stacks:any,
   },
   checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void;
+  manageOutsourcingEvent : (e: React.MouseEvent<HTMLButtonElement>)=>void;
 }
 
 interface Styles{
@@ -58,17 +59,20 @@ const styles:Styles = {
   },
 };
 
-const PortfolioViewContent:React.FC<PortfolioViewContentType> = ({props, checkViewListEvent})=>{
+const PortfolioViewContent:React.FC<PortfolioViewContentType> = ({props, checkViewListEvent, manageOutsourcingEvent})=>{
   const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
     checkViewListEvent(e)
   }
 
+  const handleManageOutsourcingButtonClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    manageOutsourcingEvent(e)
+  }
   return(
     <div style={styles.contentPage}>
       <div style={styles.workList}>
         <img src={images.addSomething} style={styles.addSomething} alt='addSomething'/>
       </div>
-      <button style={styles.outsourcingManageButton}>
+      <button style={styles.outsourcingManageButton} onClick={manageOutsourcingEvent}>
         <img src={images.outsourcingManage} style={{width:"100%", height:"100%",}} alt='outsourcingManageButton'/>
       </button>
     </div>

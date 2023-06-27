@@ -19,6 +19,7 @@ import portfolioMainImage from '../images/portfolioMainImage.png'
 import outsourcingManage from '../images/outsourcingManage.png'
 import check from '../images/check.png'
 import greyMail from '../images/greymail.png'
+import bigLogo from '../images/bigLogo.png'
 
 export const images = {
   deleteTag: DeleteTag,
@@ -42,4 +43,5 @@ export const images = {
   outsourcingManage: outsourcingManage,
   check: check,
   greyMail: greyMail,
+  bigLogo: bigLogo,
 };

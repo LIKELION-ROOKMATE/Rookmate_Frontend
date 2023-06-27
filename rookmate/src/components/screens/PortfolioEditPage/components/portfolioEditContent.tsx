@@ -18,6 +18,7 @@ type PortfolioEditContentType = {
     stacks:any,
   },
   checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void;
+  setModalActive: (element:boolean)=>void;
 }
 
 interface Styles{
@@ -38,7 +39,6 @@ interface Styles{
   toolBoxButton:React.CSSProperties;
   completeButton:React.CSSProperties;
 }
-
 const styles:Styles = {
   DisplayNone: {
     display: "none",
@@ -106,6 +106,11 @@ const styles:Styles = {
   addSomething:{
     width: "19rem",
     height: "19rem",
+
+    padding:"none",
+    border:"none",
+
+    backgroundColor:"#fff",
   },
   templateEditTools:{
     display: "flex",
@@ -192,61 +197,65 @@ const styles:Styles = {
   },
 };
 
-const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent})=>{
+const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent, setModalActive})=>{
 
   const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
     checkViewListEvent(e)
   }
-
+  const handleModal = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    setModalActive(true)
+  }
   return(
     <div style={styles.portfolioContent}>
-          <div style={styles.workList}>
-            <img src={images.addSomething} style={styles.addSomething} alt='addSomething'/>
-          </div>
-          <div style={styles.templateEditTools}>
-            <button style={styles.completeButton}>Complete</button>
-            <div style={styles.toolBoxGroup}>
-              <p style={styles.explain}>원하는 목록을 추가하세요.</p>
-              <div style={styles.toolBox}>
-                <button
-                  onClick={handleToolButtonClick}
-                  id="stack"
-                  style={props.viewList.stack ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
-                >
-                  스택
-                </button>
-                <button
-                  onClick={handleToolButtonClick}
-                  id="timeline"
-                  style={props.viewList.timeline ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
-                >
-                  타임라인
-                </button>
-                <button
-                  onClick={handleToolButtonClick}
-                  id="license"
-                  style={props.viewList.license ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
-                >
-                  자격증
-                </button>
-                <button
-                  onClick={handleToolButtonClick}
-                  id="sns"
-                  style={props.viewList.sns ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
-                >
-                  SNS
-                </button>
-                <button
-                  onClick={handleToolButtonClick}
-                  id="competition"
-                  style={props.viewList.competition ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
-                >
-                  공모전
-                </button>
-              </div>
-            </div>
+      <div style={styles.workList}>
+        <button style={styles.addSomething} onClick={handleModal}>
+          <img src={images.addSomething} style={{width:"100%",height:"100%",padding:"none",}} alt='addSomething'/>
+        </button>
+      </div>
+      <div style={styles.templateEditTools}>
+        <button style={styles.completeButton}>Complete</button>
+        <div style={styles.toolBoxGroup}>
+          <p style={styles.explain}>원하는 목록을 추가하세요.</p>
+          <div style={styles.toolBox}>
+            <button
+              onClick={handleToolButtonClick}
+              id="stack"
+              style={props.viewList.stack ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+            >
+              스택
+            </button>
+            <button
+              onClick={handleToolButtonClick}
+              id="timeline"
+              style={props.viewList.timeline ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+            >
+              타임라인
+            </button>
+            <button
+              onClick={handleToolButtonClick}
+              id="license"
+              style={props.viewList.license ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+            >
+              자격증
+            </button>
+            <button
+              onClick={handleToolButtonClick}
+              id="sns"
+              style={props.viewList.sns ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+            >
+              SNS
+            </button>
+            <button
+              onClick={handleToolButtonClick}
+              id="competition"
+              style={props.viewList.competition ? {...styles.toolBoxButton, color: "black"} : {...styles.toolBoxButton, color: "grey"}}
+            >
+              공모전
+            </button>
           </div>
         </div>
+      </div>
+    </div>
   )
 }
 
