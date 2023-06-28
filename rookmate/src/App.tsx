@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./components/screens/MainPage/MainPage";
 import LoginPage from "./components/screens/LoginPage/LoginPage";
+import SignUp1 from './components/screens/SignUpPage/SignUpStep1';
+import SignUp2 from './components/screens/SignUpPage/SignUpStep2'; 
 
 const App: React.FC = () => {
   return (
@@ -10,6 +12,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup/1" element={<SignUp1/>}/>
+          <Route path="/signup/2" element={<SignUp2/>}/>
         </Routes>
       </Router>
     </div>
