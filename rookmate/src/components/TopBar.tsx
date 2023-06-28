@@ -6,6 +6,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   topBarContainer: {
     display: "flex",
     flexDirection: "row" as "row",
+    width:"100vw",
   },
   logoImage: {
     width: "4.625rem",
