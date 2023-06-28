@@ -7,6 +7,7 @@ import Search from "../images/Search.png";
 import MainPageExampleImage from "../images/MainPageExampleImage.png";
 import LoginImage from "../images/LoginImage.png";
 import Kakao from "../images/Kakao.png";
+import LoginPageLogo from "../images/LoginPageLogo.png";
 
 export const images = {
   deleteTag: DeleteTag,
@@ -18,4 +19,5 @@ export const images = {
   mainPageExampleImage: MainPageExampleImage,
   loginImage: LoginImage,
   kakao: Kakao,
+  loginPageLogo: LoginPageLogo,
 };
