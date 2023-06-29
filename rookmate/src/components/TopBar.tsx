@@ -72,6 +72,9 @@ const TopBar: React.FC = () => {
   const handleLoginClick = () => {
     navigate("/login");
   };
+  const handlePortfolioClick = () => {
+    navigate("/portfolio/view");
+  };
 
   return (
     <div style={styles.topBarContainer}>
@@ -84,7 +87,9 @@ const TopBar: React.FC = () => {
       <div style={styles.searchContainer}>
         <img src={images.search} style={styles.searchImage} alt="검색" />
       </div>
-      <span style={styles.portfolioMenu}>포트폴리오</span>
+      <span style={styles.portfolioMenu} onClick={handlePortfolioClick}>
+        포트폴리오
+      </span>
       <span style={styles.alertMenu}>알림</span>
       <span style={styles.messageMenu}>쪽지</span>
       <img
