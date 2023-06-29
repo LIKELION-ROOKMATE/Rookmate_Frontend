@@ -1,18 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Portfoliostart.css";
 import { images } from "../../../assets/images/images";
+import TopBar from "../../TopBar";
+import VerificationModal from "./VerificationModal";
 
 const PortfoliostartPage: React.FC = () => {
+
+  // navigate
   const navigate = useNavigate();
   const handleStartPortfolio = () => {
-    navigate("#");
+    openModalHandler()
   };
   const handleMoreInformation = () => {
     navigate("#");
   };
+
+  //modal
+  const [onModal, setOnModal] = useState(false);
+
+  const openModalHandler = () => {
+    setOnModal(true);
+  };
+
+  // const closeModalHandler = () => {
+  //   setOnModal(false);
+  // }
+
   return (
-    <React.Fragment>
+    <div>
+      <div style={{width:'90rem', margin: "0 auto"}}>
+        <TopBar/>
+      </div>
+      {onModal && <VerificationModal/>}
       <div className="box box1">
         <div className="box1content">
           <p>아직 포트폴리오를 만들지 않았나요?</p>
@@ -68,7 +88,7 @@ const PortfoliostartPage: React.FC = () => {
           </p>
         </div>
       </div>
-
+      
       <div className="box box3">
         <h3>
           수많은 경쟁자들로 치열한 외주받기?
@@ -118,16 +138,16 @@ const PortfoliostartPage: React.FC = () => {
 
       <div className="box box4">
         <h3>이제는 즐거운 학생들의 아카이빙</h3>
-        <div>
+        <div style={{ paddingBottom: "3rem" }}>
           <button onClick={handleStartPortfolio} className="endbtn">
             포트폴리오 시작하기
           </button>
         </div>
-        <p onClick={handleMoreInformation} style={{ paddingBottom: "10rem" }}>
+        <p onClick={handleMoreInformation} style={{ paddingBottom: "6rem" }}>
           더 알아보기
         </p>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

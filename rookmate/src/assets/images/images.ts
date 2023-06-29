@@ -12,6 +12,8 @@ import Image2 from "../images/image2.png";
 import Image3 from "../images/image3.png";
 import MakeImage1 from "../images/makeimage1.png";
 import MakeImage2 from "../images/makeimage2.png";
+import ModalImg from  "../images/ModalImg.png";
+import Addfileimg from  "../images/Addfileimg.png";
 
 export const images = {
   deleteTag: DeleteTag,
@@ -28,4 +30,6 @@ export const images = {
   image3: Image3,
   MakeImage1: MakeImage1,
   MakeImage2: MakeImage2,
+  ModalImg : ModalImg,
+  Addfileimg : Addfileimg,
 };

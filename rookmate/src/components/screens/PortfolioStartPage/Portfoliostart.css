@@ -2,7 +2,6 @@
 
 * {
   box-sizing: border-box;
-  white-space: pre-line;
 }
 
 .box {
@@ -10,29 +9,16 @@
   margin: 0 auto;
 }
 
-.startbtn button {
-  border-radius: 57.5px;
-  border: 5px solid #fff;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 2px 6px 10px 0px rgba(0, 0, 0, 0.25);
-  width: 24.875rem;
-  height: 7.1875rem;
-  color: #fff;
-  text-align: center;
-  font-size: 1.75rem;
-  /* font-family: Inter; */
-  line-height: 2.5rem;
-  cursor: pointer;
-}
-
 .fontcolor {
   color: #7fa3c5;
 }
 /* box1 */
 .box1 {
-  height: 55rem;
+  width: 100%;
+  height: 52rem;
   background: url("../../../assets/images/image1.png"),
     lightgray 50% / cover no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,11 +31,28 @@
   /* font-family: Inter; */
   font-weight: 600;
   line-height: 2.5rem;
+  letter-spacing: 1px;
+  margin-top: 2rem;
 }
 
 .startbtn {
-  padding-top: 4rem;
+  padding-top: 5rem;
   text-align: center;
+}
+
+.startbtn button {
+  border-radius: 57.5px;
+  border: 5px solid #fff;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 2px 6px 10px 0px rgba(0, 0, 0, 0.25);
+  width: 22.875rem;
+  height: 6.5rem;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+  /* font-family: Inter; */
+  line-height: 2.5rem;
+  cursor: pointer;
 }
 
 /* box2 */
@@ -60,7 +63,7 @@
 .box2 h2 {
   color: #000;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
   /* font-family: Inter; */
   font-weight: 600;
   line-height: 4rem;
@@ -73,6 +76,7 @@
   font-weight: 600;
   line-height: 2.5rem;
   padding-bottom: 1.5rem;
+  letter-spacing: 1px;
 }
 
 .box2 p {
@@ -80,6 +84,7 @@
   font-size: 1.5rem;
   /* font-family: Inter; */
   line-height: 2.5rem;
+  letter-spacing: 1px;
 }
 
 .box2content {
@@ -102,7 +107,8 @@
 }
 /* box3 */
 .box3 {
-  height: 57rem;
+  width: 100%;
+  height: 53rem;
   background: #566780;
   color: white;
   display: flex;
@@ -117,6 +123,7 @@
   /* font-family: Inter; */
   font-weight: 600;
   line-height: 2.5rem;
+  letter-spacing: 1px;
 }
 
 .box3 p {
@@ -124,6 +131,7 @@
   font-size: 1.5rem;
   /* font-family: Inter; */
   line-height: 2.5rem;
+  letter-spacing: 0.5px;
 }
 
 .box3 h4 {
@@ -132,9 +140,12 @@
   /* font-family: Inter; */
   font-weight: 600;
   line-height: 2rem;
+  letter-spacing: 0.5px;
 }
 
 .box3content {
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -154,21 +165,21 @@
 
 /* box4 */
 .box4 {
-  height: 33rem;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .endbtn {
-  width: 24.875rem;
-  height: 7.1875rem;
+  width: 22.875rem;
+  height: 6.5rem;
   border-radius: 57.5px;
   background: #d9d9d9;
   color: #000;
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   /* font-family: Inter; */
   line-height: 2.5rem;
   border: 0;
