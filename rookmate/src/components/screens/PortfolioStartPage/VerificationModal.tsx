@@ -1,9 +1,11 @@
 import './VerificationModal.css'
 import React, {useState} from "react";
 import { images } from "../../../assets/images/images";
-import VerificationUniv from './VerificationUniv';
+import RegisterUniv from './RegisterUniv';
 
-const VerificationModal: React.FC = () => {
+type VerificationModalType = {closeModal: (e:boolean) => void;}
+
+const VerificationModal: React.FC<VerificationModalType> = ({closeModal}) => {
 
   const [onUniv, setOnUniv] = useState(false)
 
@@ -11,11 +13,21 @@ const VerificationModal: React.FC = () => {
     setOnUniv(true)
   }
 
+  const closeModaluniv= (e:any) => {
+    closeModal(false)
+  }
+
+
   return (
     <div>
-      {onUniv && <VerificationUniv/>}
-      <div className='backdrop'></div>
+      {onUniv && <RegisterUniv closeModal2={closeModaluniv}/>}
+      <div onClick={closeModaluniv} className='backdrop'></div>
       <div className='modal'>
+        <div onClick={closeModaluniv} className='exitbutton_container'>
+          <div className='exitbutton'>
+            <p>X</p>
+          </div>
+        </div>
         <div className='modal_img_frame'>
           <img src={images.ModalImg} alt="ModalImg" />
         </div>

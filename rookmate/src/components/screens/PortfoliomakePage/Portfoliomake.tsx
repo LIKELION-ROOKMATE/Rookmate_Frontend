@@ -2,7 +2,7 @@ import React from 'react';
 import MakeSecondPage from './MakePages/MakeSecondPage'
 import MakeProgress from './MakeProgress';
 
-const PortfoliomakePage = ()=>{
+const PortfoliomakePage: React.FC = ()=>{
   
   return(
     <div>

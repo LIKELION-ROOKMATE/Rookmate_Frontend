@@ -19,20 +19,21 @@ const PortfoliostartPage: React.FC = () => {
   //modal
   const [onModal, setOnModal] = useState(false);
 
+  //대학교 인증이 되지 않았다는 Modal
   const openModalHandler = () => {
     setOnModal(true);
   };
 
-  // const closeModalHandler = () => {
-  //   setOnModal(false);
-  // }
+  const closeModalHandler = (e:boolean) => {
+    setOnModal(e);
+  }
 
   return (
     <div>
       <div style={{width:'90rem', margin: "0 auto"}}>
         <TopBar/>
       </div>
-      {onModal && <VerificationModal/>}
+      {onModal && <VerificationModal closeModal={closeModalHandler}/>}
       <div className="box box1">
         <div className="box1content">
           <p>아직 포트폴리오를 만들지 않았나요?</p>

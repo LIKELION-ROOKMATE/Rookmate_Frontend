@@ -78,3 +78,37 @@
   border: none;
   cursor: pointer;
 }
+
+.exitbutton {
+  border: 1px 700 black;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exitbutton:hover {
+  border: 1px 700 black;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 214, 214);
+}
+
+.exitbutton p {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+
+.exitbutton_container {
+  display: flex;
+  justify-content: right;
+  width: 90%;
+  margin-bottom: -2rem;
+}

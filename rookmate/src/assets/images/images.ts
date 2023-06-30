@@ -14,6 +14,7 @@ import MakeImage1 from "../images/makeimage1.png";
 import MakeImage2 from "../images/makeimage2.png";
 import ModalImg from  "../images/ModalImg.png";
 import Addfileimg from  "../images/Addfileimg.png";
+import Outsourcingimg from "../images/Outsourcingimg.png"
 
 export const images = {
   deleteTag: DeleteTag,
@@ -32,4 +33,5 @@ export const images = {
   MakeImage2: MakeImage2,
   ModalImg : ModalImg,
   Addfileimg : Addfileimg,
+  Outsourcingimg : Outsourcingimg,
 };

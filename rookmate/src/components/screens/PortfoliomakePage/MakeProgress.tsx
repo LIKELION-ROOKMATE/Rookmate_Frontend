@@ -3,7 +3,7 @@ import MakeSecondPage from './MakePages/MakeSecondPage';
 import './MakeProgress.css'
 import TopBar from '../../TopBar';
 
-const MakeProgress = () => {
+const MakeProgress: React.FC = () => {
   return (
     <div>
       <div style={{width:'90rem', margin: "0 auto"}}>
