@@ -5,6 +5,7 @@ import MainPageTopAdImage from "../images/MainPageTopAdImage.png";
 import logoResize from "../images/LogoResize.png";
 import Profile from "../images/profile.png";
 import Search from "../images/search.png";
+import addCollegeInfo from "../images/AddCollegeInfo.png";
 import Facebook from "../images/facebook.png"
 import NoneProfile from "../images/noneProfile.png"
 import AddSomething from '../images/addSomething.png'
@@ -40,6 +41,7 @@ export const images = {
   mainPageTopAdImage: MainPageTopAdImage,
   profile: Profile,
   search: Search,
+  addCollegeInfo:addCollegeInfo,
   ellipse3: Ellipse3,
   ellipse4: Ellipse4,
   ellipse5: Ellipse5,

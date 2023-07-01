@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { images } from "../../../../assets/images/images";
 
-type PortfolioViewProfile = {
+type PortfolioViewProfileType = {
   props:{
     profileImage:string,
     name:string,
@@ -41,9 +41,7 @@ const styles:Styles = {
   profile:{
     width: "23%",
     height: "100%",
-
     padding: "0 0 0 2rem",
-    
     fontSize: "0.87rem",
     fontWeight: "500",
   },
@@ -54,50 +52,40 @@ const styles:Styles = {
     display: "flex",
     flexDirection: "column",
     rowGap: "0.5rem",
-
     backgroundColor: "rgb(255, 255, 255)",
-
     margin: "1rem 0 1rem 0",
   },
   divisorLine:{
     backgroundColor: "#7FA3C5",
-    
     width: "90%",
     height: "3px",
   },
   stackBox:{
     display: "flex",
     flexDirection: "row",
-
     width: "100%",
-
     fontSize: "1rem",
   },
   title:{
     marginTop: "1rem",
     marginBottom: "1rem",
-
     fontSize: "1rem",
     fontWeight: "600",
   },
   sns:{
-
   },
   snsList:{
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
     rowGap: "1.2rem",
-
     width: "100%",
-
     marginBottom: "1rem",
   },
   snsElement:{
     display: "flex",
     flexDirection: "row",
     gap: "0.5rem",
-
     width: "50%",
   },
   snsImage:{
@@ -107,12 +95,11 @@ const styles:Styles = {
   snsId:{
     display: "flex",
     alignItems: "end",
-
     fontSize: "0.5rem",
   },
 };
 
-const PortfolioViewProfile:React.FC<PortfolioViewProfile> = ({props})=>{
+const PortfolioViewProfile:React.FC<PortfolioViewProfileType> = ({props})=>{
   return(
     <div style={styles.profile}>
           <p style={styles.title}>프로필</p>

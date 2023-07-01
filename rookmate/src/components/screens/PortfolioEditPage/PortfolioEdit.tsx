@@ -6,7 +6,6 @@ import PortfolioEditTimeline from './components/portfolioEditTimeline';
 import PortfolioEditProfile from './components/portfolioEditProfile';
 import PortfolioEditContent from './components/portfolioEditContent';
 import AddWorkModal from './components/addWorkModal';
-import { relative } from 'path';
 
 interface Styles{
   displayNone:React.CSSProperties;
@@ -233,7 +232,7 @@ const PortfolioEdit: React.FC = () => {
 
   const setModalEvent = (e:any)=>{
     const target = e.target as HTMLElement;
-    if(target.id == 'modal'){
+    if(target.id === 'modal'){
       setModalActive(false)
     }
   }

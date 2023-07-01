@@ -7,7 +7,6 @@ import PortfolioViewContent from './components/portfolioViewContent';
 import PortfolioViewUserComment from './components/portfolioViewUserComment';
 import PortfolioViewReview from './components/portfolioViewReview';
 import StartOutsourcingModal from './components/startOutsourcingModal';
-import { relative } from 'path';
 
 interface Styles{
   displayNone:React.CSSProperties;
@@ -262,7 +261,7 @@ const PortfolioView: React.FC = () => {
 
   const setModalEvent = (e:any)=>{
     const target = e.target as HTMLElement;
-    if(target.id == 'modal'){
+    if(target.id === 'modal'){
       setModalActive(false)
     }
   }
