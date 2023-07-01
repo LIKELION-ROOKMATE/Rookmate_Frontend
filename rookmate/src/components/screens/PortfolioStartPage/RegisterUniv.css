@@ -1,0 +1,176 @@
+.Univ {
+  position: fixed;
+  top: 5vh;
+  left: 23%;
+  width: 54%;
+  height: 88vh;
+  z-index: 130;
+  border-radius: 30px;
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.Univ form {
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: auto 0;
+}
+
+.Univ p {
+  color: #000;
+  text-align: center;
+  font-size: 0.75rem;
+  font-family: Inter;
+  line-height: 1.125rem;
+}
+
+.Univ h1 {
+  padding-top: 2rem;
+  color: #000;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.Univ_input {
+  width: 21rem;
+  height: 2.9375rem;
+  border-radius: 10px;
+  border: 1px solid #000;
+}
+
+.Univ_button {
+  text-align: center;
+}
+
+.Univ_button button {
+  width: 7rem;
+  height: 3rem;
+  border-radius: 100px;
+  background: #7FA3C5;
+  box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
+  border: none;
+  color: #FFF;
+  font-size: 1.5rem;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 2.5rem;
+  cursor: pointer;
+}
+
+.Univ_button button:hover {
+  width: 7rem;
+  height: 3rem;
+  border-radius: 100px;
+  background: #5B98D3;
+  box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
+  border: none;
+  color: #FFF;
+  font-size: 1.5rem;
+  font-family: Inter;
+  font-weight: 500;
+  line-height: 2.5rem;
+  cursor: pointer;
+}
+
+.file_frame {
+  width: 44rem;
+  height: 18rem;
+  border-radius: 10px;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file_frame p {
+  text-align: left;
+  margin: 1rem 0 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.file_frame input {
+  display: block;
+}
+
+.file_frame2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  height: 12rem;
+  background: #D9D9D9;
+  cursor: pointer;
+}
+
+.file_frame3 {
+  width: 9rem;
+  height: 9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.file_frame3 p{
+  margin: 0.5rem 0 0;
+  color: #000;
+  font-size: 0.8rem;
+  font-family: Inter;
+  line-height: 1.125rem;
+  font-weight: 600;
+}
+
+.file_frame3 input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.file_frame3 img {
+  width: 3.5rem;
+  height: 3.5 rem;
+}
+
+.exitbutton2 {
+  border: 1px 700 black;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exitbutton2:hover {
+  border: 1px 700 black;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(216, 214, 214);
+}
+
+.exitbutton2 p {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+
+.exitbutton2_container {
+  display: flex;
+  justify-content: right;
+  width: 95%;
+  margin-bottom: -2rem;
+  margin-top: 0.5rem;
+}
