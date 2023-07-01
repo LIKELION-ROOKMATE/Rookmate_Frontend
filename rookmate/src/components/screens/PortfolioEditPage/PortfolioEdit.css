@@ -1,0 +1,13 @@
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  
+  width: 100%;
+  height: 1rem;
+  background: linear-gradient(to right, #7FA3C5 0%, #7FA3C5 50%, #ececec 50%, #ececec 100%);
+  border-radius: 0.8rem;
+  border: 0.2rem solid #7FA3C5;
+  outline: none;
+  transition: background 450ms ease-in;
+  accent-color: #6e88a1;
+}
