@@ -2,6 +2,7 @@ import AddTag from "../images/AddTag.png";
 import DeleteTag from "../images/DeleteTag.png";
 import Logo from "../images/logo.png";
 import MainPageTopAdImage from "../images/MainPageTopAdImage.png";
+import logoResize from "../images/LogoResize.png";
 import Profile from "../images/profile.png";
 import Search from "../images/search.png";
 import Facebook from "../images/facebook.png"
@@ -66,4 +67,5 @@ export const images = {
   check: check,
   greyMail: greyMail,
   bigLogo: bigLogo,
+  logoResize: logoResize,
 };

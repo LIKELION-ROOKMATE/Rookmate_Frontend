@@ -20,7 +20,7 @@ type PortfolioEditProfileType = {
 }
 
 interface Styles{
-  DisplayNone:React.CSSProperties,
+  displayNone:React.CSSProperties,
   profile:React.CSSProperties,
   profileImage:React.CSSProperties,
   userInfo:React.CSSProperties,
@@ -35,7 +35,7 @@ interface Styles{
 }
 
 const styles:Styles = {
-  DisplayNone: {
+  displayNone: {
     display: "none",
   },
   profile:{
@@ -127,14 +127,14 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props})=>{
       <div style={styles.divisorLine}></div>
 
       <div
-        style={props.viewList.stack ? {} : styles.DisplayNone}
+        style={props.viewList.stack ? {} : styles.displayNone}
       >
         <p style={styles.title}>스택</p>
         {props.stacks}
       </div>
       <div style={styles.divisorLine}></div>
 
-      <div style={props.viewList.sns?styles.sns:styles.DisplayNone}>
+      <div style={props.viewList.sns?styles.sns:styles.displayNone}>
         <div style={styles.title}>SNS</div>
         <div style={styles.snsList}>
           <div style={styles.snsElement}>
