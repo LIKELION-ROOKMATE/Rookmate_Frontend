@@ -4,6 +4,7 @@ import Logo from "../images/Logo.png";
 import MainPageTopAdImage from "../images/MainPageTopAdImage.png";
 import Profile from "../images/Profile.png";
 import Search from "../images/Search.png";
+import addCollegeInfo from "../images/AddCollegeInfo.png";
 
 export const images = {
   deleteTag: DeleteTag,
@@ -12,4 +13,5 @@ export const images = {
   mainPageTopAdImage: MainPageTopAdImage,
   profile: Profile,
   search: Search,
+  addCollegeInfo:addCollegeInfo,
 };
