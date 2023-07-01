@@ -1,4 +1,6 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
+import React, {
+  //  useState, useEffect, MouseEventHandler 
+  } from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../../assets/images/images";
 
