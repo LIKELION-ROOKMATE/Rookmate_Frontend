@@ -1,0 +1,52 @@
+.Univ2 {
+  width: 20rem;
+  height: 55vh;
+  z-index: 130;
+  border-radius: 4.1rem;
+  background: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul, li {
+  list-style-type: none;
+}
+
+[name='slide'] {display: none;}
+
+.slidebox {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.slidebox img {
+  max-width: 100%;
+}
+
+.slidebox .slidelist {
+  white-space: nowrap;
+  font-size: 0;
+  overflow: hidden;
+}
+
+.slidebox .slideitem {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  transition: all .35s;
+}
+
+@keyframes slide01 {
+  0% {left:0%}
+  25% {left:-100%}
+  50% {left:-200%}
+  75% {left:-300%}
+  100% {left:0%}
+}
+
+[id='slide01']:checked ~ .slidelist .slideitem {transform: translateX(0); animation:slide01 10s infinite;}

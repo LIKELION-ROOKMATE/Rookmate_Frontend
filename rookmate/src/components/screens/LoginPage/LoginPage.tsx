@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { useNavigate } from "react-router-dom";
 import { images } from "../../../assets/images/images";
 interface Styles {
   loginContainer: React.CSSProperties;
@@ -16,6 +17,7 @@ interface Styles {
   kakaoButton: React.CSSProperties;
   continueWithKakao: React.CSSProperties;
   continueWithKakaoText: React.CSSProperties;
+  kakaoIcon: React.CSSProperties;
   noAccountContainer: React.CSSProperties;
 }
 
@@ -30,7 +32,10 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "row",
   },
-  imageBorder: { borderTopLeftRadius: 30, borderBottomLeftRadius: 30 },
+  imageBorder: {
+    borderTopLeftRadius: 30,
+    borderBottomLeftRadius: 30,
+  },
   loginPart: {
     display: "flex",
     alignItems: "center",
@@ -45,12 +50,13 @@ const styles: Styles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    height: 35,
-    marginTop: "0.81rem",
+    justifyContent: "flex-end",
+    marginTop: "0.8rem",
+    marginBottom: "0.4rem",
   },
   findID: {
     fontSize: "0.5rem",
-    marginLeft: "5.8rem",
+    marginLeft: "7.2rem",
     cursor: "pointer",
   },
   findPW: {
@@ -97,10 +103,12 @@ const styles: Styles = {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    margin: "1rem 0 1rem 0",
   },
   kakaoButton: {
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
     width: "14.4rem",
     backgroundColor: "#FEE500",
     borderRadius: 10,
@@ -110,14 +118,24 @@ const styles: Styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    cursor: "pointer",
+  },
+  kakaoIcon: {
+    display: "flex",
+    width: 18,
+    height: 18,
   },
   continueWithKakaoText: {
-    display: "flex",
     marginLeft: "0.8rem",
+    fontSize: "0.9rem",
   },
 };
 
 const LoginPage: React.FC = (): ReactElement => {
+  const navigate = useNavigate();
+  const handleSignUpClick = () => {
+    navigate("/signup/1");
+  };
   return (
     <div style={styles.loginContainer}>
       <div style={styles.loginLayout}>
@@ -127,9 +145,12 @@ const LoginPage: React.FC = (): ReactElement => {
           alt="회원가입 사진"
         />
         <div style={styles.loginPart}>
-          <img src={images.logo} alt="로고 사진" />
+          <img
+            src={images.logoResize}
+            alt="로고 사진"
+            style={{ width: "9.2rem", height: "8.2rem" }}
+          />
           <div style={styles.loginText}>
-            <h3>로그인</h3>
             <h6 style={styles.findID}>아이디 찾기</h6>
             <h6 style={styles.findPW}>비밀번호 찾기</h6>
           </div>
@@ -150,19 +171,38 @@ const LoginPage: React.FC = (): ReactElement => {
             />
             <div style={styles.loginButtonContainer}>
               <div style={styles.loginButton}>
-                <h6>로그인</h6>
+                <span style={{ fontSize: "0.9rem", cursor: "pointer" }}>
+                  로그인
+                </span>
               </div>
             </div>
           </div>
           <div>
             <div style={styles.noAccountContainer}>
-              <h6 style={{ color: "gray" }}>아직 계정이 없다면?</h6>
-              <h6 style={{ marginLeft: "0.35rem" }}>회원가입 {">"}</h6>
+              <span style={{ color: "gray", fontSize: "0.7rem" }}>
+                아직 계정이 없다면?
+              </span>
+              <span
+                style={{
+                  marginLeft: "0.35rem",
+                  fontSize: "0.7rem",
+                  cursor: "pointer",
+                }}
+                onClick={handleSignUpClick}
+              >
+                회원가입 {">"}
+              </span>
             </div>
             <div style={styles.kakaoButton}>
               <div style={styles.continueWithKakao}>
-                <img src={images.kakao} />
-                <h6 style={styles.continueWithKakaoText}>카카오로 계속하기</h6>
+                <img
+                  src={images.kakaoIcon}
+                  alt="카카오 로고"
+                  style={styles.kakaoIcon}
+                />
+                <span style={styles.continueWithKakaoText}>
+                  카카오로 계속하기
+                </span>
               </div>
             </div>
           </div>

@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+/* progress */
+#progress {
+  display: flex;
+  justify-content: space-between;
+  width: 70rem;
+  margin: 5rem auto ;
+}
+
+.progress_frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  width: 3.6875rem;
+  height: 3.6875rem;
+  border-radius: 59px;
+  background: #C0D9FF;
+  display: flex;
+  justify-content: center;
+}
+
+.circle.circle_shadow {
+  box-shadow: 0 0 8px 10px rgba(2, 2, 48, 0.93);
+}
+
+.circle p {
+  color: #000;
+  font-size: 1.5rem;
+  /* font-family: Inter; */
+}
+
+#progress p {
+  padding-top: 1rem;
+}
