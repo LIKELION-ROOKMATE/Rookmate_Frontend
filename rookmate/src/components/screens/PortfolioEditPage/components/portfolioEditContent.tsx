@@ -23,7 +23,7 @@ type PortfolioEditContentType = {
 };
 
 interface Styles {
-  DisplayNone: React.CSSProperties;
+  displayNone: React.CSSProperties;
   stackBox: React.CSSProperties;
   stackName: React.CSSProperties;
   proficiencyBox: React.CSSProperties;
@@ -41,7 +41,7 @@ interface Styles {
   completeButton: React.CSSProperties;
 }
 const styles: Styles = {
-  DisplayNone: {
+  displayNone: {
     display: "none",
   },
   stackBox: {
