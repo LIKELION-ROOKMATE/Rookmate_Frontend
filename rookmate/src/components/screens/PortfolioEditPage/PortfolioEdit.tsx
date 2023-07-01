@@ -6,10 +6,9 @@ import PortfolioEditTimeline from './components/portfolioEditTimeline';
 import PortfolioEditProfile from './components/portfolioEditProfile';
 import PortfolioEditContent from './components/portfolioEditContent';
 import AddWorkModal from './components/addWorkModal';
-import { relative } from 'path';
 
 interface Styles{
-  DisplayNone:React.CSSProperties;
+  displayNone:React.CSSProperties;
   stackBox:React.CSSProperties;
   stackName:React.CSSProperties;
   proficiencyBox:React.CSSProperties;
@@ -28,7 +27,7 @@ interface Styles{
 }
 
 const styles:Styles = {
-  DisplayNone: {
+  displayNone: {
     display: "none",
   },
   stackBox:{
@@ -234,7 +233,7 @@ const PortfolioEdit: React.FC = () => {
 
   const setModalEvent = (e:any)=>{
     const target = e.target as HTMLElement;
-    if(target.id == 'modal'){
+    if(target.id === 'modal'){
       setModalActive(false)
     }
   }
