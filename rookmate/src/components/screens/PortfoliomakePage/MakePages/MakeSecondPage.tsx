@@ -16,13 +16,13 @@ const MakeSecondPage: React.FC = () => {
 
   return (
     <div>
-      {second && <SecondPageUI/>}
       <div id="second">
         <h2 style={{marginLeft:'3rem'}}>템플릿 선택</h2>
         <div className='template'>
           <div className="select">
-            <div>
-              <img onMouseOver={onsecondUI} onMouseOut={outsecondUI} src={images.MakeImage1} alt="MakeImage" />
+            <div onMouseOver={onsecondUI} onMouseOut={outsecondUI} >
+              {second && <SecondPageUI/>}
+              {!second &&<img src={images.MakeImage1} alt="MakeImage" />}
             </div>
             <div className='template_content'>
               <h2>Basic</h2>
