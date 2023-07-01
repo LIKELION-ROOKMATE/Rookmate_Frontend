@@ -195,6 +195,7 @@ const PortfolioEdit: React.FC = () => {
     competition: true,
   });
   const [modalActive, setModalActive] = useState(false)
+  const [workImageList, setWorkImageList] = useState<any[]>([])
 
   const inputEvent = (e:any)=>{
     var gradient = 100 / e.target.attributes.max.value as number;
@@ -243,7 +244,7 @@ const PortfolioEdit: React.FC = () => {
       <TopBar />
       {modalActive &&
         <div style={styles.modal} onClick={setModalEvent} id='modal'>
-          <AddWorkModal/>
+          <AddWorkModal setWorkImageList={setWorkImageList}/>
         </div>
       }
       <PortfolioEditTimeline viewList={viewList} />
@@ -267,7 +268,8 @@ const PortfolioEdit: React.FC = () => {
           stacks:stacks,
           }} 
           checkViewListEvent={checkViewListEvent}
-          setModalActive={setModalActive} />
+          setModalActive={setModalActive} 
+          workImageList={workImageList} />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ type PortfolioEditContentType = {
   },
   checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void;
   setModalActive: (element:boolean)=>void;
+  workImageList: any[],
 }
 
 interface Styles{
@@ -197,7 +198,25 @@ const styles:Styles = {
   },
 };
 
-const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent, setModalActive})=>{
+const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent, setModalActive, workImageList})=>{
+  const [workListElement, setWorkListElement] = useState<JSX.Element[]>([])
+
+  useEffect(()=>{
+    let updatedWorkListElement:JSX.Element[] = []
+    updatedWorkListElement.push(
+      <button style={styles.addSomething} onClick={handleModal}>
+        <img src={images.addSomething} style={{width:"100%",height:"100%",padding:"none",}} alt='addSomething'/>
+      </button>
+    )
+    for(let i=0; i<workImageList.length; i++){
+      updatedWorkListElement.push(
+        <button style={styles.addSomething} onClick={handleModal}>
+          <img src={images.addSomething} style={{width:"100%",height:"100%",padding:"none",}} alt='addSomething'/>
+        </button>
+      )
+    } 
+    setWorkListElement(updatedWorkListElement)
+  }, [workImageList])
 
   const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>)=>{
     checkViewListEvent(e)
@@ -208,9 +227,7 @@ const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkVi
   return(
     <div style={styles.portfolioContent}>
       <div style={styles.workList}>
-        <button style={styles.addSomething} onClick={handleModal}>
-          <img src={images.addSomething} style={{width:"100%",height:"100%",padding:"none",}} alt='addSomething'/>
-        </button>
+        {workListElement}
       </div>
       <div style={styles.templateEditTools}>
         <button style={styles.completeButton}>Complete</button>

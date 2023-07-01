@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { images } from "../../../../assets/images/images";
 
+type addWorkModalType = {
+  setWorkImageList: (e: any) => void,
+}
+
 interface Styles{
   modalContainer:React.CSSProperties,
   addImage:React.CSSProperties,
@@ -111,7 +115,7 @@ const styles:Styles = {
   },
 }
 
-const AddWorkModal = ()=>{
+const AddWorkModal:React.FC<addWorkModalType> = ({setWorkImageList})=>{
   const [selectImage, setSelectImage] = useState(images.addSomething)
 
   const inputImageEvent = (e:any)=>{
@@ -124,6 +128,9 @@ const AddWorkModal = ()=>{
       }
       reader.readAsDataURL(imageFile)
     }
+  }
+
+  const addWorkImageEvent = (e:any)=>{
   }
 
   return(
@@ -144,7 +151,7 @@ const AddWorkModal = ()=>{
         </div>
         <div style={styles.tools}>
           <button style={styles.saveButton}>임시저장</button>
-          <button style={styles.saveButton}>완료</button>
+          <button style={styles.saveButton} onClick={addWorkImageEvent}>완료</button>
         </div>
       </div>
       <div style={styles.addWorkContent}>
