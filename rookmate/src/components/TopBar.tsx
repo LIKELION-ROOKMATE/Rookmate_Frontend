@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/images/Logo.png";
-import Search from "../assets/images/Search.png";
-import Profile from "../assets/images/Profile.png";
+import { images } from "../assets/images/images";
 
 const styles: { [key: string]: React.CSSProperties } = {
   topBarContainer: {
@@ -78,19 +76,19 @@ const TopBar: React.FC = () => {
   return (
     <div style={styles.topBarContainer}>
       <img
-        src={Logo}
+        src={images.logo}
         style={styles.logoImage}
         alt="로고 이미지"
         onClick={handleLogoClick}
       />
       <div style={styles.searchContainer}>
-        <img src={Search} style={styles.searchImage} alt="검색" />
+        <img src={images.search} style={styles.searchImage} alt="검색" />
       </div>
       <span style={styles.portfolioMenu}>포트폴리오</span>
       <span style={styles.alertMenu}>알림</span>
       <span style={styles.messageMenu}>쪽지</span>
       <img
-        src={Profile}
+        src={images.profile}
         style={styles.profileImage}
         alt="프로필 사진"
         onClick={handleLoginClick}
