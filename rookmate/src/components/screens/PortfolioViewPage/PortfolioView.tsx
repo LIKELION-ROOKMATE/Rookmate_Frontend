@@ -10,7 +10,7 @@ import StartOutsourcingModal from './components/startOutsourcingModal';
 import { relative } from 'path';
 
 interface Styles{
-  DisplayNone:React.CSSProperties;
+  displayNone:React.CSSProperties;
   stackBox:React.CSSProperties;
   stackName:React.CSSProperties;
   proficiencyBox:React.CSSProperties;
@@ -24,7 +24,7 @@ interface Styles{
 }
 
 const styles:Styles = {
-  DisplayNone: {
+  displayNone: {
     display: "none",
   },
   stackBox:{
