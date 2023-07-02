@@ -148,7 +148,11 @@ const LoginPage: React.FC = (): ReactElement => {
           <img
             src={images.logoResize}
             alt="로고 사진"
-            style={{ width: "9.2rem", height: "8.2rem" }}
+            style={{
+              width: "9.2rem",
+              height: "10.2rem",
+              paddingBottom: "2rem",
+            }}
           />
           <div style={styles.loginText}>
             <h6 style={styles.findID}>아이디 찾기</h6>

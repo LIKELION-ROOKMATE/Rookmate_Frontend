@@ -36,6 +36,10 @@ import makeImage2 from "../images/makeimage2.png";
 import modalImg from "../images/modalImg.png";
 import addfileimg from "../images/addfileimg.png";
 import outsourcingimg from "../images/outsourcingimg.png";
+import loginImage from "../images/loginImage.png";
+import loginPageLogo from "../images/loginPageLogo.png";
+import mainPageExampleImage from "../images/mainPageExampleImage.png";
+import kakaoIcon from "../images/kakaoIcon.png";
 
 export const images = {
   deleteTag: deleteTag,
@@ -63,6 +67,7 @@ export const images = {
   github: github,
   instagram: instagram,
   kakao: kakao,
+  kakaoIcon: kakaoIcon,
   leftPoint: leftPoint,
   mail: mail,
   share: share,
@@ -73,4 +78,7 @@ export const images = {
   greyMail: greyMail,
   bigLogo: bigLogo,
   logoResize: logoResize,
+  loginImage: loginImage,
+  loginPageLogo: loginPageLogo,
+  mainPageExampleImage: mainPageExampleImage,
 };
