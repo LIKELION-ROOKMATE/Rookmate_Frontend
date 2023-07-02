@@ -1,4 +1,6 @@
-  import React, { useState, useEffect } from "react";
+  import React, { 
+    // useState, useEffect
+   } from "react";
   import { images } from "../../../../assets/images/images";
 
   type PortfolioViewTimelineType = {
@@ -12,8 +14,8 @@
   }
 
   interface Styles{
-    DisplayNone:React.CSSProperties,
-    ImgTimelineBox:React.CSSProperties,
+    displayNone:React.CSSProperties,
+    imgTimelineBox:React.CSSProperties,
     mainImg:React.CSSProperties,
     editButtonBox:React.CSSProperties,
     editButton:React.CSSProperties,
@@ -25,10 +27,10 @@
   }
 
   const styles:Styles = {
-    DisplayNone: {
+    displayNone: {
       display: "none",
     },
-    ImgTimelineBox:{
+    imgTimelineBox:{
       position: "relative",
       backgroundColor: "#000000",
 
@@ -123,7 +125,7 @@
 
     return(
       <div>
-        <div style={styles.ImgTimelineBox}>
+        <div style={styles.imgTimelineBox}>
           <img
             src={images.portfolioMainImage}
             alt="main-img"
@@ -132,7 +134,7 @@
           <div style={styles.editButtonBox}>
             <button style={styles.editButton}>대표이미지 설정</button>
           </div>
-          <div style={viewList.timeline ? styles.timeline : styles.DisplayNone}>
+          <div style={viewList.timeline ? styles.timeline : styles.displayNone}>
             <div style={styles.timelineElement}>
               <div style={styles.point}></div>
               <p style={styles.title}>rookmate</p>
