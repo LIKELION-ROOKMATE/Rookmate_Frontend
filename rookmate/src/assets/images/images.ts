@@ -2,17 +2,21 @@ import AddTag from "../images/AddTag.png";
 import DeleteTag from "../images/DeleteTag.png";
 import Logo from "../images/logo.png";
 import MainPageTopAdImage from "../images/MainPageTopAdImage.png";
+import MainPageExampleImage from "../images/MainPageExampleImage.png";
+import LoginImage from "../images/LoginImage.png";
+import LoginPageLogo from "../images/LoginPageLogo.png";
 import logoResize from "../images/LogoResize.png";
 import Profile from "../images/profile.png";
 import Search from "../images/search.png";
 import addCollegeInfo from "../images/AddCollegeInfo.png";
 import Facebook from "../images/facebook.png"
-import NoneProfile from "../images/noneProfile.png"
-import AddSomething from '../images/addSomething.png'
-import BookMark from '../images/bookmark.png'
-import Github from '../images/github.png'
-import Instagram from '../images/instagram.png'
-import Kakao from '../images/kakao.png'
+import NoneProfile from "../images/noneProfile.png";
+import AddSomething from '../images/addSomething.png';
+import BookMark from '../images/bookmark.png';
+import Github from '../images/github.png';
+import Instagram from '../images/instagram.png';
+import Kakao from '../images/kakao.png';
+import KakaoIcon from "../images/kakaoIcon.png";
 import LeftPoint from '../images/leftpoint.png'
 import Mail from '../images/mail.png'
 import Share from '../images/share.png'
@@ -41,6 +45,9 @@ export const images = {
   mainPageTopAdImage: MainPageTopAdImage,
   profile: Profile,
   search: Search,
+  mainPageExampleImage: MainPageExampleImage,
+  loginImage: LoginImage,
+  loginPageLogo: LoginPageLogo,
   addCollegeInfo:addCollegeInfo,
   ellipse3: Ellipse3,
   ellipse4: Ellipse4,
@@ -60,6 +67,7 @@ export const images = {
   github: Github,
   instagram: Instagram,
   kakao: Kakao,
+  kakaoIcon:KakaoIcon,
   leftPoint: LeftPoint,
   mail: Mail,
   share: Share,
