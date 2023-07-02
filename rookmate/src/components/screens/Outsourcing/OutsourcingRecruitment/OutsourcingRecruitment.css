@@ -1,0 +1,133 @@
+.recruit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  width: 90rem;
+  height: 125rem;
+  margin: 0 auto;
+}
+
+.recruit h2 {
+  color: #000;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.5rem;
+  margin-top: 2rem;
+}
+
+.recruit h3 {
+  color: #000;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.recruit h5 {
+  color: #000;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.5rem;
+}
+
+.recruit p {
+  color: #828282;
+  text-align: center;
+  font-size: 0.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.5rem;
+}
+
+#r_title, #r_workway, #r_hopeprice {
+  width: 34.5625rem;
+  height: 2.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+}
+
+#r_subject, #r_revise {
+  width: 13.6875rem;
+  height: 2.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+}
+
+#r_keyword, #r_workday {
+  width: 19.4375rem;
+  height: 2.875rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+  margin-left: 1.4375rem;
+}
+
+#r_content {
+  width: 34.5625rem;
+  height: 34.625rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+}
+
+.r_option_check {
+  width: 34.5625rem;
+  height: 8.75rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+  margin: 0 auto;
+  margin-bottom: 1.2rem;
+}
+
+.r_price_container {
+  display: flex;
+  width: 34.5625rem;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.r_ul {
+  width: 15rem;
+  color: #000;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem;
+  text-align: start;
+}
+
+#r_price_box {
+  width: 15.5625rem;
+  height: 5.3125rem;
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+}
+
+.r_price_container h4 {
+  text-align: left;
+}
+
+.recruit button {
+  width: 8rem;
+  height: 3rem;
+  border-radius: 6.25rem;
+  background: #7FA3C5;
+  box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
+  border: none;
+  cursor: pointer;
+  margin: 2rem auto;
+}
+
+.recruit input, .recruit textarea, .recruit h3, .recruit h4 {
+  margin-bottom: 1.2rem;
+}
+
+.recruit li {
+  list-style-type: circle;
+}
+
+.r_imgframe {
+  margin: 2rem auto;
+}

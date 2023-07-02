@@ -73,4 +73,7 @@ export const images = {
   greyMail: greyMail,
   bigLogo: bigLogo,
   logoResize: logoResize,
+  basictemplateimg2: basictemplateimg2,
+  basictemplateimg3: basictemplateimg3,
+  basictemplateimg4: basictemplateimg4,
 };

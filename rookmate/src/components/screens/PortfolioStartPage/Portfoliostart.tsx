@@ -105,7 +105,7 @@ const PortfoliostartPage: React.FC = () => {
           <div>
             <h4>전문가급 실력을 가지지 않아도 OK</h4>
             <div className="img_frame">
-              <img src={images.ellipse3} alt="RookMate" />
+              <img src={images.pfstartimg1} alt="RookMate" />
             </div>
             <p>
               룩메이트의 고객들은 전문가급의 실력을
@@ -116,7 +116,7 @@ const PortfoliostartPage: React.FC = () => {
           <div>
             <h4>용돈이 부족하다면 룩메이트에서</h4>
             <div className="img_frame">
-              <img src={images.ellipse4} alt="RookMate" />
+              <img src={images.pfstartimg2} alt="RookMate" />
             </div>
             <p>
               포트폴리오만 올리면 빠르게 시작할 수 있는 외주. <br />돈 벌기
@@ -126,7 +126,7 @@ const PortfoliostartPage: React.FC = () => {
           <div>
             <h4>능력,커리어,포폴 일석삼조</h4>
             <div className="img_frame">
-              <img src={images.ellipse5} alt="RookMate" />
+              <img src={images.pfstartimg3} alt="RookMate" />
             </div>
             <p>
               학생에게 맞는 외주시스템으로 자신의
