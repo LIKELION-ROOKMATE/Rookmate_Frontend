@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import "./PortfolioEdit.css";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
@@ -15,15 +15,6 @@ interface Styles{
   page:React.CSSProperties;
   modal:React.CSSProperties;
   portfolioDetail:React.CSSProperties;
-  portfolioContent:React.CSSProperties;
-  workList:React.CSSProperties;
-  addSomething:React.CSSProperties;
-  templateEditTools:React.CSSProperties;
-  toolBoxGroup:React.CSSProperties;
-  explain:React.CSSProperties;
-  toolBox:React.CSSProperties;
-  toolBoxButton:React.CSSProperties;
-  completeButton:React.CSSProperties;
 }
 
 const styles:Styles = {
@@ -33,146 +24,46 @@ const styles:Styles = {
   stackBox:{
     display: "flex",
     flexDirection: "row",
-
     width: "100%",
-
     fontSize: "1rem",
   },
   stackName:{
     width: "20%",
     height: "1rem",
-
     fontSize: "0.7rem",
-
     marginRight: "5%",
-    
     overflowWrap: "break-word",
   },
   proficiencyBox:{
     display: "flex",
     alignItems: "center",
-
     position: "relative",
-
     width: "60%",
     height: "1.1rem",
-
     margin: "0 0 1rem 0",
-
     fontSize: "1rem",
   },
   page:{
     width: "100%",
-    maxWidth: "94.9rem",
-    height: "65rem",
-    fontFamily: 'TheJamsil5Bold',
+    maxWidth: "100vw",
+    minHeight: "65rem",
   },
   modal:{
     display:"flex",
     alignItems:"center",
     justifyContent:"center",
-
     position:"fixed",
     bottom:"0%",
-
     width:"100%",
     height:"100%",
-
     backgroundColor:"rgba(0,0,0,0.8)",
     zIndex:"100",
   },
   portfolioDetail:{
     display: "flex",
     flexDirection: "row",
-
-    width: "100%",
+    width: "100vw",
     height: "73.8%",
-  },
-  portfolioContent:{
-    width: "77%",
-    height: "100%",
-    boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
-
-    padding: "4.5rem 2rem 0 4.5rem",
-  },
-  workList:{
-    width: "100%",
-    height: "66.7%",
-  },
-  addSomething:{
-    width: "19rem",
-    height: "19rem",
-  },
-  templateEditTools:{
-    display: "flex",
-    alignItems:"end",
-    flexDirection: "column",
-
-    position:"fixed",
-    left: "2rem",
-  },
-  toolBoxGroup:{
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "33.3%",
-    fontWeight: "400",
-  },
-  explain:{
-    display: "flex",
-    alignItems: "end",
-
-    position: "relative",
-    left:"1rem",
-
-    height: "2.5rem",
-
-    marginBottom: "0.5rem",
-    textAlign: "left",
-    
-    fontSize: "1rem",
-    fontWeight: "400",
-  },
-  toolBox:{
-    display: "flex",
-    gap: "2rem",
-    alignItems: "center",
-
-    width: "96%",
-    height: "3.5rem",
-    
-    border: "0.3rem solid #7FA3C5",
-    boxShadow: "0.25rem 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.25)",
-    borderRadius: "3.125rem",
-  },
-  toolBoxButton:{
-    position: "relative",
-    left: "2rem",
-
-    border: "none",
-    
-    backgroundColor: "#fff",
-
-    textDecoration: "none",
-    fontSize: "1.5rem",
-  },
-  completeButton:{
-    position: "relative",
-    right: "2rem",
-
-    width: "15rem",
-    height: "4rem",
-
-    border: "none",
-
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: "20px",
-    marginTop: "2.5rem",
-
-    backgroundColor: "#C0D9FF",
-
-    fontSize: "1.5rem",
-    color: "#fff",
   },
 };
 
@@ -239,11 +130,13 @@ const PortfolioEdit: React.FC = () => {
   }
 
   return (
-    <div style={styles.page}>
+    <form style={styles.page}>
       <TopBar />
       {modalActive &&
         <div style={styles.modal} onClick={setModalEvent} id='modal'>
-          <AddWorkModal setWorkImageList={setWorkImageList}/>
+          <AddWorkModal 
+            setWorkImageList={setWorkImageList}
+            setModalActive={setModalActive}/>
         </div>
       }
       <PortfolioEditTimeline viewList={viewList} />
@@ -267,10 +160,11 @@ const PortfolioEdit: React.FC = () => {
           stacks:stacks,
           }} 
           checkViewListEvent={checkViewListEvent}
-          setModalActive={setModalActive} 
+          setModalActive={setModalActive}
+          setWorkImageList = {setWorkImageList}
           workImageList={workImageList} />
       </div>
-    </div>
+    </form>
   );
 };
 

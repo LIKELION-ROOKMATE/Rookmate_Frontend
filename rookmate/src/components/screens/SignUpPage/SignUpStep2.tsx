@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {images} from '../../../assets/images/images';
 import TopBar from '../../TopBar';
-import './SignUp.css'
+import moduleStyle from './ModuleStyle.module.css';
+import { useNavigate } from 'react-router-dom';
 
 interface Styles{
   signupForm:React.CSSProperties;
@@ -9,6 +10,7 @@ interface Styles{
   inputBox:React.CSSProperties;
   inputBoxSmall:React.CSSProperties;
   inputTypeName:React.CSSProperties;
+  inputUserInfoContent:React.CSSProperties;
   inputBoxMiddle:React.CSSProperties;
   majorOptions:React.CSSProperties;
   majorOptionsContent:React.CSSProperties;
@@ -62,11 +64,18 @@ const styles:Styles = {
 
     margin:"0 1rem 0 1rem",
   },
+  inputUserInfoContent:{
+    height:"95%",
+    border:"none", 
+    outline:"none",
+    marginRight:"0.8rem",
+  },
   inputBoxMiddle:{
     position:"relative",
 
     display:"flex",
     alignItems:"center",
+    justifyContent:"space-between",
 
     width:"33%",
     minWidth:"31.8rem",
@@ -224,6 +233,8 @@ const optionList:any = [
 ]
 
 const SignUp = ()=>{
+  const navigate = useNavigate();
+
   // 관심 분야 선택 관련 state
   const [optionElement, setOptionElement] = useState<JSX.Element[]>([]);
   const [optionListVisible, setOptionListVisible] = useState<boolean>(false);
@@ -233,10 +244,21 @@ const SignUp = ()=>{
   // 직업 선택 관련 state
   const [jobElement, setjobElement] = useState<JSX.Element[]>([]);
   const [jobListVisible, setJobListVisible] = useState<boolean>(false);
-  const [checkedJob, setCheckedJob] = useState<string>()
+  const [checkedJob, setCheckedJob] = useState<string>("")
 
   // 대학교 인증 이미지 관련 state
   const [selectImage, setSelectImage] = useState(undefined);
+
+  // 입력값 유효성 검사용 ref, state
+  const nameRef = useRef<any>(null)
+  const birthRef = useRef<any>(null)
+  const phoneNumberRef = useRef<any>(null)
+  const [placeholder, setPlaceholder] = useState<{[key:string]:string}>({
+    name:"",
+    birth:"YYYY - MM - DD",
+    phoneNumber:"",
+    job:"",
+  })
 
   // 관심 분야 선택 여부를 나타내기 위해 checkedItem을 업데이트하는 effect
   useEffect(() => {
@@ -255,7 +277,6 @@ const SignUp = ()=>{
   const majorCheckboxOnClickEvent = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     const target = e.target as any;
     const id = target.id;
-    let functionExit = false;
     setCheckCount((prev)=>{
       if(target.checked && !checkedItem[id]){
         setCheckCount((prev)=>(prev+1))
@@ -266,7 +287,6 @@ const SignUp = ()=>{
       }
       if(prev>=9 && target.checked){
         target.checked = false;
-        functionExit = true;
       }
       return prev;
     })
@@ -303,7 +323,7 @@ const SignUp = ()=>{
     for (let element in jobList) {
       const id = jobList[element];
       let isChecked = false;
-      if(id == checkedJob){
+      if(id === checkedJob){
         isChecked = true;
       }
       tmpJobElement.push(
@@ -341,34 +361,67 @@ const SignUp = ()=>{
     }
   };
 
+  const formDataValid = (e:any)=>{
+    e.preventDefault()
+    const name = nameRef.current.value;
+    const birth = birthRef.current.value;
+    const phoneNumber = phoneNumberRef.current.value;
+
+    console.log(checkCount)
+    if(!name || !birth || !phoneNumber || checkCount===0 || checkedJob===""){
+      if(!name) setPlaceholder((prev)=>({...prev, name:"필수정보"}))
+      if(!birth) setPlaceholder((prev)=>({...prev, birth:"YYYY - MM - DD ( 필수정보 )"}))
+      if(!phoneNumber) setPlaceholder((prev)=>({...prev, phoneNumber:"필수정보"}))
+      if(checkedJob==="")  setPlaceholder((prev)=>({...prev, job:"직업 선택 필수"}))
+      return false;
+    }
+    navigate('/');
+  }
+
   return(
     <div>
       <TopBar/>
-      <form style={styles.signupForm}>
+      <form style={styles.signupForm} onSubmit={formDataValid}>
         <p style={{fontSize:"2rem", fontWeight:"700",}}>필수정보 입력</p>
         <div style={styles.inputBoxContainer}>
           <label htmlFor='name' style={styles.inputBoxSmall}>
             <p style={styles.inputTypeName}>이름 : </p>
-            <input type="text" id='name' style={{width:"63%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem",fontSize:"1rem",}}/>
+            <input type="text" id='name' ref={nameRef}
+              style={{...styles.inputUserInfoContent, width:"63%",}}
+              className={moduleStyle.step2UserInfo}
+              placeholder={placeholder.name}
+            />
           </label>
           <label htmlFor='birth' style={styles.inputBoxSmall}>
             <p style={styles.inputTypeName}>생년월일 : </p>
-            <input type="text" id='birth' style={{width:"50%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem", }}  placeholder='YYYY-MM-DD'/>
+            <input type="text" id='birth' ref={birthRef}
+              style={{...styles.inputUserInfoContent, width:"50%",}}
+              className={moduleStyle.step2UserInfo}
+              placeholder={placeholder.birth}
+            />
           </label>
         </div>
         <label htmlFor='phoneNumber' style={styles.inputBoxMiddle}>
           <p style={styles.inputTypeName}>핸드폰 : </p>
-          <input type='text' id='phoneNumber' style={styles.inputBoxMiddleInputPart}/>
+          <input type='text' id='phoneNumber' ref={phoneNumberRef}
+            style={{...styles.inputUserInfoContent, width:"79.5%",}}
+            className={moduleStyle.step2UserInfo}
+            placeholder={placeholder.phoneNumber}
+          />
         </label>
-        <div style={styles.inputBoxMiddle} id='major'
-          onClick={(e:any)=>{
-            const id = e.target.id as string;
-            if(id == 'major'){
+        <div style={styles.inputBoxMiddle} id='major'>
+          <p style={styles.inputTypeName} id='major'>관심분야 : </p>
+          <div style={{display:"flex",alignItems:"center",}}>
+            {checkCount===0 && <p className={moduleStyle.userInfoEmpty}>1개 이상 선택 필수</p>}
+            {checkCount>0 && <p className={moduleStyle.userInfoEmpty}>9개까지 선택 가능</p>}
+            <img src={images.addTag} style={{cursor:"pointer",}}
+              onClick={(e:any)=>{
               setOptionListVisible(!optionListVisible)
               setJobListVisible(false)
-            }}} 
-        >
-          <p style={styles.inputTypeName} id='major'>관심분야 : </p>
+              }}   
+              alt="selectMajor"
+            />
+          </div>
           {
             optionListVisible &&
             <div style={styles.majorOptions}>
@@ -377,15 +430,18 @@ const SignUp = ()=>{
           }
         </div>
         
-        <div style={styles.inputBoxMiddle} id='job'
-          onClick={(e:any)=>{
-          const id = e.target.id as string;
-          if(id == 'job'){
-            setOptionListVisible(false)
-            setJobListVisible(!jobListVisible)
-          }}} 
-        >
+        <div style={styles.inputBoxMiddle} id='job'>
           <p style={styles.inputTypeName}>직업 : </p>
+          <div style={{display:"flex",alignItems:"center",}}>
+            {checkedJob==='' && <p className={moduleStyle.userInfoEmpty}>{placeholder.job}</p>}
+            <img src={images.addTag} style={{cursor:"pointer",}}
+              onClick={(e:any)=>{
+              setOptionListVisible(false)
+              setJobListVisible(!jobListVisible)
+              }}
+              alt="selectJob"
+            />
+          </div>
           {
             jobListVisible &&
             <div style={styles.majorOptions}>

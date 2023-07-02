@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {images} from '../../../assets/images/images';
+import React, {useState, useEffect, useRef} from 'react';
+import { useNavigate } from "react-router-dom";
 import TopBar from '../../TopBar';
-import './SignUp.css'
+import moduleStyle from './ModuleStyle.module.css';
 
 interface Styles{
   signupForm:React.CSSProperties;
   inputBox:React.CSSProperties;
+  useInfoinputElement:React.CSSProperties;
   toolBox:React.CSSProperties;
   submitButton:React.CSSProperties;
 }
@@ -17,52 +18,88 @@ const styles:Styles = {
     justifyContent: "center",
     alignItems: "center",
     gap: "1.5rem",
-
     height:"84%",
   },
   inputBox:{
+    display:"flex",
+    alignItems:"center",
     width:"33%",
     minWidth:"30rem",
     height:"3rem",
-
     borderRadius:"0.7rem",
     border:"0.05rem solid #000",
     paddingLeft:"0.8rem",
   },
+  useInfoinputElement:{
+    marginRight:"0.8rem",
+    border:"none",
+    fontSize:"1rem",
+    outline:"none",
+  },
   toolBox:{
     display:"flex",
     justifyContent:"start",
-
     width:"31%",
   },
   submitButton:{
     width:"34%",
     minWidth:"31rem",
     height:"3.3rem",
-
     borderRadius:"0.7rem",
     border:"none",
-
     backgroundColor:"#7FA3C5",
-
     fontSize:"1.5rem",
     fontWeight:"900",
     color:"#fff",
-
     cursor:"pointer",
   },
 }
 
 const SignUp = ()=>{
+  const navigate = useNavigate();
+  const emailData = useRef<any>(null);
+  const password1 = useRef<any>(null);
+  const password2 = useRef<any>(null);
+
+  const [emailPh, setEmailPh] = useState('필수정보');
+  const [pwd1Ph, setPwd1Ph] = useState('필수정보');
+  const [pwd2Ph, setPwd2Ph] = useState('필수정보');
+
+  const formDataValid = (e:any)=>{
+    e.preventDefault();
+    const email = emailData.current.value;
+    const pwd1 = password1.current.value;
+    const pwd2 = password2.current.value;
+    if(!email || !pwd1 || !pwd2){
+      return false;
+    }
+    if(pwd1!=pwd2){
+      password2.current.value = "";
+      setPwd2Ph((prev)=>"입력하신 정보가 일치하지 않습니다.")
+      return false;
+    }
+    console.log("success!");
+    navigate("/signup/2");
+  }
+
   return(
     <div style={{height:"100vh",}}>
       <TopBar/>
-      <form style={styles.signupForm} action='/signup/2'>
+      <form style={styles.signupForm}  onSubmit={formDataValid}>
         <p style={{fontSize:"2rem", fontWeight:"700",}}>이메일로 시작하기</p>
-        <input type='text' placeholder='이메일 : ' style={styles.inputBox}/>
-        <input type='password' placeholder='비밀번호 : ' style={styles.inputBox}/>
-        <input type='password' placeholder='비밀번호 재입력 : ' style={styles.inputBox}/>
-        <button  style={styles.submitButton}>회원가입</button>
+        <div style={styles.inputBox}>
+          <p style={{width:"13%",}}>이메일 : </p>
+          <input type='text' placeholder={emailPh} ref={emailData} style={{...styles.useInfoinputElement, width:"85%",}} className={moduleStyle.step1UserInfo}/>
+        </div>
+        <div style={styles.inputBox}>
+          <p style={{width:"17%",}}>비밀번호 : </p>
+          <input type='password' placeholder={pwd1Ph} ref={password1} style={{...styles.useInfoinputElement, width:"83%",}} className={moduleStyle.step1UserInfo}/>
+        </div>
+        <div style={styles.inputBox}>
+          <p style={{width:"28%",}}>비밀번호 재입력 : </p>
+          <input type='password' placeholder={pwd2Ph} ref={password2} style={{...styles.useInfoinputElement, width:"72%",}} className={moduleStyle.step1UserInfo}/>
+        </div>
+        <button style={styles.submitButton}>회원가입</button>
       </form>
     </div>
   )
