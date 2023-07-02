@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { images } from "../../../../../assets/images/images";
 import './SecondPageUI.css'
 
 const SecondPageUI = () => {
+
   return (
     <div className='Univ2'>
       <div className="slidebox">
@@ -13,29 +14,29 @@ const SecondPageUI = () => {
         <ul className="slidelist">
           <li className="slideitem">
           <div>
-            <div>
+            <div className='UI_imgframe'>
               <img src={images.MakeImage1} alt=""/>
             </div>
           </div>
           </li>
           <li className="slideitem">
             <div>
-              <div>
-                <img src={images.MakeImage2} alt=""/>
+              <div className='UI_imgframe'>
+                <img src={images.basictemplateimg2} alt=""/>
               </div>
             </div>
           </li>
           <li className="slideitem">
             <div>
-              <div>
-              <img src={images.MakeImage1} alt=""/>
+              <div className='UI_imgframe'>
+                <img src={images.basictemplateimg3} alt=""/>
               </div>
             </div>
           </li>
           <li className="slideitem">
             <div>
-              <div>
-              <img src={images.MakeImage2} alt=""/>
+              <div className='UI_imgframe'>
+                <img src={images.basictemplateimg4} alt=""/>
               </div>
             </div>
           </li>

@@ -40,7 +40,9 @@ import loginImage from "../images/loginImage.png";
 import loginPageLogo from "../images/loginPageLogo.png";
 import mainPageExampleImage from "../images/mainPageExampleImage.png";
 import kakaoIcon from "../images/kakaoIcon.png";
-
+import basictemplateimg2 from "../images/basictemplateimg2.png";
+import basictemplateimg3 from "../images/basictemplateimg3.png";
+import basictemplateimg4 from "../images/basictemplateimg4.png";
 export const images = {
   deleteTag: deleteTag,
   addTag: addTag,
@@ -81,4 +83,7 @@ export const images = {
   loginImage: loginImage,
   loginPageLogo: loginPageLogo,
   mainPageExampleImage: mainPageExampleImage,
+  basictemplateimg2: basictemplateimg2,
+  basictemplateimg3: basictemplateimg3,
+  basictemplateimg4: basictemplateimg4,
 };
