@@ -23,8 +23,14 @@ ul, li {
   margin: 0 auto;
 }
 
+.UI_imgframe {
+  width: 20rem;
+  height: 26rem;
+}
+
 .slidebox img {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .slidebox .slidelist {
