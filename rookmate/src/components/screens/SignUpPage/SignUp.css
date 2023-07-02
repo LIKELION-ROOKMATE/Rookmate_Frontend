@@ -1,0 +1,15 @@
+/* SignUp.tsx의 checkBox*/
+.checkBox{
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid #999;
+  appearance: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.checkBox:checked {
+  background: #7FA3C5;
+  border: none;
+}
