@@ -1,10 +1,10 @@
 import AddTag from "../images/AddTag.png";
 import DeleteTag from "../images/DeleteTag.png";
-import Logo from "../images/logo.png";
+import Logo from "../images/Logo.png";
 import MainPageTopAdImage from "../images/MainPageTopAdImage.png";
 import logoResize from "../images/LogoResize.png";
-import Profile from "../images/profile.png";
-import Search from "../images/search.png";
+import Profile from "../images/Profile.png";
+import Search from "../images/Search.png";
 import addCollegeInfo from "../images/AddCollegeInfo.png";
 import Facebook from "../images/facebook.png"
 import NoneProfile from "../images/noneProfile.png"
@@ -22,9 +22,9 @@ import outsourcingManage from '../images/outsourcingManage.png'
 import check from '../images/check.png'
 import greyMail from '../images/greymail.png'
 import bigLogo from '../images/bigLogo.png'
-import Ellipse3 from "../images/Ellipse3.png";
-import Ellipse4 from "../images/Ellipse4.png";
-import Ellipse5 from "../images/Ellipse5.png";
+import pfstartimg1 from "../images/pfstartimg1.png";
+import pfstartimg2 from "../images/pfstartimg2.png";
+import pfstartimg3 from "../images/pfstartimg3.png";
 import Image1 from "../images/image1.png";
 import Image2 from "../images/image2.png";
 import Image3 from "../images/image3.png";
@@ -33,6 +33,9 @@ import MakeImage2 from "../images/makeimage2.png";
 import ModalImg from  "../images/ModalImg.png";
 import Addfileimg from  "../images/Addfileimg.png";
 import Outsourcingimg from "../images/Outsourcingimg.png"
+import basictemplateimg2 from "../images/basictemplateimg2.png"
+import basictemplateimg3 from "../images/basictemplateimg3.png"
+import basictemplateimg4 from "../images/basictemplateimg4.png"
 
 export const images = {
   deleteTag: DeleteTag,
@@ -42,9 +45,9 @@ export const images = {
   profile: Profile,
   search: Search,
   addCollegeInfo:addCollegeInfo,
-  ellipse3: Ellipse3,
-  ellipse4: Ellipse4,
-  ellipse5: Ellipse5,
+  pfstartimg1: pfstartimg1,
+  pfstartimg2: pfstartimg2,
+  pfstartimg3: pfstartimg3,
   image1: Image1,
   image2: Image2,
   image3: Image3,
@@ -70,4 +73,7 @@ export const images = {
   greyMail: greyMail,
   bigLogo: bigLogo,
   logoResize: logoResize,
+  basictemplateimg2: basictemplateimg2,
+  basictemplateimg3: basictemplateimg3,
+  basictemplateimg4: basictemplateimg4,
 };
