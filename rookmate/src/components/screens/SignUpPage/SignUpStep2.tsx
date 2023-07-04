@@ -2,7 +2,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import {images} from '../../../assets/images/images';
 import TopBar from '../../TopBar';
 import moduleStyle from './ModuleStyle.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 interface Styles{
   signupForm:React.CSSProperties;
@@ -208,6 +209,15 @@ const jobList:string[] = [
   '취업 준비생',
   '기타',
 ]
+const jobName:string[] = [
+  'student',
+  'teenager',
+  'employee',
+  'freelancer',
+  'start_up',
+  'job_seeker',
+  'etc',
+]
 const optionList:any = [
 "프론트엔드",
 "홈페이지",
@@ -233,7 +243,12 @@ const optionList:any = [
 ]
 
 const SignUp = ()=>{
+  // 로그인 1차 페이지에서 데이터 받아옴.
   const navigate = useNavigate();
+  const locaition = useLocation();
+  const passedEmail = locaition.state.email as string;
+  const passedPassword = locaition.state.password as string;
+  let userId:number;
 
   // 관심 분야 선택 관련 state
   const [optionElement, setOptionElement] = useState<JSX.Element[]>([]);
@@ -253,6 +268,11 @@ const SignUp = ()=>{
   const nameRef = useRef<any>(null)
   const birthRef = useRef<any>(null)
   const phoneNumberRef = useRef<any>(null)
+
+  const univRef = useRef<any>(null);
+  const majorRef = useRef<any>(null);
+  const univEmailRef = useRef<any>(null);
+
   const [placeholder, setPlaceholder] = useState<{[key:string]:string}>({
     name:"",
     birth:"YYYY - MM - DD",
@@ -321,14 +341,14 @@ const SignUp = ()=>{
   useEffect(() => {
     let tmpJobElement: JSX.Element[] = [];
     for (let element in jobList) {
-      const id = jobList[element];
+      const id = element;
       let isChecked = false;
       if(id === checkedJob){
         isChecked = true;
       }
       tmpJobElement.push(
-        <div style={styles.majorOptionsContent} key={optionList[element]}>
-          <label htmlFor={optionList[element]} style={{ display: "flex", justifyContent: "center", width: "50%" }}>
+        <div style={styles.majorOptionsContent} key={jobList[element]}>
+          <label htmlFor={jobList[element]} style={{ display: "flex", justifyContent: "center", width: "50%" }}>
             {jobList[element]}
           </label>
           <input
@@ -348,40 +368,87 @@ const SignUp = ()=>{
     setjobElement(tmpJobElement);
   }, [jobListVisible, checkedJob]);
 
-  // 선택한 대학교 인증 이미지를 화면에 표시하는 이벤트 핸들러
-  const getImageEvent = (e:any)=>{
-    const inputFile = e.target.files[0];
-    if(inputFile){
-      const reader = new FileReader();
-      reader.onload = (e:any)=>{
-        const inputFileUrl = e.target.result;
-        setSelectImage(inputFileUrl)
+  //사용자의 id값을 받아오는 effect
+  useEffect(()=>{
+    console.log(passedEmail)
+    console.log(passedPassword)
+    axios.get("http://127.0.0.1:8000/users/")
+    .then((res)=>{
+      const allUserData = res.data;
+      for(let index in allUserData){
+        const userData = allUserData[index];
+        if(userData.email == passedEmail){
+          userId = userData.id;
+          break;
+        }
       }
-      reader.readAsDataURL(inputFile)
-    }
-  };
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  },[])
 
-  const formDataValid = (e:any)=>{
+  const patchUserDetailInfo = (e:any)=>{
     e.preventDefault()
     const name = nameRef.current.value;
     const birth = birthRef.current.value;
     const phoneNumber = phoneNumberRef.current.value;
-
-    console.log(checkCount)
+    const job = Number(checkedJob)
+    let field = [];
+    const univ_email = univEmailRef.current.value;
+    const univ = univRef.current.value;
+    const major = majorRef.current.value;
+    for(let ele in checkedItem){
+      if(checkedItem[ele]) field.push(optionList.indexOf(ele))
+    }
     if(!name || !birth || !phoneNumber || checkCount===0 || checkedJob===""){
       if(!name) setPlaceholder((prev)=>({...prev, name:"필수정보"}))
       if(!birth) setPlaceholder((prev)=>({...prev, birth:"YYYY - MM - DD ( 필수정보 )"}))
       if(!phoneNumber) setPlaceholder((prev)=>({...prev, phoneNumber:"필수정보"}))
       if(checkedJob==="")  setPlaceholder((prev)=>({...prev, job:"직업 선택 필수"}))
+      console.log("signup failed : empty input")
       return false;
     }
+    const detailData = {
+      name:name,
+      phone_number:phoneNumber,
+      birth_date:birth,
+      field:field,
+      job:job,
+      univ_email:univ_email,
+      univ:univ,
+      major:major
+    }
+    console.log(detailData)
+    // 사용자 회원가입 처리
+    axios.post("http://127.0.0.1:8000/users/registration/", {
+      email:passedEmail,
+      password:passedPassword
+    })
+    .then((res)=>{
+      console.log(res.data);
+    }).catch((err)=>{
+      console.log("signup fail : ")
+      console.log(err);
+      return false;
+    })
+    // 사용자 필수정보/추가정보 보내기
+    axios.patch(`http://127.0.0.1:8000/users/${userId}/`,detailData)
+    .then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.log("set detail data fail : ")
+      console.log(err);
+      return false;
+    })
+    console.log("success")
     navigate('/');
   }
 
   return(
     <div>
       <TopBar/>
-      <form style={styles.signupForm} onSubmit={formDataValid}>
+      <div style={styles.signupForm}>
         <p style={{fontSize:"2rem", fontWeight:"700",}}>필수정보 입력</p>
         <div style={styles.inputBoxContainer}>
           <label htmlFor='name' style={styles.inputBoxSmall}>
@@ -449,7 +516,7 @@ const SignUp = ()=>{
             </div>
           }
         </div>
-        <button style={styles.submitButton}>회원가입</button>
+        <button style={styles.submitButton} onClick={patchUserDetailInfo}>회원가입</button>
 
         <div style={{width:"80%", height:"0.1rem",backgroundColor:"#000",marginTop:"7rem",}}></div>
 
@@ -457,32 +524,25 @@ const SignUp = ()=>{
         <div style={{...styles.inputBoxContainer, width:"66%"}}>
           <label htmlFor='schoolName' style={styles.inputBoxSmall}>
             <p style={styles.inputTypeName}>대학교 : </p>
-            <input type="text" id='schoolName' style={{width:"75%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem",fontSize:"1rem",}}/>
+            <input type="text" id='schoolName' ref={univRef}
+              style={{width:"55%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem",fontSize:"1rem",}}
+            />
           </label>
           <label htmlFor='major' style={styles.inputBoxSmall}>
             <p style={styles.inputTypeName}>전공 : </p>
-            <input type="text" id='major' style={{width:"75%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem", }}/>
+            <input type="text" id='major' ref={majorRef}
+              style={{width:"55%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem", }}
+            />
           </label>
         </div>
-        <div style={styles.collegeAccessBox}>
-          <div>
-            <p style={styles.collegeAccessExplain}>이름과 대학교, 전공이 선명하게 확인될 수 있어야 하며, 발급날짜와 함께 이미지에 노출되어야합니다.</p>
-            <p style={styles.collegeAccessExplain}>인증이 완료되기 전에도 서비스를 제한적으로 이용할 수 있으며 인증알림은 카카오톡으로 전송됩니다.</p>
-          </div>
-          <input type='file' id='addCollegeInfo' style={{display:"none",}} onChange={getImageEvent}/>
-          { !selectImage &&
-            <label htmlFor='addCollegeInfo' style={{...styles.addCollegeInfoButton,}}>
-              <img src={images.addCollegeInfo} alt='addCollegeInfo'/>
-              <p style={styles.addCollegeInfoExplain}>사진 등록하기</p>
-            </label>
-          }{ selectImage &&
-            <label htmlFor='addCollegeInfo' style={{...styles.addCollegeInfoButton, backgroundColor:"#fff", border:"0.1rem solid #000",}}>
-              <img src={selectImage} alt='addCollegeInfo' style={{width:"90%", height:"90%",}} id="collegeInfoImage"/>
-            </label>
-          }
+        <div style={styles.inputBoxMiddle}>
+          <p style={styles.inputTypeName}>대학 이메일 : </p>
+          <input type='text' ref={univEmailRef}
+            style={{width:"72%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem", }}
+          />
         </div>
-        <button style={styles.formSubmitButton}>완료</button>
-      </form>
+        <button style={styles.formSubmitButton} onClick={patchUserDetailInfo}>완료</button>
+      </div>
     </div>
   )
 }

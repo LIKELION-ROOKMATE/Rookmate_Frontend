@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../assets/images/images";
+import LoginPage from './screens/LoginPage/LoginPage';
 
 const styles: { [key: string]: React.CSSProperties } = {
   topBarContainer: {
@@ -27,6 +28,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "2rem",
     marginLeft: "1.12rem",
     marginTop: "0.44rem",
+  },
+  toolBox:{
+    display:"flex",
+    justifyContent:"center",
+
+    width:"30rem",
   },
   portfolioMenu: {
     fontSize: "1rem",
@@ -57,48 +64,67 @@ const styles: { [key: string]: React.CSSProperties } = {
     width: "3rem",
     height: "3rem",
     borderRadius: 48,
-    boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
     marginTop: "1.06rem",
     marginLeft: "1.44rem",
     cursor: "pointer",
   },
+  loginButton:{
+    fontSize: "1rem",
+    color: "#000",
+    marginTop: "1.88rem",
+    marginLeft: "0.38rem",
+    width: "4.625rem",
+    textAlign: "center",
+    cursor: "pointer",
+  }
 };
 
 const TopBar: React.FC = () => {
   const navigate = useNavigate();
-
+  const [viewLoginModal, setViewLoginModal] = useState(false);
+  const [logined, setLogined] = useState(false);
   const handleLogoClick = () => {
     navigate("/");
-  };
-  const handleLoginClick = () => {
-    navigate("/login");
   };
   const handlePortfolioClick = () => {
     navigate("/portfolio/view");
   };
+  const handleLoginClick = ()=>{
+    setViewLoginModal(()=>true)
+  };
 
   return (
-    <div style={styles.topBarContainer}>
-      <img
-        src={images.logo}
-        style={styles.logoImage}
-        alt="로고 이미지"
-        onClick={handleLogoClick}
-      />
-      <div style={styles.searchContainer}>
-        <img src={images.search} style={styles.searchImage} alt="검색" />
+    <div>
+      {viewLoginModal && <LoginPage setViewLoginModal={setViewLoginModal}/>}
+      <div style={styles.topBarContainer}>
+        <img
+          src={images.logo}
+          style={styles.logoImage}
+          alt="로고 이미지"
+          onClick={handleLogoClick}
+        />
+        <div style={styles.searchContainer}>
+          <img src={images.search} style={styles.searchImage} alt="검색" />
+        </div>
+        <div style={styles.toolBox}>
+          <span style={styles.portfolioMenu} onClick={handlePortfolioClick}>
+            포트폴리오
+          </span>
+          <span style={styles.alertMenu}>알림</span>
+          <span style={styles.messageMenu}>쪽지</span>
+          {
+            logined && 
+            <img
+              src={images.profile}
+              style={styles.profileImage}
+              alt="프로필 사진"
+            />
+          }{
+            !logined && 
+            <p style={styles.messageMenu} onClick={handleLoginClick}>LOGIN</p>
+          }
+        </div>
       </div>
-      <span style={styles.portfolioMenu} onClick={handlePortfolioClick}>
-        포트폴리오
-      </span>
-      <span style={styles.alertMenu}>알림</span>
-      <span style={styles.messageMenu}>쪽지</span>
-      <img
-        src={images.profile}
-        style={styles.profileImage}
-        alt="프로필 사진"
-        onClick={handleLoginClick}
-      />
     </div>
   );
 };

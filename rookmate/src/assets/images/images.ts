@@ -25,9 +25,6 @@ import outsourcingManage from "../images/outsourcingManage.png";
 import check from "../images/check.png";
 import greyMail from "../images/greymail.png";
 import bigLogo from "../images/bigLogo.png";
-import ellipse3 from "../images/ellipse3.png";
-import ellipse4 from "../images/ellipse4.png";
-import ellipse5 from "../images/ellipse5.png";
 import image1 from "../images/image1.png";
 import image2 from "../images/image2.png";
 import image3 from "../images/image3.png";
@@ -54,9 +51,6 @@ export const images = {
   profile: profile,
   search: search,
   addCollegeInfo: addCollegeInfo,
-  ellipse3: ellipse3,
-  ellipse4: ellipse4,
-  ellipse5: ellipse5,
   image1: image1,
   image2: image2,
   image3: image3,

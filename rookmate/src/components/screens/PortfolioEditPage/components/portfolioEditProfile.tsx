@@ -17,6 +17,7 @@ type PortfolioEditProfileType = {
     },
     stacks:any,
   }
+  setProfileImage:any,
 }
 
 interface Styles{
@@ -33,7 +34,6 @@ interface Styles{
   snsImage:React.CSSProperties,
   snsId:React.CSSProperties,
 }
-
 const styles:Styles = {
   displayNone: {
     display: "none",
@@ -113,9 +113,7 @@ const styles:Styles = {
   },
 };
 
-const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props})=>{
-  const [profileImage, setProfileImage] = useState(props.profileImage);
-
+const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props, setProfileImage})=>{
   const changeProfileImageEvent = (e:any) =>{
     const inputFile = e.target.files[0];
     if(inputFile){
@@ -133,7 +131,7 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props})=>{
       <p style={styles.title}>프로필</p>
       <label htmlFor='profileImage' style={{cursor:"pointer"}}>
         <input type="file" onChange={changeProfileImageEvent} id='profileImage' style={{display:"none"}}/>
-        <img src={profileImage} alt='profileImage' style={styles.profileImage}/>
+        <img src={props.profileImage} alt='profileImage' style={styles.profileImage}/>
       </label>
 
       <div style={styles.userInfo}>

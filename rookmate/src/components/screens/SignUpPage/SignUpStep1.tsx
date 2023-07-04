@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import { useNavigate } from "react-router-dom";
 import TopBar from '../../TopBar';
 import moduleStyle from './ModuleStyle.module.css';
+import axios from 'axios';
 
 interface Styles{
   signupForm:React.CSSProperties;
@@ -65,27 +66,28 @@ const SignUp = ()=>{
   const [pwd1Ph, setPwd1Ph] = useState('필수정보');
   const [pwd2Ph, setPwd2Ph] = useState('필수정보');
 
-  const formDataValid = (e:any)=>{
+  const registerUserEvent = (e:any)=>{
     e.preventDefault();
-    const email = emailData.current.value;
-    const pwd1 = password1.current.value;
-    const pwd2 = password2.current.value;
+    const email = emailData.current.value as string;
+    const pwd1 = password1.current.value as string;
+    const pwd2 = password2.current.value as string;
     if(!email || !pwd1 || !pwd2){
       return false;
-    }
-    if(pwd1!=pwd2){
+    }if(pwd1!=pwd2){
       password2.current.value = "";
       setPwd2Ph((prev)=>"입력하신 정보가 일치하지 않습니다.")
       return false;
     }
-    console.log("success!");
-    navigate("/signup/2");
+    navigate("/signup/2", {state:{
+      email:email,
+      password:pwd1
+    }});
   }
 
   return(
     <div style={{height:"100vh",}}>
       <TopBar/>
-      <form style={styles.signupForm}  onSubmit={formDataValid}>
+      <div style={styles.signupForm}>
         <p style={{fontSize:"2rem", fontWeight:"700",}}>이메일로 시작하기</p>
         <div style={styles.inputBox}>
           <p style={{width:"13%",}}>이메일 : </p>
@@ -99,8 +101,8 @@ const SignUp = ()=>{
           <p style={{width:"28%",}}>비밀번호 재입력 : </p>
           <input type='password' placeholder={pwd2Ph} ref={password2} style={{...styles.useInfoinputElement, width:"72%",}} className={moduleStyle.step1UserInfo}/>
         </div>
-        <button style={styles.submitButton}>회원가입</button>
-      </form>
+        <button style={styles.submitButton} onClick={registerUserEvent}>회원가입</button>
+      </div>
     </div>
   )
 }

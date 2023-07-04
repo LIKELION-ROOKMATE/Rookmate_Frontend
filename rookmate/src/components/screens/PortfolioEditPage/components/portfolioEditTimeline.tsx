@@ -9,6 +9,8 @@
       sns: boolean,
       competition: boolean,
     },
+    mainImage:any,
+    setMainImage:any,
   }
 
   interface Styles{
@@ -132,8 +134,7 @@
     }
   };
 
-  const PortfolioViewTimeline:React.FC<PortfolioViewTimelineType> = ({viewList})=>{
-    const [mainImage, setMainImage] = useState(images.portfolioMainImage)
+  const PortfolioViewTimeline:React.FC<PortfolioViewTimelineType> = ({viewList, mainImage, setMainImage})=>{
 
     const [timelineElement, setTimelineElement] = useState<JSX.Element[]>([
       <div style={styles.timelineElement}>

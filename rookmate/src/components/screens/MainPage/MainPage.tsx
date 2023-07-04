@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import TopBar from "../../TopBar";
 import MainPageTag from "./components/MainPageTag";
 import MainPageBody from "./components/MainPageBody";
@@ -6,7 +6,7 @@ import MainPageBody from "./components/MainPageBody";
 function MainPage(): React.JSX.Element {
   return (
     <div>
-      <TopBar />
+      <TopBar/>
       <MainPageTag />
       <MainPageBody />
     </div>
