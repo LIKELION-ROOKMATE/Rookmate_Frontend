@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ModuleCss from "../MainPage.module.css"
 import { images } from "../../../../assets/images/images";
+import { useNavigate } from 'react-router-dom';
 
 type WorkDetailModalType = {
   visible:boolean,
@@ -11,7 +12,8 @@ type WorkDetailModalType = {
 const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVisible, modalImageList})=>{
   const [commenterWrite, setCommenterWrite] = useState<any[]>([])
   const [commentPage, setCommentPage] = useState<number>(0)
-  let lastPage = 3;
+  const [lastPage, setLastPage] = useState<number>(0)
+  const navigate = useNavigate();
 
   const exitModalEvent = (e:any)=>{
     const target = e.target;
@@ -19,12 +21,17 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
     setWorkModalVisible((prev:boolean)=>false);
   }
 
+  const handleNavigateOutsourcing = ()=>{
+    navigate('/outsourcingApply');
+  }
+
   useEffect(()=>{
     const commentAmount = 18;
-    lastPage = Math.floor(commentAmount/3);
+    const updatedLastPage = Math.floor(commentAmount/3);
+    setLastPage(()=>updatedLastPage);
     console.log(lastPage)
-    let updatedCommenterWrite:any = new Array(lastPage)
-    for(let i=0; i<lastPage; i++){
+    let updatedCommenterWrite:any = new Array(updatedLastPage)
+    for(let i=0; i<updatedLastPage; i++){
       updatedCommenterWrite[i] = new Array(3)
     }
     for(let i=0; i<commentAmount; i++){
@@ -51,6 +58,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
     }
     setCommenterWrite((prev:any)=>[...updatedCommenterWrite])
   }, [commentPage])
+
   return(
     <div
       className={ModuleCss.workModalbackground}
@@ -58,7 +66,11 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
     >
       <div className={ModuleCss.workModalContainer}>
         <button className={ModuleCss.exitButton} id="exitButton" onClick={exitModalEvent}>
-          <img src={images.addTag} style={{width:"3rem", height:"3rem",}}/>
+          <img src={images.addTag} style={{width:"5rem", height:"5rem",}}/>
+        </button>
+        <button className={ModuleCss.outsourcingButton} id="outsourcingButton" onClick={handleNavigateOutsourcing}>
+          <img src={images.outsourcingApply} style={{width:"1.7rem", height:"2rem",}}/>
+          <span style={{fontSize:"0.5rem",color:"#fff",}}>외주 문의하기</span>
         </button>
         <p className={ModuleCss.title}>title</p>
         <div className={ModuleCss.imageAndExplain}>
@@ -126,7 +138,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
                     setCommentPage(()=>(commentPage))
                 }
               >{commentPage+1} </span>
-              {(commentPage-1)<=lastPage && 
+              {(commentPage+2)<=lastPage && 
                 <span style={{color:"grey",cursor:'pointer',}}
                   onClick={()=>
                     setCommentPage(()=>(commentPage+1))

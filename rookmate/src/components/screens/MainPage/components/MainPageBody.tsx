@@ -76,6 +76,21 @@ const ImageList = [
   images.pfstartimg1,
   images.pfstartimg2,
   images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
 ]
 
 const MainPageBody: React.FC = () => {

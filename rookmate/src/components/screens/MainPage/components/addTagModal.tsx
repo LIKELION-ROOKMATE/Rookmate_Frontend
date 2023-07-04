@@ -14,6 +14,7 @@ type AddTagModalType = {
 const AddTagModal:React.FC<AddTagModalType> = ({props,setTagModalVisible})=>{
   const [searchedTag, setSearchedTag] = useState(props.tags);
   const [searchedTagElements, setSearchedTagELement] = useState<JSX.Element[]>([])
+  const [searchBoxContent, setSearchBoxContent] = useState<string>();
 
   const handleTagDelete = (index: number) => {
     const updatedTags = [...props.addedTag];
@@ -31,6 +32,17 @@ const AddTagModal:React.FC<AddTagModalType> = ({props,setTagModalVisible})=>{
 
   const handleTagModalVisible = (e:any)=>{
     setTagModalVisible(()=>false)
+  }
+
+  const handleSearchResult = (e:any)=>{
+    const searchData = e.target.value;
+    let updatedSearchedTag:string[] =[];
+    for(let i=0; i<props.tags.length; i++){
+      const item = props.tags[i];
+      if(item.indexOf(searchData)<0) continue;
+      updatedSearchedTag.push(item);
+    }
+    setSearchedTag(()=>[...updatedSearchedTag])
   }
 
   useEffect(()=>{
@@ -70,7 +82,7 @@ const AddTagModal:React.FC<AddTagModalType> = ({props,setTagModalVisible})=>{
           </div>  
           <div className={ModuleCss.searchAndAddTagBox}>
             <p className={ModuleCss.tagModalSubTitle}>관심분야 검색하기</p>
-            <input placeholder='Search' className={ModuleCss.tagSearchBox}/>
+            <input placeholder='Search' className={ModuleCss.tagSearchBox} onChange={handleSearchResult}/>
             <div className={ModuleCss.searchedTagBox}>
               {searchedTagElements}
             </div>

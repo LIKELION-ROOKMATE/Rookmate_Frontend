@@ -16,67 +16,37 @@ const styles: { [key: string]: React.CSSProperties } = {
     cursor: "pointer",
   },
   searchContainer: {
-    borderRadius: "30px",
+    display:"flex",
+    alignItems:"center",
+    borderRadius: "2rem",
     border: "2px solid #000",
     width: "58rem",
     height: "2.9375rem",
-    marginTop: "1.13rem",
-    marginLeft: "2.06rem",
+    marginLeft:"2rem",
   },
   searchImage: {
     width: "2rem",
     height: "2rem",
-    marginLeft: "1.12rem",
-    marginTop: "0.44rem",
+    margin:"0 1.2rem 0 1.2rem",
+  },
+  inputSearchElement:{ 
+    height:"90%",
+    width:"80%",
+    border:"none",
+    borderRadius:"0 2rem 2rem 0",
+    outline:"none",
+    fontSize:"1.2rem",
   },
   toolBox:{
     display:"flex",
     justifyContent:"center",
-
+    alignContent:"center",
     width:"30rem",
   },
-  portfolioMenu: {
-    fontSize: "1rem",
-    color: "#000",
-    marginTop: "1.95rem",
-    marginLeft: "2.25rem",
-    cursor: "pointer",
+  tool:{
+    margin:"0 1.5rem 0 1.5rem",
+    cursor:"pointer",
   },
-  alertMenu: {
-    fontSize: "1rem",
-    color: "#000",
-    marginTop: "1.88rem",
-    marginLeft: "0.94rem",
-    width: "4.625rem",
-    textAlign: "center",
-    cursor: "pointer",
-  },
-  messageMenu: {
-    fontSize: "1rem",
-    color: "#000",
-    marginTop: "1.88rem",
-    marginLeft: "0.38rem",
-    width: "4.625rem",
-    textAlign: "center",
-    cursor: "pointer",
-  },
-  profileImage: {
-    width: "3rem",
-    height: "3rem",
-    borderRadius: 48,
-    marginTop: "1.06rem",
-    marginLeft: "1.44rem",
-    cursor: "pointer",
-  },
-  loginButton:{
-    fontSize: "1rem",
-    color: "#000",
-    marginTop: "1.88rem",
-    marginLeft: "0.38rem",
-    width: "4.625rem",
-    textAlign: "center",
-    cursor: "pointer",
-  }
 };
 
 const TopBar: React.FC = () => {
@@ -105,13 +75,14 @@ const TopBar: React.FC = () => {
         />
         <div style={styles.searchContainer}>
           <img src={images.search} style={styles.searchImage} alt="검색" />
+          <input style={styles.inputSearchElement} placeholder='Search'/>
         </div>
         <div style={styles.toolBox}>
-          <span style={styles.portfolioMenu} onClick={handlePortfolioClick}>
+          <span style={styles.tool} onClick={handlePortfolioClick}>
             포트폴리오
           </span>
-          <span style={styles.alertMenu}>알림</span>
-          <span style={styles.messageMenu}>쪽지</span>
+          <span style={styles.tool}>알림</span>
+          <span style={styles.tool}>쪽지</span>
           {
             logined && 
             <img
@@ -121,7 +92,7 @@ const TopBar: React.FC = () => {
             />
           }{
             !logined && 
-            <p style={styles.messageMenu} onClick={handleLoginClick}>LOGIN</p>
+            <p style={styles.tool} onClick={handleLoginClick}>LOGIN</p>
           }
         </div>
       </div>
