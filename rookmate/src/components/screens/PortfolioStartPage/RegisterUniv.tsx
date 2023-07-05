@@ -9,27 +9,35 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
   const navigate = useNavigate();
   const [univ, setUniv] = useState('')
   const [major, setMajor] = useState('')
-  const [univimg, setUnivimg] = useState('')
+  const [email, setEmail] =  useState('')
+  const [message, setMessage] = useState('')
 
   //form값 데이터 반영
   const checkuniv = (event:any) => {
-    setUniv(event.target.value)
+    setUniv(event.target.value);
   }
   const checkmajor = (event:any) => {
-    setMajor(event.target.value)
+    setMajor(event.target.value);
   }
-  const checkunivimg = (event:any) => {
-    setUnivimg(event.target.value)
+  const checkemail = (event:any) => {
+    setEmail(event.target.value);
   }
+
 
   //PortfolioMakePage를 넘어가기 위한 조건, 조건만족시 이동
   const GoPortfolioMakePage = () => {
-
-    // if(univ.trim().length === 0 || major.trim().length === 0 || !univimg) {
-    //   return <VerificationUniv/>
-    // } else {
-    //   navigate("/portfolio/make");}
-      navigate("/portfolio/make");}
+    if(univ.trim() === '') {
+      setMessage('대학교를 다시 입력하세요!')
+      return
+    } else if(major.trim()=== '') {
+      setMessage('전공을 다시 입력하세요!')
+      return
+    }
+      
+    
+    
+    
+    navigate("/portfolio/make");}
 
   //Modal close button
   const closeRegisteruniv= (e:React.MouseEvent) => {
@@ -53,6 +61,7 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
           <div>
             <input className='Univ_email' placeholder='  대학교 이메일 :' type="email" />
           </div>
+          {message}
           <div className='Univ_button'>
             <button>완료</button>
           </div>
