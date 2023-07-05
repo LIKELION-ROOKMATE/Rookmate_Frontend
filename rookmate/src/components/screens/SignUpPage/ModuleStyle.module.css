@@ -1,0 +1,20 @@
+.step1UserInfo::placeholder{
+  font-weight: 600;
+  font-size: 0.5rem;
+  text-align: end;
+  color: red;
+}
+
+.step2UserInfo::placeholder {
+  font-weight: 600;
+  font-size: 0.5rem;
+  text-align: end;
+  color: red;
+}
+
+.userInfoEmpty{
+  font-weight: 600;
+  font-size: 0.5rem;
+  text-align: end;
+  color: red;
+}
