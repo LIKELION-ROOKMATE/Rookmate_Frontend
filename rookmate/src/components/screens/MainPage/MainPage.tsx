@@ -4,6 +4,7 @@ import MainPageTag from "./components/MainPageTag";
 import MainPageBody from "./components/MainPageBody";
 
 function MainPage(): React.JSX.Element {
+  const [login, setLogin] = useState<boolean>(false);
   return (
     <div>
       <TopBar/>

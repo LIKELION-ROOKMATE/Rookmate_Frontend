@@ -1,32 +1,14 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../assets/images/images";
+import { useCookies } from "react-cookie";
+import axios from 'axios';
 
 type LoginPageType = {
   setViewLoginModal:any,
 }
 
-interface Styles {
-  loginBackground: React.CSSProperties;
-  loginContainer: React.CSSProperties;
-  loginLayout: React.CSSProperties;
-  imageBorder: React.CSSProperties;
-  loginPart: React.CSSProperties;
-  loginText: React.CSSProperties;
-  findID: React.CSSProperties;
-  findPW: React.CSSProperties;
-  idInputContainer: React.CSSProperties;
-  pwInputContainer: React.CSSProperties;
-  inputText: React.CSSProperties;
-  loginButtonContainer: React.CSSProperties;
-  loginButton: React.CSSProperties;
-  kakaoButton: React.CSSProperties;
-  continueWithKakao: React.CSSProperties;
-  continueWithKakaoText: React.CSSProperties;
-  kakaoIcon: React.CSSProperties;
-  noAccountContainer: React.CSSProperties;
-}
-const styles: Styles = {
+const styles: {[key:string]:React.CSSProperties} = {
   loginBackground:{
     position:"fixed",
     display:"flex",
@@ -108,10 +90,11 @@ const styles: Styles = {
     alignItems: "center",
     width: "14.4rem",
     borderRadius: 10,
-    borderWidth: 1.5,
+    border:"none",
     borderColor: "#000",
     height: "2rem",
     backgroundColor: "#ECECEC",
+    cursor:"pointer",
   },
   noAccountContainer: {
     display: "flex",
@@ -148,6 +131,9 @@ const styles: Styles = {
 
 const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement => {
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+  const emailRef = useRef<any>();
+  const passwordRef = useRef<any>();
   const handleSignUpClick = () => {
     navigate("/signup/1");
   };
@@ -157,7 +143,27 @@ const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement =
       setViewLoginModal((prev:boolean)=>!prev)
     }
   };
-
+  const handleLoginClick = (e:any)=>{
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    axios.post('http://127.0.0.1:8000/users/login/',{
+      email:email,
+      password:password,
+    })
+    .then((res)=>{
+      console.log("login success");
+      const accessToken = res.data.token.access;
+      const refreshToken = res.data.token.refresh;
+      setCookie('accessToken', accessToken, { path: '/' });
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      setViewLoginModal(false);
+    })
+    .catch((err)=>{
+      console.log("fail to login");
+      console.log(err);
+      return false;
+    })
+  }
   return (
     <div style={styles.loginBackground} id='loginBackground' onClick={handleBackgroundClick}>
       <div style={styles.loginContainer}>
@@ -187,6 +193,7 @@ const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement =
                 id="id"
                 placeholder="Email"
                 style={styles.inputText}
+                ref={emailRef}
               />
             </div>
             <div style={styles.pwInputContainer}>
@@ -195,13 +202,14 @@ const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement =
                 id="password"
                 placeholder="Password"
                 style={styles.inputText}
+                ref={passwordRef}
               />
               <div style={styles.loginButtonContainer}>
-                <div style={styles.loginButton}>
+                <button style={styles.loginButton} onClick={handleLoginClick}>
                   <span style={{ fontSize: "0.9rem", cursor: "pointer" }}>
                     로그인
                   </span>
-                </div>
+                </button>
               </div>
             </div>
             <div>
