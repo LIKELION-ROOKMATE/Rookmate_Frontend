@@ -25,7 +25,7 @@ const VerificationModal: React.FC<VerificationModalType> = ({closeModal}) => {
       <div className='modal'>
         <div onClick={closeModaluniv} className='exitbutton_container'>
           <div className='exitbutton'>
-            <p>X</p>
+            <img src={images.cancelButton} alt="cancleButton" />
           </div>
         </div>
         <div className='modal_img_frame'>
