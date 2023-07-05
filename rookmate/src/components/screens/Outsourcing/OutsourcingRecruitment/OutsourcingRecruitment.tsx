@@ -27,7 +27,7 @@ const OutsourcingRecruitment = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmint} className='recruit' action="">
+      <form onSubmit={handleSubmint} className='recruit'>
         <h2>외주 모집하기</h2>
         <div className='r_imgframe'>
           <img src={images.logoResize} alt="RookMate" />
