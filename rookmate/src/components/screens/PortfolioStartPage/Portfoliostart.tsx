@@ -30,7 +30,7 @@ const PortfoliostartPage: React.FC = () => {
 
   return (
     <div>
-      <div style={{width:'90rem', margin: "0 auto"}}>
+      <div>
         <TopBar/>
       </div>
       {onModal && <VerificationModal closeModal={closeModalHandler}/>}

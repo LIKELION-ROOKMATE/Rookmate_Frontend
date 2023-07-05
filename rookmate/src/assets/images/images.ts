@@ -43,6 +43,8 @@ import pfstartimg3 from "../images/pfstartimg3.png";
 import basictemplateimg2 from "../images/basictemplateimg2.png";
 import basictemplateimg3 from "../images/basictemplateimg3.png";
 import basictemplateimg4 from "../images/basictemplateimg4.png";
+import cancelButton from '../images/cancelbutton.png';
+import crownImg from '../images/crownimg.png';
 import outsourcingApply from '../images/outsourcingApply.png';
 
 export const images = {
@@ -88,5 +90,7 @@ export const images = {
   pfstartimg1: pfstartimg1,
   pfstartimg2: pfstartimg2,
   pfstartimg3: pfstartimg3,
+  cancelButton: cancelButton,
+  crownImg: crownImg,
   outsourcingApply:outsourcingApply,
 };
