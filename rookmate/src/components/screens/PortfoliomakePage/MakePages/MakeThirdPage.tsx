@@ -1,9 +1,9 @@
 import React from 'react';
 
-const MakeFirstPage = ()=>{
+const MakeThirdPage = ()=>{
   return(
     <div></div>
   )
 }
 
-export default MakeFirstPage;
+export default MakeThirdPage;

@@ -1,5 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { images } from "../../../../assets/images/images";
+
+type addWorkModalType = {
+  setWorkImageList: (e: any) => void,
+  setModalActive: (e:any) => void,
+}
 
 interface Styles{
   modalContainer:React.CSSProperties,
@@ -56,13 +61,11 @@ const styles:Styles = {
   saveButton:{
     width:"4.5rem",
     height:"1.5rem",
-    
     backgroundColor:"#D9D9D9",
-
     border:"none",
     borderRadius:"1.5rem",
-
     marginLeft:"1rem",
+    cursor:"pointer",
   },
   addWorkContent:{
     display:"flex",
@@ -111,8 +114,9 @@ const styles:Styles = {
   },
 }
 
-const AddWorkModal = ()=>{
+const AddWorkModal:React.FC<addWorkModalType> = ({setWorkImageList, setModalActive,})=>{
   const [selectImage, setSelectImage] = useState(images.addSomething)
+  const selectedImage = useRef<any>(null);
 
   const inputImageEvent = (e:any)=>{
     const imageFile = e.target.files[0];
@@ -126,14 +130,28 @@ const AddWorkModal = ()=>{
     }
   }
 
+  const addWorkImageEvent = (e:any)=>{
+    e.preventDefault();
+    const imageFile = selectedImage.current!.files[0];
+    if(imageFile){
+      const reader = new FileReader();
+      reader.onload = (e:any)=>{
+        const imageFileURL = e.target.result;
+        setWorkImageList((prev:any)=>[...prev, imageFileURL])
+      }
+      reader.readAsDataURL(imageFile)
+      setModalActive(false);
+    }
+  }
+
   return(
     <div style={styles.modalContainer}>
       <p style={{fontSize:"0.75rem", fontWeight:"600", marginTop:"2rem",}}>작업 추가하기</p>
       <p style={{fontSize:"1rem", fontWeight:"600",}}>제목을 입력해주세요.</p>
       <form action="" style={styles.addImage}>
-        <label  htmlFor='workImage'>
+        <label  htmlFor='workImage' style={{cursor:"pointer",}}>
           <img src={selectImage} style={{width:"100%", height:"100%",objectFit: "cover",}} alt='selectedImage'/>
-          <input type="file" id="workImage" style={styles.ImageInput} onInput={inputImageEvent}/>
+          <input type="file" id="workImage" style={styles.ImageInput} onInput={inputImageEvent}  ref={selectedImage}/>
         </label>
       </form>
       <p style={{fontSize:"0.5rem",}}>이미지는 6개까지 추가 가능합니다.</p>
@@ -144,7 +162,7 @@ const AddWorkModal = ()=>{
         </div>
         <div style={styles.tools}>
           <button style={styles.saveButton}>임시저장</button>
-          <button style={styles.saveButton}>완료</button>
+          <button style={styles.saveButton} onClick={addWorkImageEvent}>완료</button>
         </div>
       </div>
       <div style={styles.addWorkContent}>

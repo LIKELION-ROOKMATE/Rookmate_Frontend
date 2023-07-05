@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { images } from "../../../../assets/images/images";
+import moduleCss from "../MainPage.module.css"
+import WorkDetailModal from './WorkDetailModal';
 
 interface Styles {
   mainPageTopAdContainer: React.CSSProperties;
@@ -7,6 +9,9 @@ interface Styles {
   adTextContainer: React.CSSProperties;
   adTextTitle: React.CSSProperties;
   adTextDescription: React.CSSProperties;
+  mainPageImageContainer: React.CSSProperties;
+  mainPageImageItem: React.CSSProperties;
+  mainPageImage: React.CSSProperties;
 }
 
 const styles: Styles = {
@@ -18,9 +23,13 @@ const styles: Styles = {
     height: 221,
   },
   adTextContainer: {
+    display:"flex",
+    flexDirection:"column",
+    gap:"1rem",
     position: "absolute",
     top: "50%",
-    left: "65%",
+    left: "70%",
+    width:"40%",
     transform: "translate(-50%, -50%)",
   },
   adTextTitle: {
@@ -33,10 +42,101 @@ const styles: Styles = {
     fontSize: "1.125rem",
     fontWeight: "500",
   },
+  mainPageImageContainer:{
+    width:"90%",
+    margin:"1rem auto",
+    padding:"0",
+    boxSizing:"border-box",
+    columns:"5",
+  },
+  mainPageImageItem:{
+    flex:"1 1 250px",
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+  },
+  mainPageImage:{
+    width:"100%",
+  },
 };
+
+const ImageList = [
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+  images.mainPageExampleImage,
+  images.Outsourcingimg,
+  images.pfstartimg1,
+  images.pfstartimg2,
+  images.pfstartimg3,
+]
+
 const MainPageBody: React.FC = () => {
+  const [loadedImage, setLoadedImage] = useState<JSX.Element[]>([]);
+  const [imageFilter, setImageFilter] = useState<string>("all")
+  const [workModalVisible, setWorkModalVisible] = useState<boolean>(false);
+  const [modalImageList, setModalImageList] = useState<any[]>([]);
+
+  const showModalEvent = (e:any)=>{
+    setModalImageList(()=>[e.target.src]);
+    setWorkModalVisible((prev)=>!prev);
+    console.log(workModalVisible);
+  }
+
+  //이미지 목록을 loadedImage에 JSX 형식으로 저장
+  useEffect(()=>{
+    const updatedLoadedImage:JSX.Element[] = []
+    for(let ele in ImageList){
+      const fileUrl = ImageList[ele]
+      updatedLoadedImage.push(
+        <div className={moduleCss.mainPageImageItem} onClick={showModalEvent}>
+          <img src={fileUrl} alt="예시이미지" className={moduleCss.mainPageImage}/>
+        </div>
+      )
+    }
+    setLoadedImage((prev)=>[...prev, ...updatedLoadedImage])
+  }, [ImageList])
+  //이미지 표시 기준을 변경
+  const changeImageFilterStandard = (e:any) =>{
+    const text = e.target.innerText;
+    if(imageFilter===text){
+      return;
+    }else if(text==="all"){
+      setImageFilter((prev)=>"all")
+    }else if(text==="outsourcing"){
+      setImageFilter((prev)=>"outsourcing")
+    }
+  }
+
   return (
     <div>
+      <WorkDetailModal
+        visible={workModalVisible}
+        setWorkModalVisible={setWorkModalVisible}
+        modalImageList={modalImageList}
+      />
       <div style={styles.mainPageTopAdContainer}>
         <img
           src={images.mainPageTopAdImage}
@@ -51,14 +151,16 @@ const MainPageBody: React.FC = () => {
           </p>
         </div>
       </div>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: "90rem",
-        }}
-      >
-        <img src={images.mainPageExampleImage} alt="예시이미지" />
+      <div className={moduleCss.filterContainer}>
+        <button className={moduleCss.filter} onClick={changeImageFilterStandard}
+          style={imageFilter==="all"?{color:"#000"}:{color:"#9C9C9C"}}
+        >all</button>
+        <button className={moduleCss.filter} onClick={changeImageFilterStandard}
+          style={imageFilter==="outsourcing"?{color:"#000"}:{color:"#9C9C9C"}}
+        >outsourcing</button>
+      </div>
+      <div className={moduleCss.mainPageImageContainer}>
+        {loadedImage}
       </div>
     </div>
   );

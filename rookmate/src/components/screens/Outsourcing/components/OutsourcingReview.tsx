@@ -17,10 +17,6 @@ interface Styles{
   reviewImage:React.CSSProperties,
   reviewTools:React.CSSProperties,
   workOptions:React.CSSProperties,
-  authorCommentBox:React.CSSProperties,
-  authorCommentContent:React.CSSProperties,
-  authorInfo:React.CSSProperties,
-  authorComment:React.CSSProperties,
 }
 
 const styles:Styles = {
@@ -83,7 +79,6 @@ const styles:Styles = {
   reviewTools:{
     display:"flex",
     flexDirection:"column",
-    justifyContent:"end",
     alignItems:"end",
 
     width:"45%",
@@ -97,41 +92,6 @@ const styles:Styles = {
     fontSize: "0.875rem",
     color:"#373737",
   },
-  authorCommentBox:{
-    display:"flex",
-    flexDirection:"column",
-    alignItems:"end",
-    width:"100%",
-  },
-  authorInfo:{
-    display:"flex",
-
-    position:"relative",
-    right:"40%",
-    top:"20%",
-
-    zIndex:"3",
-  },
-  authorComment:{
-    width:"80%",
-    height:"4.3rem",
-
-    borderRadius:"20px",
-    border:"1px solid #000",
-
-    lineHeight:"4rem",
-
-    fontSize:"0.6rem",
-  },
-  authorCommentContent:{
-    position:"relative",
-    left: "5%",
-    top:"15%",
-
-    border:"none",
-    
-    fontSize:"0.6rem",
-  },
   divisor:{
     width: "100%",
     height: "3px",
@@ -144,21 +104,21 @@ const data:any = {
     id: "userId1",
     content: "content1",
     score: 5,
-    profileImage: images.github,
+    profileImage: images.profile,
     reviewImage: images.mainPageTopAdImage,
   },
   user2:{
     id: "userId2",
     content: "content2",
     score: 4,
-    profileImage: images.github,
+    profileImage: images.profile,
     reviewImage: images.mainPageTopAdImage,
   },
   user3:{
     id: "userId3",
     content: "content3",
     score: 3,
-    profileImage: images.github,
+    profileImage: images.profile,
     reviewImage: images.mainPageTopAdImage,
   }
 }
@@ -196,15 +156,6 @@ const OutsourcingReview = ()=>{
             <p style={styles.workOptions}>원본 파일 제공해요</p>
             <p style={styles.workOptions}>상업적 이용 가능해요</p>
             <p style={styles.workOptions}>2차 가공 가능해요</p>
-            <div style={styles.authorCommentBox}>
-              <div style={styles.authorInfo}>
-                <img src={images.github} style={{width:"3rem", height:"3rem", borderRadius:"48px",}}/>
-                <p>{e}({userData.id})</p>
-              </div>
-              <div style={styles.authorComment}>
-                <input style={styles.authorCommentContent} placeholder='작업가의 답장'/>
-              </div>
-            </div>
           </div>
         </div>
         <div style={styles.divisor}/>

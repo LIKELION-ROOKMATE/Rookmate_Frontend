@@ -1,6 +1,4 @@
-import React, { 
-  // useState, useEffect 
-} from "react";
+import React, { useState } from "react";
 import { images } from "../../../../assets/images/images";
 
 type PortfolioEditProfileType = {
@@ -19,6 +17,7 @@ type PortfolioEditProfileType = {
     },
     stacks:any,
   }
+  setProfileImage:any,
 }
 
 interface Styles{
@@ -35,13 +34,12 @@ interface Styles{
   snsImage:React.CSSProperties,
   snsId:React.CSSProperties,
 }
-
 const styles:Styles = {
   displayNone: {
     display: "none",
   },
   profile:{
-    width: "23%",
+    width: "22rem",
     height: "100%",
 
     padding: "0 0 0 2rem",
@@ -88,7 +86,7 @@ const styles:Styles = {
   snsList:{
     display: "flex",
     flexWrap: "wrap",
-    flexDirection: "row",
+    flexDirection: "column",
     rowGap: "1.2rem",
 
     width: "100%",
@@ -110,15 +108,31 @@ const styles:Styles = {
     display: "flex",
     alignItems: "end",
 
-    fontSize: "0.5rem",
+    fontSize: "0.75rem",
+    paddingLeft:"1rem",
   },
 };
 
-const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props})=>{
+const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props, setProfileImage})=>{
+  const changeProfileImageEvent = (e:any) =>{
+    const inputFile = e.target.files[0];
+    if(inputFile){
+      const reader = new FileReader();
+      reader.onload = (e:any) =>{
+        const inputFileURL = e.target.result;
+        setProfileImage(inputFileURL)
+      }
+      reader.readAsDataURL(inputFile)
+    }
+  }
+
   return(
     <div style={styles.profile}>
       <p style={styles.title}>프로필</p>
-      <img src={props.profileImage} alt='profileImage' style={styles.profileImage}/>
+      <label htmlFor='profileImage' style={{cursor:"pointer"}}>
+        <input type="file" onChange={changeProfileImageEvent} id='profileImage' style={{display:"none"}}/>
+        <img src={props.profileImage} alt='profileImage' style={styles.profileImage}/>
+      </label>
 
       <div style={styles.userInfo}>
         <p>Name : {props.name}</p>
@@ -141,19 +155,19 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props})=>{
         <div style={styles.snsList}>
           <div style={styles.snsElement}>
             <img src={images.kakao} alt='kakao'/>
-            <p style={styles.snsId}>ID</p>
+            <input style={styles.snsId} placeholder='id : '/>
           </div>
           <div style={styles.snsElement}>
             <img src={images.instagram} alt='instagram'/>
-            <p style={styles.snsId}>ID</p>
+            <input style={styles.snsId} placeholder='id : '/>
           </div>
           <div style={styles.snsElement}>
             <img src={images.github} alt='github'/>
-            <p style={styles.snsId}>ID</p>
+            <input style={styles.snsId} placeholder='id : '/>
           </div>
           <div style={styles.snsElement}>
             <img src={images.facebook} alt='facebook'/>
-            <p style={styles.snsId}>ID</p>
+            <input style={styles.snsId} placeholder='id : '/>
           </div>
         </div>
       </div>
