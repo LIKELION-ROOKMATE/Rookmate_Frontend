@@ -131,7 +131,7 @@ const styles: {[key:string]:React.CSSProperties} = {
 
 const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken", "userId", "refreshToken"]);
   const emailRef = useRef<any>();
   const passwordRef = useRef<any>();
   const handleSignUpClick = () => {
@@ -152,9 +152,12 @@ const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement =
     })
     .then((res)=>{
       console.log("login success");
+      const userId = res.data.user.uuid;
       const accessToken = res.data.token.access;
       const refreshToken = res.data.token.refresh;
       setCookie('accessToken', accessToken, { path: '/' });
+      setCookie('userId', userId, {path:'/'});
+      console.log(userId);
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       setViewLoginModal(false);
     })

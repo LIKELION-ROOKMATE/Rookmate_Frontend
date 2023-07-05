@@ -66,22 +66,25 @@ const SignUp = ()=>{
   const [pwd1Ph, setPwd1Ph] = useState('필수정보');
   const [pwd2Ph, setPwd2Ph] = useState('필수정보');
 
-  const registerUserEvent = (e:any)=>{
+  const registerUserEvent = async (e:any) => {
     e.preventDefault();
     const email = emailData.current.value as string;
     const pwd1 = password1.current.value as string;
     const pwd2 = password2.current.value as string;
     if(!email || !pwd1 || !pwd2){
       return false;
-    }if(pwd1!=pwd2){
+    }if(pwd1!== pwd2){
       password2.current.value = "";
       setPwd2Ph((prev)=>"입력하신 정보가 일치하지 않습니다.")
       return false;
     }
-    navigate("/signup/2", {state:{
-      email:email,
-      password:pwd1
-    }});
+
+    navigate('/signup/2', {
+      state: {
+        email: email,
+        password: pwd1,
+      },
+    })
   }
 
   return(

@@ -3,6 +3,7 @@ import {images} from '../../../assets/images/images';
 import TopBar from '../../TopBar';
 import moduleStyle from './ModuleStyle.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from "react-cookie";
 import axios from 'axios';
 
 interface Styles{
@@ -248,8 +249,7 @@ const SignUp = ()=>{
   const locaition = useLocation();
   const passedEmail = locaition.state.email as string;
   const passedPassword = locaition.state.password as string;
-  let userId:number;
-
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"]);
   // 관심 분야 선택 관련 state
   const [optionElement, setOptionElement] = useState<JSX.Element[]>([]);
   const [optionListVisible, setOptionListVisible] = useState<boolean>(false);
@@ -260,9 +260,6 @@ const SignUp = ()=>{
   const [jobElement, setjobElement] = useState<JSX.Element[]>([]);
   const [jobListVisible, setJobListVisible] = useState<boolean>(false);
   const [checkedJob, setCheckedJob] = useState<string>("")
-
-  // 대학교 인증 이미지 관련 state
-  const [selectImage, setSelectImage] = useState(undefined);
 
   // 입력값 유효성 검사용 ref, state
   const nameRef = useRef<any>(null)
@@ -368,26 +365,6 @@ const SignUp = ()=>{
     setjobElement(tmpJobElement);
   }, [jobListVisible, checkedJob]);
 
-  //사용자의 id값을 받아오는 effect
-  useEffect(()=>{
-    console.log(passedEmail)
-    console.log(passedPassword)
-    axios.get("http://127.0.0.1:8000/users/")
-    .then((res)=>{
-      const allUserData = res.data;
-      for(let index in allUserData){
-        const userData = allUserData[index];
-        if(userData.email == passedEmail){
-          userId = userData.id;
-          break;
-        }
-      }
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-  },[])
-
   const patchUserDetailInfo = (e:any)=>{
     e.preventDefault()
     const name = nameRef.current.value;
@@ -426,14 +403,18 @@ const SignUp = ()=>{
       password:passedPassword
     })
     .then((res)=>{
-      console.log(res.data);
+      const userId = res.data.user.uuid;
+      const accessToken = res.data.token.access;
+      const refreshToken = res.data.token.refresh;
+      setCookie('accessToken', accessToken, { path: '/' });
+      setCookie('userId', userId, {path:'/'});
     }).catch((err)=>{
       console.log("signup fail : ")
       console.log(err);
       return false;
     })
     // 사용자 필수정보/추가정보 보내기
-    axios.patch(`http://127.0.0.1:8000/users/${userId}/`,detailData)
+    axios.patch(`http://127.0.0.1:8000/users/${cookies.userId}/`,detailData)
     .then((res)=>{
       console.log(res);
     }).catch((err)=>{

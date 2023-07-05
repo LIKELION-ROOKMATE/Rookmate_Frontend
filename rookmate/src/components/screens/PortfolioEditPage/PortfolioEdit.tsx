@@ -6,6 +6,7 @@ import PortfolioEditTimeline from './components/portfolioEditTimeline';
 import PortfolioEditProfile from './components/portfolioEditProfile';
 import PortfolioEditContent from './components/portfolioEditContent';
 import AddWorkModal from './components/addWorkModal';
+import { useCookies } from 'react-cookie';
 import axios from 'axios';
 
 interface Styles{
@@ -75,6 +76,8 @@ const PortfolioEdit: React.FC = () => {
   const [departure, setDeparture] = useState("소프트웨어학부");
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
   const [mainImage, setMainImage] = useState(images.portfolioMainImage)
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken"])
+
   //기술 스택 관련 state
   const [stacks, setStack] = useState([]);
   //요소들의 표시 여부를 나타내는 state
@@ -129,18 +132,6 @@ const PortfolioEdit: React.FC = () => {
       setModalActive(false)
     }
   }
-
-  // axios에 필요한 데이터들 받아오기
-  useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/portfolios/')
-    .then((res)=>{
-      console.log(res.data)
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }, [])
-
   return (
     <form style={styles.page}>
       <TopBar />

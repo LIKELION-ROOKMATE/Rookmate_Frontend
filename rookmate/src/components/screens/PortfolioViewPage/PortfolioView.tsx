@@ -9,6 +9,7 @@ import PortfolioViewReview from './components/portfolioViewReview';
 //import StartOutsourcingModal from './components/startOutsourcingModal';
 import VerificationModal from '../PortfolioStartPage/VerificationModal';
 import axios from 'axios';
+import { useCookies } from "react-cookie";
 
 const styles:{[key:string]:React.CSSProperties} = {
   displayNone: {
@@ -165,9 +166,10 @@ const PortfolioView: React.FC = () => {
   //현재 페이지 정보
   const [userId, setUserId] = useState(1);
   const [portfolioId, setPortfolioId] = useState(1);
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
   //사용자 기본 정보 관련 state
   const [name, setName] = useState("undefined");
-  const [age, setAge] = useState("undefined");
+  const [age, setAge] = useState<number>(0);
   const [collage, setCollage] = useState("undefined");
   const [departure, setDeparture] = useState("undefined");
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
@@ -193,7 +195,15 @@ const PortfolioView: React.FC = () => {
     axios.get(`http://127.0.0.1:8000/users/${userId}/`)
     .then((res)=>{
       const userData = res.data;
-      console.log(userData);
+      console.log(userData)
+      if(userData.name) setName(()=>userData.name);
+      if(userData.birth_date){
+        const current = new Date().getFullYear() as number;
+        const birth = new Date(userData.birth_date).getFullYear() as number;
+        setAge(()=>(current-birth + 1));
+      }
+      if(userData.univ) setCollage(()=>userData.univ);
+      if(userData.major) setDeparture(()=>userData.major);
     })
     .catch((err)=>{
       console.log(err);
