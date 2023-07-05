@@ -45,6 +45,7 @@ import basictemplateimg3 from "../images/basictemplateimg3.png";
 import basictemplateimg4 from "../images/basictemplateimg4.png";
 import cancelButton from '../images/cancelbutton.png';
 import crownImg from '../images/crownimg.png';
+import outsourcingApply from '../images/outsourcingApply.png';
 
 export const images = {
   deleteTag: deleteTag,
@@ -91,4 +92,5 @@ export const images = {
   pfstartimg3: pfstartimg3,
   cancelButton: cancelButton,
   crownImg: crownImg,
+  outsourcingApply:outsourcingApply,
 };

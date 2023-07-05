@@ -1,6 +1,4 @@
-  import React, { 
-    // useState, useEffect
-   } from "react";
+  import React, { useState } from "react";
   import { images } from "../../../../assets/images/images";
 
   type PortfolioViewTimelineType = {
@@ -11,6 +9,8 @@
       sns: boolean,
       competition: boolean,
     },
+    mainImage:any,
+    setMainImage:any,
   }
 
   interface Styles{
@@ -22,6 +22,7 @@
     timeline:React.CSSProperties,
     timelineElement:React.CSSProperties,
     point:React.CSSProperties,
+    titleContent:React.CSSProperties,
     title:React.CSSProperties,
     content:React.CSSProperties,
   }
@@ -37,21 +38,26 @@
       width: "100%",
       maxWidth: "95rem",
       height: "19%",
+      minHeight:"12rem",
     },
     mainImg:{
       opacity: "0.3",
-
       width: "100%",
-      height: "100%",
+      height: "12rem",
     },
     editButtonBox:{
       display: "flex",
       gap: "0.6rem",
       position: "absolute",
-      left: "90%",
-      bottom: "10%",
+      left: "80%",
+      bottom: "75%",
+      zIndex:"2",
     },
     editButton:{
+      display:"flex",
+      alignItems:"center",
+      justifyContent:"center",
+
       width: "8.5rem",
       height: "2rem",
 
@@ -93,7 +99,7 @@
       flexGrow: "1",
 
       position:"relative",
-      top: "1.3rem",
+      top: "1.8rem",
 
       //height: "50%",
 
@@ -113,35 +119,74 @@
 
       color: "#ffffff",
     },
+    titleContent:{
+      display:"flex",
+      flexDirection:"column",
+      rowGap:"0.6rem",
+    },
     title:{
-    color: "#ffffff",
+      color: "#000",
+      textAlign:"center",
     },
     content:{
-    color: "#ffffff",
+      color: "#000",
+      textAlign:"center",
     }
   };
 
-  const PortfolioViewTimeline:React.FC<PortfolioViewTimelineType> = ({viewList})=>{
+  const PortfolioViewTimeline:React.FC<PortfolioViewTimelineType> = ({viewList, mainImage, setMainImage})=>{
 
+    const [timelineElement, setTimelineElement] = useState<JSX.Element[]>([
+      <div style={styles.timelineElement}>
+        <div style={styles.point}></div>
+        <div style={styles.titleContent}>
+          <input style={styles.title} placeholder='제목'/>
+          <input style={styles.content} placeholder='내용 : 최대 20자'/>
+        </div>
+      </div>
+    ])
+
+    const timelineAddEvent = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
+      e.preventDefault();
+      setTimelineElement((prev:any) =>[ ...prev, 
+        <div style={styles.timelineElement}>
+          <div style={styles.point}></div>
+          <div style={styles.titleContent}>
+            <input style={styles.title} placeholder='제목'/>
+            <input style={styles.content} placeholder='내용 : 최대 20자'/>
+          </div>
+        </div>
+      ])
+    }
+
+    const addMainImageEvent = (e:any)=>{
+      const imageFile = e.target.files[0];
+      if(imageFile){
+        const reader = new FileReader()
+        reader.onload = (e:any)=>{
+          const imageFileURL = e.target.result;
+          setMainImage(imageFileURL)
+        }
+        reader.readAsDataURL(imageFile)
+      }
+    }
+    
     return(
       <div>
         <div style={styles.imgTimelineBox}>
           <img
-            src={images.portfolioMainImage}
+            src={mainImage}
             alt="main-img"
             style={styles.mainImg}
           />
           <div style={styles.editButtonBox}>
-            <button style={styles.editButton}>대표이미지 설정</button>
+            <input type='file' style={{display:"none",}} id="mainImage" onChange={addMainImageEvent}/>
+            <label style={styles.editButton} htmlFor='mainImage'>대표이미지 설정</label>
+            <button style={styles.editButton} onClick={timelineAddEvent}>타임라인 추가</button>
           </div>
           <div style={viewList.timeline ? styles.timeline : styles.displayNone}>
-            <div style={styles.timelineElement}>
-              <div style={styles.point}></div>
-              <p style={styles.title}>rookmate</p>
-              <p style={styles.content}>기록을 적어주세요. 최대 20자</p>
-            </div>
+            {timelineElement}
           </div>
-          
         </div>
       </div>
     )

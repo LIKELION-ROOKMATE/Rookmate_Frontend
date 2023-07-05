@@ -33,14 +33,15 @@ const styles: Styles = {
     position: "relative",
     backgroundColor: "#000000",
 
-    width: "100%",
-    maxWidth: "95rem",
+    width: "100vw",
+    maxWidth: "100rem",
     height: "19%",
+    minHeight:"10rem",
   },
   mainImg: {
     opacity: "0.3",
 
-    width: "100%",
+    width: "100vw",
     height: "100%",
   },
   editButtonBox: {

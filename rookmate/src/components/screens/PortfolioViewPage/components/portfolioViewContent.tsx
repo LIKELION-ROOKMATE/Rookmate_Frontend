@@ -31,7 +31,6 @@ interface Styles{
 const styles:Styles = {
   contentPage:{
     width: "100%",
-    fontFamily: 'TheJamsil5Bold',
   },
   workList:{
     display: "flex",
@@ -41,21 +40,19 @@ const styles:Styles = {
     height: "66.7%",
   },
   addSomething:{
-    width: "19rem",
-    height: "19rem",
+    width: "30%",
+    height: "30%",
   },
   outsourcingManageButton:{
     position: "fixed",
     bottom: "5%",
     left: "93%",
-
     zIndex: "3",
-
     width: "5.1rem",
     height: "5.1rem",
-
-    backgroundColor: "white",
+    backgroundColor: "#7FA3C5",
     border: "none",
+    borderRadius:"100rem",
   },
 };
 
@@ -73,7 +70,8 @@ const PortfolioViewContent:React.FC<PortfolioViewContentType> = ({props, checkVi
         <img src={images.addSomething} style={styles.addSomething} alt='addSomething'/>
       </div>
       <button style={styles.outsourcingManageButton} onClick={manageOutsourcingEvent}>
-        <img src={images.outsourcingManage} style={{width:"100%", height:"100%",}} alt='outsourcingManageButton'/>
+        <img src={images.outsourcingManage} style={{width:"40%", height:"40%",}}/>
+        <p style={{fontSize:"0.5rem", color:"#fff",}}>외주관리하기</p>
       </button>
     </div>
   )
