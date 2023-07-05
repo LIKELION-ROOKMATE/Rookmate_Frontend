@@ -64,9 +64,8 @@ const styles:Styles = {
     borderRadius: "10px",
   },
   page:{
-    width: "100%",
-    maxWidth: "95rem",
-    fontFamily: 'TheJamsil5Bold',
+    width: "100vw",
+    maxWidth: "100rem",
   },
   modalBackground:{
     display:"flex",
@@ -86,13 +85,14 @@ const styles:Styles = {
     display: "flex",
     flexDirection: "row",
 
-    width: "100%",
+    width:"100vw",
+    maxWidth:"100rem",
     height: "73.8%",
   },
   portfolioDetailLeft:{
     paddingLeft: "6.5%",
     boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
-    width: "70%",
+    width: "77%",
   },
   portfolioDetailLeftMenu:{
     display: "flex",
@@ -110,7 +110,6 @@ const styles:Styles = {
     backgroundColor:"#fff",
 
     fontSize: "1rem",
-    fontFamily: "Inter",
     fontWeight: "600",
     cursor:"pointer",
   }

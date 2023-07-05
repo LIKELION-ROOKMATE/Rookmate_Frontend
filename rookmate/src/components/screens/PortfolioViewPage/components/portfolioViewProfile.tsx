@@ -39,7 +39,8 @@ const styles:Styles = {
     display: "none",
   },
   profile:{
-    width: "23%",
+    width:"23rem",
+    //width: "23%",
     height: "100%",
     padding: "0 0 0 2rem",
     fontSize: "0.87rem",
@@ -102,48 +103,48 @@ const styles:Styles = {
 const PortfolioViewProfile:React.FC<PortfolioViewProfileType> = ({props})=>{
   return(
     <div style={styles.profile}>
-          <p style={styles.title}>프로필</p>
-          <img src={props.profileImage} alt='profileImage' style={styles.profileImage}/>
+      <p style={styles.title}>프로필</p>
+      <img src={props.profileImage} alt='profileImage' style={styles.profileImage}/>
 
-          <div style={styles.userInfo}>
-            <p>Name : {props.name}</p>
-            <p>Age : {props.age}</p>
-            <p>Collage : {props.collage}</p>
-            <p>Departure : {props.departure}</p>
-          </div>
-          <div style={styles.divisorLine}></div>
+      <div style={styles.userInfo}>
+        <p>Name : {props.name}</p>
+        <p>Age : {props.age}</p>
+        <p>Collage : {props.collage}</p>
+        <p>Departure : {props.departure}</p>
+      </div>
+      <div style={styles.divisorLine}></div>
 
-          <div
-            style={props.viewList.stack ? {} : styles.displayNone}
-          >
-            <p style={styles.title}>스택</p>
-            {props.stacks}
-          </div>
-          <div style={styles.divisorLine}></div>
+      <div
+        style={props.viewList.stack ? {} : styles.displayNone}
+      >
+        <p style={styles.title}>스택</p>
+        {props.stacks}
+      </div>
+      <div style={styles.divisorLine}></div>
 
-          <div style={props.viewList.sns?styles.sns:styles.displayNone}>
-            <div style={styles.title}>SNS</div>
-            <div style={styles.snsList}>
-              <div style={styles.snsElement}>
-                <img src={images.kakao} alt='kakao'/>
-                <p style={styles.snsId}>ID</p>
-              </div>
-              <div style={styles.snsElement}>
-                <img src={images.instagram} alt='instagram'/>
-                <p style={styles.snsId}>ID</p>
-              </div>
-              <div style={styles.snsElement}>
-                <img src={images.github} alt='github'/>
-                <p style={styles.snsId}>ID</p>
-              </div>
-              <div style={styles.snsElement}>
-                <img src={images.facebook} alt='facebook'/>
-                <p style={styles.snsId}>ID</p>
-              </div>
-            </div>
+      <div style={props.viewList.sns?styles.sns:styles.displayNone}>
+        <div style={styles.title}>SNS</div>
+        <div style={styles.snsList}>
+          <div style={styles.snsElement}>
+            <img src={images.kakao} alt='kakao'/>
+            <p style={styles.snsId}>ID</p>
           </div>
-          <div style={styles.divisorLine}></div>
+          <div style={styles.snsElement}>
+            <img src={images.instagram} alt='instagram'/>
+            <p style={styles.snsId}>ID</p>
+          </div>
+          <div style={styles.snsElement}>
+            <img src={images.github} alt='github'/>
+            <p style={styles.snsId}>ID</p>
+          </div>
+          <div style={styles.snsElement}>
+            <img src={images.facebook} alt='facebook'/>
+            <p style={styles.snsId}>ID</p>
+          </div>
         </div>
+      </div>
+      <div style={styles.divisorLine}></div>
+    </div>
   )
 }
 

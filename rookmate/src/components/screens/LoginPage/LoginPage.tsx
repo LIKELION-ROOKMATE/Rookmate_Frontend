@@ -1,7 +1,13 @@
 import React, { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../assets/images/images";
+
+type LoginPageType = {
+  setViewLoginModal:any,
+}
+
 interface Styles {
+  loginBackground: React.CSSProperties;
   loginContainer: React.CSSProperties;
   loginLayout: React.CSSProperties;
   imageBorder: React.CSSProperties;
@@ -20,13 +26,21 @@ interface Styles {
   kakaoIcon: React.CSSProperties;
   noAccountContainer: React.CSSProperties;
 }
-
 const styles: Styles = {
+  loginBackground:{
+    position:"fixed",
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    width:"100vw",
+    height:"100vh",
+    backgroundColor:"rgba(0,0,0,0.5)",
+    zIndex:"2",
+  },
   loginContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh",
   },
   loginLayout: {
     display: "flex",
@@ -45,6 +59,7 @@ const styles: Styles = {
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.25)",
+    backgroundColor:"#fff",
   },
   loginText: {
     display: "flex",
@@ -131,82 +146,91 @@ const styles: Styles = {
   },
 };
 
-const LoginPage: React.FC = (): ReactElement => {
+const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement => {
   const navigate = useNavigate();
   const handleSignUpClick = () => {
     navigate("/signup/1");
   };
+  const handleBackgroundClick = (e:any)=>{
+    const id = e.target.id;
+    if(id=='loginBackground'){
+      setViewLoginModal((prev:boolean)=>!prev)
+    }
+  };
+
   return (
-    <div style={styles.loginContainer}>
-      <div style={styles.loginLayout}>
-        <img
-          src={images.loginImage}
-          style={styles.imageBorder}
-          alt="회원가입 사진"
-        />
-        <div style={styles.loginPart}>
+    <div style={styles.loginBackground} id='loginBackground' onClick={handleBackgroundClick}>
+      <div style={styles.loginContainer}>
+        <div style={styles.loginLayout}>
           <img
-            src={images.logoResize}
-            alt="로고 사진"
-            style={{
-              width: "9.2rem",
-              height: "10.2rem",
-              paddingBottom: "2rem",
-            }}
+            src={images.loginImage}
+            style={styles.imageBorder}
+            alt="회원가입 사진"
           />
-          <div style={styles.loginText}>
-            <h6 style={styles.findID}>아이디 찾기</h6>
-            <h6 style={styles.findPW}>비밀번호 찾기</h6>
-          </div>
-          <div style={styles.idInputContainer}>
-            <input
-              type="text"
-              id="id"
-              placeholder="Email"
-              style={styles.inputText}
+          <div style={styles.loginPart}>
+            <img
+              src={images.logoResize}
+              alt="로고 사진"
+              style={{
+                width: "9.2rem",
+                height: "10.2rem",
+                paddingBottom: "2rem",
+              }}
             />
-          </div>
-          <div style={styles.pwInputContainer}>
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              style={styles.inputText}
-            />
-            <div style={styles.loginButtonContainer}>
-              <div style={styles.loginButton}>
-                <span style={{ fontSize: "0.9rem", cursor: "pointer" }}>
-                  로그인
-                </span>
+            <div style={styles.loginText}>
+              <h6 style={styles.findID}>아이디 찾기</h6>
+              <h6 style={styles.findPW}>비밀번호 찾기</h6>
+            </div>
+            <div style={styles.idInputContainer}>
+              <input
+                type="text"
+                id="id"
+                placeholder="Email"
+                style={styles.inputText}
+              />
+            </div>
+            <div style={styles.pwInputContainer}>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                style={styles.inputText}
+              />
+              <div style={styles.loginButtonContainer}>
+                <div style={styles.loginButton}>
+                  <span style={{ fontSize: "0.9rem", cursor: "pointer" }}>
+                    로그인
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div style={styles.noAccountContainer}>
-              <span style={{ color: "gray", fontSize: "0.7rem" }}>
-                아직 계정이 없다면?
-              </span>
-              <span
-                style={{
-                  marginLeft: "0.35rem",
-                  fontSize: "0.7rem",
-                  cursor: "pointer",
-                }}
-                onClick={handleSignUpClick}
-              >
-                회원가입 {">"}
-              </span>
-            </div>
-            <div style={styles.kakaoButton}>
-              <div style={styles.continueWithKakao}>
-                <img
-                  src={images.kakaoIcon}
-                  alt="카카오 로고"
-                  style={styles.kakaoIcon}
-                />
-                <span style={styles.continueWithKakaoText}>
-                  카카오로 계속하기
+            <div>
+              <div style={styles.noAccountContainer}>
+                <span style={{ color: "gray", fontSize: "0.7rem" }}>
+                  아직 계정이 없다면?
                 </span>
+                <span
+                  style={{
+                    marginLeft: "0.35rem",
+                    fontSize: "0.7rem",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleSignUpClick}
+                >
+                  회원가입 {">"}
+                </span>
+              </div>
+              <div style={styles.kakaoButton}>
+                <div style={styles.continueWithKakao}>
+                  <img
+                    src={images.kakaoIcon}
+                    alt="카카오 로고"
+                    style={styles.kakaoIcon}
+                  />
+                  <span style={styles.continueWithKakaoText}>
+                    카카오로 계속하기
+                  </span>
+                </div>
               </div>
             </div>
           </div>
