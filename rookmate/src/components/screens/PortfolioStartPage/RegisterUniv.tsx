@@ -42,11 +42,17 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
         major:major,
         univ_email:email
       }).then((res)=>{
-        console.log(res)
+        const userId = res.data.user.uuid;
+        const accessToken = res.data.token.access;
+        const refreshToken = res.data.token.refresh;
+        setCookie('accessToken', accessToken, { path: '/' });
+        setCookie('userId', userId, {path:'/'});
+        console.log(userId);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        return(navigate("/portfolio/make"))
+      }).catch((err)=>{
+        console.log(err)
       })
-
-
-      return(navigate("/portfolio/make"))
     }}
 
   //Modal close button
