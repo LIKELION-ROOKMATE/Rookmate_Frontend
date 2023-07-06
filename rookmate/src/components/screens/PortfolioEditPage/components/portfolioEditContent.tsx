@@ -7,10 +7,6 @@ import { images } from "../../../../assets/images/images";
 type PortfolioEditContentType = {
   props:{
     profileImage:string,
-    name:string,
-    age:number,
-    collage:string,
-    departure:string,
     viewList:{
       stack: boolean,
       timeline: boolean,

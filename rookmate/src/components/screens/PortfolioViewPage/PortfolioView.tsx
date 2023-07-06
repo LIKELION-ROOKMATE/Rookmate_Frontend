@@ -164,9 +164,8 @@ const userReview = {
 
 const PortfolioView: React.FC = () => {
   //현재 페이지 정보
-  const [userId, setUserId] = useState(1);
   const [portfolioId, setPortfolioId] = useState(1);
-  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"])
   //사용자 기본 정보 관련 state
   const [name, setName] = useState("undefined");
   const [age, setAge] = useState<number>(0);
@@ -192,7 +191,7 @@ const PortfolioView: React.FC = () => {
   })
   // 서버에서 사용자 기본 정보를 받아와서 반영하는 effect
   useEffect(()=>{
-    axios.get(`http://127.0.0.1:8000/users/${userId}/`)
+    axios.get(`http://127.0.0.1:8000/users/${cookies.userId}/`)
     .then((res)=>{
       const userData = res.data;
       console.log(userData)

@@ -17,6 +17,7 @@ type PortfolioEditProfileType = {
     },
     stacks:any,
     setInputStack:any,
+    setSnsId:any,
   }
   setProfileImage:any,
 }
@@ -113,6 +114,13 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props, setProf
     }
   }
 
+  const handleSnsId = (e:any)=>{
+    const target = e.target;
+    const id = target.id;
+    const value = target.value;
+    props.setSnsId((prev:any)=>({...prev, [id]:value}))
+  }
+
   return(
     <div style={styles.profile}>
       <p style={styles.title}>프로필</p>
@@ -142,15 +150,15 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props, setProf
         <div style={styles.snsList}>
           <div style={styles.snsElement}>
             <img src={images.instagram} alt='instagram'/>
-            <input style={styles.snsId} placeholder='id : '/>
+            <input style={styles.snsId} placeholder='id : ' id='instagram' onChange={handleSnsId}/>
           </div>
           <div style={styles.snsElement}>
             <img src={images.github} alt='github'/>
-            <input style={styles.snsId} placeholder='id : '/>
+            <input style={styles.snsId} placeholder='id : ' id='github' onChange={handleSnsId}/>
           </div>
           <div style={styles.snsElement}>
             <img src={images.facebook} alt='facebook'/>
-            <input style={styles.snsId} placeholder='id : '/>
+            <input style={styles.snsId} placeholder='id : ' id='twitter' onChange={handleSnsId}/>
           </div>
         </div>
       </div>
