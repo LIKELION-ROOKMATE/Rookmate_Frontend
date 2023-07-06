@@ -156,8 +156,10 @@ const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement =
       const accessToken = res.data.token.access;
       const refreshToken = res.data.token.refresh;
       setCookie('accessToken', accessToken, { path: '/' });
+      setCookie('refreshToken', refreshToken, { path: '/' });
       setCookie('userId', userId, {path:'/'});
       console.log(userId);
+      console.log(accessToken)
       axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       setViewLoginModal(false);
     })

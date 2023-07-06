@@ -7,10 +7,6 @@ import { images } from "../../../../assets/images/images";
 type PortfolioEditContentType = {
   props:{
     profileImage:string,
-    name:string,
-    age:string,
-    collage:string,
-    departure:string,
     viewList:{
       stack: boolean,
       timeline: boolean,
@@ -20,9 +16,10 @@ type PortfolioEditContentType = {
     },
     stacks:any,
   },
-  checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void;
-  setModalActive: (element:boolean)=>void;
-  setWorkImageList: (element:any)=>void;
+  checkViewListEvent: (e: React.MouseEvent<HTMLButtonElement>)=>void,
+  setModalActive: (element:boolean)=>void,
+  setWorkImageList: (element:any)=>void,
+  completeEditEvent: ()=>void,
   workImageList: any[],
 }
 
@@ -124,12 +121,12 @@ const styles: Styles = {
   },
 };
 
-const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent, setModalActive, setWorkImageList, workImageList})=>{
+const PortfolioEditContent:React.FC<PortfolioEditContentType> = ({props, checkViewListEvent, setModalActive, setWorkImageList, workImageList, completeEditEvent})=>{
   const navigate = useNavigate();
   const [workListElement, setWorkListElement] = useState<JSX.Element[]>([]);
 
   const handleCompleteClick = () => {
-    navigate("/portfolio/view");
+    completeEditEvent();
   };
   const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     checkViewListEvent(e);
