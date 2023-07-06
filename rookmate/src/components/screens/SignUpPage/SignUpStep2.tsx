@@ -407,6 +407,7 @@ const SignUp = ()=>{
       const accessToken = res.data.token.access;
       const refreshToken = res.data.token.refresh;
       setCookie('accessToken', accessToken, { path: '/' });
+      setCookie('refreshToken', refreshToken, {path:'/'});
       setCookie('userId', userId, {path:'/'});
     }).catch((err)=>{
       console.log("signup fail : ")
@@ -414,7 +415,9 @@ const SignUp = ()=>{
       return false;
     })
     // 사용자 필수정보/추가정보 보내기
-    axios.patch(`http://127.0.0.1:8000/users/${cookies.userId}/`,detailData)
+    axios.patch(`http://127.0.0.1:8000/users/${cookies.userId}/`,detailData,{
+      headers:{Authorization: `Bearer ${cookies.accessToken}`
+    }})
     .then((res)=>{
       console.log(res);
     }).catch((err)=>{

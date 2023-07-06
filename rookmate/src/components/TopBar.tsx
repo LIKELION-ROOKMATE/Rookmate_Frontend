@@ -66,19 +66,34 @@ const TopBar: React.FC = () => {
   const [viewLoginModal, setViewLoginModal] = useState(false);
   const [viewProfileModal, setViewProfileModal] = useState(false);
   const [logined, setLogined] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken"])
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "portfolioId"])
   const handleLogoClick = () => {
     navigate("/");
   };
   // 포트폴리오 페이지 이동 버튼
   const handlePortfolioClick = () => {
+    //로그인 여부에 따라서 적절한 수행
     if(cookies.accessToken){
-      axios.get('http://127.0.0.1:8000/portfolios/')
+      axios.get('http://127.0.0.1:8000/portfolios/',{
+        headers:{
+          Authorization: `Bearer ${cookies.accessToken}`,
+        }
+      })
       .then((res)=>{
-        if(res.data.length==0){
+        if(res.data.length===0){
           navigate("/portfolio/start");
         }else{
-          navigate("/portfolio/view", {state:{data:res.data[0],}});
+          // portfolioId 추출 후 적절한 view 페이지로 이동
+          axios.get('http://127.0.0.1:8000/portfolios/',{
+            headers:{Authorization: `Bearer ${cookies.accessToken}`},
+          })
+          .then((res)=>{
+            setCookie('portfolioId', res.data[0].uuid, {path:'/'});
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
+          navigate("/portfolio/view");
         }
       })
     }
