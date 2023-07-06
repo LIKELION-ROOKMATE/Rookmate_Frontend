@@ -5,7 +5,7 @@ type PortfolioViewContentType = {
   props:{
     profileImage:string,
     name:string,
-    age:string,
+    age:number,
     collage:string,
     departure:string,
     viewList:{
