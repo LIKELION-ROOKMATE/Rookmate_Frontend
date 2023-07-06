@@ -51,7 +51,14 @@ const OutsourcingRecruitment = () => {
           <h5>외주 받을 시 가능 여부를 체크해주세요.</h5>
           <p>작업분야에 따라 작업옵션이 달라집니다.</p>
           <div className='r_option_check'>
-            checkbox
+            <div className='option1'>
+              <label><input type="checkbox" name='r_options' value='1'/>  원본파일 제공</label>
+              <label><input type="checkbox" name='r_options' value='2'/>  상업적 이용</label>
+            </div>
+            <div className='option2'>
+              <label><input type="checkbox" name='r_options' value='3'/>  추가수정</label>
+              <label><input type="checkbox" name='r_options' value='4'/>  재가공</label>
+            </div>
           </div>
           <div>
             <input onChange={handleChange} name='r_revise' id='r_revise' placeholder='  수정가능횟수 :' type="number" />
@@ -70,7 +77,10 @@ const OutsourcingRecruitment = () => {
           <div className='r_price_container'>
             <div>
               <h4>가격 상세 옵션</h4>
-              <div id='r_price_box'>checkbox</div>
+              <div id='r_price_box'>
+                <label>  <input type="checkbox" name='prices' value=''/>  가격 변동 가능 여부</label>
+                <label>  <input type="checkbox" name='prices' value=''/>  최소금액 활성화하기</label>
+              </div>
             </div>
             <div className='r_ul'>
               <ul>

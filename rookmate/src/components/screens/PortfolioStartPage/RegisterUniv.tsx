@@ -2,6 +2,7 @@ import './RegisterUniv.css'
 import React, { useState } from "react";
 import { images } from "../../../assets/images/images";
 import { useNavigate } from "react-router-dom";
+import { EmitFlags } from 'typescript';
 
 type RegisterUnivType = {closeModal2: (e:boolean) => void;}
 
@@ -25,19 +26,17 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
 
 
   //PortfolioMakePage를 넘어가기 위한 조건, 조건만족시 이동
-  const GoPortfolioMakePage = () => {
+  const GoPortfolioMakePage = (e:any) => {
+    e.preventDefault();
     if(univ.trim() === '') {
       setMessage('대학교를 다시 입력하세요!')
-      return
-    } else if(major.trim()=== '') {
+    } else if(major.trim() === '') {
       setMessage('전공을 다시 입력하세요!')
-      return
-    }
-      
-    
-    
-    
-    navigate("/portfolio/make");}
+    } else if(email.trim() === '') {
+      setMessage('이메일을 다시 입력하세요!')
+    } else {
+      return(navigate("/portfolio/make"))
+    }}
 
   //Modal close button
   const closeRegisteruniv= (e:React.MouseEvent) => {
@@ -58,10 +57,10 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
             <input onChange={checkuniv} style={{marginRight : '2rem'}} className='Univ_input' type="text" placeholder='   대학교 :'/>
             <input onChange={checkmajor} className='Univ_input' type="text" placeholder='   전공 :'/>
           </div>
-          <div>
-            <input className='Univ_email' placeholder='  대학교 이메일 :' type="email" />
+          <div className='Univ_email_frame'>
+            <input onChange={checkemail} className='Univ_email' placeholder='  대학교 이메일 :' type="email" />
           </div>
-          {message}
+          <p style={{color:'red'}}>{message}</p>
           <div className='Univ_button'>
             <button>완료</button>
           </div>
