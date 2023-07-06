@@ -1,11 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../assets/images/images";
 import LoginPage from './screens/LoginPage/LoginPage';
+import TopBarProfileModal from './TopBarProfileModal';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const styles: { [key: string]: React.CSSProperties } = {
   topBarContainer: {
     display: "flex",
+    justifyContent:"center",
     flexDirection: "row" as "row",
     alignItems: "center",
   },
@@ -39,11 +43,19 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   toolBox:{
     display:"flex",
-    justifyContent:"center",
-    alignContent:"center",
-    width:"30rem",
+    alignItems:"center",
   },
   tool:{
+    margin:"0 1.5rem 0 1.5rem",
+    cursor:"pointer",
+    height:"100%",
+  },
+  profileTools:{
+    position:"relative",
+  },
+  profileImage:{
+    width:"3rem",
+    height:"3rem",
     margin:"0 1.5rem 0 1.5rem",
     cursor:"pointer",
   },
@@ -52,16 +64,38 @@ const styles: { [key: string]: React.CSSProperties } = {
 const TopBar: React.FC = () => {
   const navigate = useNavigate();
   const [viewLoginModal, setViewLoginModal] = useState(false);
+  const [viewProfileModal, setViewProfileModal] = useState(false);
   const [logined, setLogined] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken"])
   const handleLogoClick = () => {
     navigate("/");
   };
+  // 포트폴리오 페이지 이동 버튼
   const handlePortfolioClick = () => {
-    navigate("/portfolio/view");
+    if(cookies.accessToken){
+      axios.get('http://127.0.0.1:8000/portfolios/')
+      .then((res)=>{
+        if(res.data.length==0){
+          navigate("/portfolio/start");
+        }else{
+          navigate("/portfolio/view", {state:{data:res.data[0],}});
+        }
+      })
+    }
+    else{
+      alert("로그인 후 사용 가능한 서비스입니다.")
+      setViewLoginModal(()=>true);
+    }
   };
+  // 로그인 처리 버튼 이벤트
   const handleLoginClick = ()=>{
     setViewLoginModal(()=>true)
   };
+  // 로그인/로그아웃 처리
+  useEffect(()=>{
+    if(cookies.accessToken) setLogined(()=>true);
+    else setLogined(()=>false);
+  }, [cookies.accessToken])
 
   return (
     <div>
@@ -85,11 +119,15 @@ const TopBar: React.FC = () => {
           <span style={styles.tool}>쪽지</span>
           {
             logined && 
-            <img
-              src={images.profile}
-              style={styles.profileImage}
-              alt="프로필 사진"
-            />
+            <div style={styles.profileTools}>
+              <img
+                src={images.profile}
+                style={styles.profileImage}
+                onClick={()=>{setViewProfileModal((prev)=>!prev)}}
+                alt="프로필 사진"
+              />
+              {viewProfileModal && <TopBarProfileModal setViewProfileModal={setViewLoginModal} removeCookie={removeCookie}/>}
+            </div>
           }{
             !logined && 
             <p style={styles.tool} onClick={handleLoginClick}>LOGIN</p>
