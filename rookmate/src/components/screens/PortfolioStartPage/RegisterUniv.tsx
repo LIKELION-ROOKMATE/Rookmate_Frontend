@@ -2,7 +2,8 @@ import './RegisterUniv.css'
 import React, { useState } from "react";
 import { images } from "../../../assets/images/images";
 import { useNavigate } from "react-router-dom";
-import { EmitFlags } from 'typescript';
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 type RegisterUnivType = {closeModal2: (e:boolean) => void;}
 
@@ -12,6 +13,7 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
   const [major, setMajor] = useState('')
   const [email, setEmail] =  useState('')
   const [message, setMessage] = useState('')
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"])
 
   //form값 데이터 반영
   const checkuniv = (event:any) => {
@@ -35,6 +37,15 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({closeModal2}) => {
     } else if(email.trim() === '') {
       setMessage('이메일을 다시 입력하세요!')
     } else {
+      axios.put(`http://127.0.0.1:8000/users/${cookies.userId}`, {
+        univ:univ,
+        major:major,
+        univ_email:email
+      }).then((res)=>{
+        console.log(res)
+      })
+
+
       return(navigate("/portfolio/make"))
     }}
 

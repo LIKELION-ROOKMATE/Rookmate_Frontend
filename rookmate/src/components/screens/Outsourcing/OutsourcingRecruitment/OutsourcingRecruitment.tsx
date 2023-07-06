@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { images } from "../../../../assets/images/images";
 import './OutsourcingRecruitment.css'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 
 const OutsourcingRecruitment = () => {
@@ -13,6 +15,7 @@ const OutsourcingRecruitment = () => {
     r_workday: '',
     r_hopeprice: '',
   })
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"])
 
   const handleChange = (e:any) => {
     setValues({
@@ -21,8 +24,10 @@ const OutsourcingRecruitment = () => {
   }
 
   const handleSubmint = (e:any) => {
-    e.preventDefault()
-    console.log(values);
+    axios.post(`http://127.0.0.1:8000/portfolios/${cookies.userId}/outsourcings/`, {
+      
+    })
+
   }
 
   return (
