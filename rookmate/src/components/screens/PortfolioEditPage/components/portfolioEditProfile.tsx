@@ -5,7 +5,7 @@ type PortfolioEditProfileType = {
   props:{
     profileImage:string,
     name:string,
-    age:string,
+    age:number,
     collage:string,
     departure:string,
     viewList:{
@@ -16,25 +16,12 @@ type PortfolioEditProfileType = {
       competition: boolean,
     },
     stacks:any,
+    setInputStack:any,
   }
   setProfileImage:any,
 }
 
-interface Styles{
-  displayNone:React.CSSProperties,
-  profile:React.CSSProperties,
-  profileImage:React.CSSProperties,
-  userInfo:React.CSSProperties,
-  divisorLine:React.CSSProperties,
-  stackBox:React.CSSProperties,
-  title:React.CSSProperties,
-  sns:React.CSSProperties,
-  snsList:React.CSSProperties,
-  snsElement:React.CSSProperties,
-  snsImage:React.CSSProperties,
-  snsId:React.CSSProperties,
-}
-const styles:Styles = {
+const styles:{[key:string]:React.CSSProperties} = {
   displayNone: {
     display: "none",
   },
@@ -153,10 +140,6 @@ const PortfolioEditProfile:React.FC<PortfolioEditProfileType> = ({props, setProf
       <div style={props.viewList.sns?styles.sns:styles.displayNone}>
         <div style={styles.title}>SNS</div>
         <div style={styles.snsList}>
-          <div style={styles.snsElement}>
-            <img src={images.kakao} alt='kakao'/>
-            <input style={styles.snsId} placeholder='id : '/>
-          </div>
           <div style={styles.snsElement}>
             <img src={images.instagram} alt='instagram'/>
             <input style={styles.snsId} placeholder='id : '/>

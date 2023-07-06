@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useRef} from "react";
 import "./PortfolioEdit.css";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
@@ -7,18 +7,10 @@ import PortfolioEditProfile from './components/portfolioEditProfile';
 import PortfolioEditContent from './components/portfolioEditContent';
 import AddWorkModal from './components/addWorkModal';
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-interface Styles{
-  displayNone:React.CSSProperties;
-  stackBox:React.CSSProperties;
-  stackName:React.CSSProperties;
-  proficiencyBox:React.CSSProperties;
-  page:React.CSSProperties;
-  modal:React.CSSProperties;
-  portfolioDetail:React.CSSProperties;
-}
-const styles:Styles = {
+const styles:{[key:string]:React.CSSProperties} = {
   displayNone: {
     display: "none",
   },
@@ -70,16 +62,22 @@ const styles:Styles = {
 
 const PortfolioEdit: React.FC = () => {
   //사용자 기본 정보 관련 state
-  const [name, setName] = useState("홍길동");
-  const [age, setAge] = useState("22");
-  const [collage, setCollage] = useState("국민대학교");
-  const [departure, setDeparture] = useState("소프트웨어학부");
+  const [name, setName] = useState("undefined");
+  const [age, setAge] = useState<number>(0);
+  const [collage, setCollage] = useState("undefined");
+  const [departure, setDeparture] = useState("undefined");
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
   const [mainImage, setMainImage] = useState(images.portfolioMainImage)
-  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken"])
+  const [snsId, setSnsId] = useState({
+    "git":undefined,
+    "instagram":undefined,
+    "twitter":undefined,
+  })
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"])
 
   //기술 스택 관련 state
-  const [stacks, setStack] = useState([]);
+  const [stacks, setStack] = useState<any[]>([]);
+  const [inputStacks, setInputStack] = useState<{[key:number]:{[key:string]:number}}>({});
   //요소들의 표시 여부를 나타내는 state
   const [viewList, setViewList] = useState({
     stack: true,
@@ -89,14 +87,20 @@ const PortfolioEdit: React.FC = () => {
     competition: true,
   });
   const [modalActive, setModalActive] = useState(false)
-  const [workImageList, setWorkImageList] = useState<any[]>([])
+  const [workImageList, setWorkImageList] = useState<any>([])
+  const navigate = useNavigate();
 
   const inputEvent = (e:any)=>{
-    var gradient = 100 / e.target.attributes.max.value as number;
-     e.target.style.background = 
-      'linear-gradient(to right, #7FA3C5 0%, #7FA3C5 '
-      + gradient * e.target.value +'%, rgb(236, 236, 236) '
-      + gradient *  e.target.value + '%, rgb(236, 236, 236) 100%)';
+    const parent = e.target.parentNode;
+    const keyNumber:number = Number(parent.id);//inputStack에 저장할 번호
+    const skillName:string = parent.childNodes[0].value;//기술명 입력받는 input 태그
+    const value = parent.childNodes[1].value;//입력값
+    if(!skillName) return false;
+    setInputStack((prev)=>({...prev, [keyNumber]:{[skillName]:value}}));
+    e.target.style.background = 
+    'linear-gradient(to right, #7FA3C5 0%, #7FA3C5 '
+    + e.target.value +'%, rgb(236, 236, 236) '
+    + e.target.value + '%, rgb(236, 236, 236) 100%)';
   };
   // 사용자의 스택을 입력받는 요소 생성 effect
   useEffect(() => {
@@ -104,11 +108,9 @@ const PortfolioEdit: React.FC = () => {
     //get Data : dataList
     for (let i = 0; i < 5; i++) {
       initialStack.push(
-        <div style={styles.stackBox}>
-          <input style={styles.stackName} placeholder='기술 입력'/>
-          <div style={styles.proficiencyBox}>
-            <input type='range' min="1" max="100" onInput={inputEvent}/>
-          </div>
+        <div style={styles.stackBox} key={String(i)} id={String(i)}>
+          <input style={styles.stackName} placeholder={"기술 입력"} onChange={inputEvent}/>
+          <input type='range' min="1" max="100" onChange={inputEvent} style={styles.proficiencyBox}/>
         </div>
       );
     }
@@ -132,8 +134,55 @@ const PortfolioEdit: React.FC = () => {
       setModalActive(false)
     }
   }
+  // 기술 스택을 저장하는 함수
+  const portfolio_uuid = "b41cc596-4ebe-490e-996c-5914246504c0";
+  const saveSkillStack = ()=>{
+    for(let e in inputStacks){
+      const data = inputStacks[e];
+      const skillName = Object.keys(data)[0] as string;
+      const value = Number(data[skillName]);
+      axios.post(`http://127.0.0.1:8000/portfolios/${cookies.userId}/portfolio_abilities/`,{
+        ability:skillName,
+        mastery:value
+      })
+      .then((res)=>{
+        console.log(res);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
+  }
+  // 수정 사항 저장 후 view 페이지로 이동
+  const completeEditEvent = ()=>{
+    axios.defaults.withCredentials = true;
+    axios.post('http://127.0.0.1:8000/portfolios/',{
+      description: "string",
+      certification: "string",
+      career: "string",
+      git: snsId.git,
+      instagram: snsId.instagram,
+      twitter: snsId.twitter,
+      headers:{
+        uuid:cookies.userId,
+        Authorization:cookies.accessToken,
+        withCredentials:true
+      },
+      Authorization:cookies.accessToken,
+    })
+    .then((res)=>{
+      console.log("success!");
+      console.log(res);
+      navigate("/portfolio/view/");
+    })
+    .catch((err)=>{
+      console.log("error!");
+      console.log(err);
+    })
+    saveSkillStack();
+  }
   return (
-    <form style={styles.page}>
+    <div style={styles.page}>
       <TopBar />
       {modalActive &&
         <div style={styles.modal} onClick={setModalEvent} id='modal'>
@@ -156,6 +205,7 @@ const PortfolioEdit: React.FC = () => {
           departure:departure,
           viewList:viewList,
           stacks:stacks,
+          setInputStack:setInputStack,
         }}
         setProfileImage={setProfileImage}
         />
@@ -171,9 +221,10 @@ const PortfolioEdit: React.FC = () => {
           checkViewListEvent={checkViewListEvent}
           setModalActive={setModalActive}
           setWorkImageList = {setWorkImageList}
+          completeEditEvent = {completeEditEvent}
           workImageList={workImageList} />
       </div>
-    </form>
+    </div>
   );
 };
 
