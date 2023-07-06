@@ -5,6 +5,7 @@ import moduleStyle from './ModuleStyle.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 import axios from 'axios';
+import { async } from 'q';
 
 interface Styles{
   signupForm:React.CSSProperties;
@@ -249,7 +250,7 @@ const SignUp = ()=>{
   const locaition = useLocation();
   const passedEmail = locaition.state.email as string;
   const passedPassword = locaition.state.password as string;
-  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken", "portfolioId"]);
   // 관심 분야 선택 관련 state
   const [optionElement, setOptionElement] = useState<JSX.Element[]>([]);
   const [optionListVisible, setOptionListVisible] = useState<boolean>(false);
@@ -365,16 +366,12 @@ const SignUp = ()=>{
     setjobElement(tmpJobElement);
   }, [jobListVisible, checkedJob]);
 
-  const patchUserDetailInfo = (e:any)=>{
-    e.preventDefault()
+  const RegisterUser =  async (e:any)=>{
     const name = nameRef.current.value;
     const birth = birthRef.current.value;
     const phoneNumber = phoneNumberRef.current.value;
     const job = Number(checkedJob)
-    let field = [];
-    const univ_email = univEmailRef.current.value;
-    const univ = univRef.current.value;
-    const major = majorRef.current.value;
+    let field:number[] = [];
     for(let ele in checkedItem){
       if(checkedItem[ele]) field.push(optionList.indexOf(ele))
     }
@@ -383,9 +380,12 @@ const SignUp = ()=>{
       if(!birth) setPlaceholder((prev)=>({...prev, birth:"YYYY - MM - DD ( 필수정보 )"}))
       if(!phoneNumber) setPlaceholder((prev)=>({...prev, phoneNumber:"필수정보"}))
       if(checkedJob==="")  setPlaceholder((prev)=>({...prev, job:"직업 선택 필수"}))
-      console.log("signup failed : empty input")
       return false;
     }
+    const univ_email = univEmailRef.current.value!=""?univEmailRef.current.value:null;
+    const univ = univRef.current.value!=""?univRef.current.value:null;
+    const major = majorRef.current.value!=""?majorRef.current.value:null;
+    console.log(univ);
     const detailData = {
       name:name,
       phone_number:phoneNumber,
@@ -396,39 +396,59 @@ const SignUp = ()=>{
       univ:univ,
       major:major
     }
-    console.log(detailData)
-    // 사용자 회원가입 처리
-    axios.post("http://127.0.0.1:8000/users/registration/", {
-      email:passedEmail,
-      password:passedPassword
-    })
-    .then((res)=>{
-      const userId = res.data.user.uuid;
-      const accessToken = res.data.token.access;
-      const refreshToken = res.data.token.refresh;
-      setCookie('accessToken', accessToken, { path: '/' });
-      setCookie('refreshToken', refreshToken, {path:'/'});
-      setCookie('userId', userId, {path:'/'});
-    }).catch((err)=>{
-      console.log("signup fail : ")
-      console.log(err);
-      return false;
-    })
-    // 사용자 필수정보/추가정보 보내기
-    axios.patch(`http://127.0.0.1:8000/users/${cookies.userId}/`,detailData,{
-      headers:{Authorization: `Bearer ${cookies.accessToken}`
-    }})
-    .then((res)=>{
-      console.log(res);
-    }).catch((err)=>{
-      console.log("set detail data fail : ")
-      console.log(err);
-      return false;
-    })
-    console.log("success")
-    navigate('/');
-  }
 
+    let codeBreaker = false;
+    await axios.get(`http://127.0.0.1:8000/users/`)
+    .then(async (res)=>{
+      const users = res.data;
+      for(let i=0; i<users.length; i++){
+        if(users[i].phone_number === phoneNumber){
+          alert("전화번호가 중복됨")
+          navigate("/");
+          codeBreaker = true;
+          return false;
+        }
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+    // 사용자 회원가입 처리
+    if(!codeBreaker){
+      await axios.post("http://127.0.0.1:8000/users/registration/", {
+        email:passedEmail,
+        password:passedPassword
+      })
+      .then(async (res)=>{
+        const userId = res.data.user.uuid;
+        const accessToken = res.data.token.access;
+        const refreshToken = res.data.token.refresh;
+        const cookieCallback = ()=>{
+          setCookie('userId', userId, {path:'/'});
+          setCookie('accessToken', accessToken, {path:'/'});
+          setCookie('refreshToken', refreshToken, {path:'/'});
+        }
+        cookieCallback();
+        console.log("cookies : " + cookies);
+        axios.patch(`http://127.0.0.1:8000/users/${userId}/`,detailData,{
+          headers:{Authorization: `Bearer ${accessToken}`}
+        })
+        .then((res)=>{
+          navigate("/");
+        })
+        .catch((err)=>{
+          console.log("fail to detail : ")
+          console.log(err);
+        })
+      })
+      .catch((err)=>{
+        console.log("fail to login : ")
+        console.log(err);
+        return false;
+      })
+    }
+    // 사용자 필수정보/추가정보 보내기
+  }
   return(
     <div>
       <TopBar/>
@@ -500,7 +520,7 @@ const SignUp = ()=>{
             </div>
           }
         </div>
-        <button style={styles.submitButton} onClick={patchUserDetailInfo}>회원가입</button>
+        <button style={styles.submitButton} onClick={RegisterUser}>회원가입</button>
 
         <div style={{width:"80%", height:"0.1rem",backgroundColor:"#000",marginTop:"7rem",}}></div>
 
@@ -525,7 +545,7 @@ const SignUp = ()=>{
             style={{width:"72%", height:"95%", border:"none", outline:"none",marginRight:"0.8rem", }}
           />
         </div>
-        <button style={styles.formSubmitButton} onClick={patchUserDetailInfo}>완료</button>
+        <button style={styles.formSubmitButton} onClick={RegisterUser}>완료</button>
       </div>
     </div>
   )

@@ -39,7 +39,7 @@ const TopBarProfileModal:React.FC<modalType> = ({setViewProfileModal, removeCook
   const handleLogOut=()=>{
     removeCookie("accessToken", {path:"/"});
     removeCookie("userId", {path:"/"});
-    removeCookie("refreshId", {path:"/"});
+    removeCookie("refreshToken", {path:"/"});
     removeCookie("portfolioId", {path:"/"});
     navigate("/");
   }
