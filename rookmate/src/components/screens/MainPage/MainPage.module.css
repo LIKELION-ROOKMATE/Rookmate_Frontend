@@ -1,3 +1,7 @@
+.main_ad {  
+  justify-content: right;
+}
+
 .filterContainer{
   display: flex;
   align-items: center;
@@ -20,6 +24,7 @@
   margin:auto;
   box-sizing: border-box;
   columns: 5;
+  border-radius: 2rem;
 }
 
 .mainPageImageItem{
@@ -39,6 +44,7 @@
   max-width: 100%;
   break-inside: avoid;
   cursor: pointer;
+  border-radius: 2rem;
 }
 
 .mainPageImage:hover{
@@ -210,9 +216,6 @@
   background-color: transparent;
 }
 
-.toolImg{
-
-}
 
 .pagination {
   display: flex;

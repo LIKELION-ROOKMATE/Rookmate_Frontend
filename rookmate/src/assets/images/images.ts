@@ -46,6 +46,24 @@ import basictemplateimg4 from "../images/basictemplateimg4.png";
 import cancelButton from '../images/cancelbutton.png';
 import crownImg from '../images/crownimg.png';
 import outsourcingApply from '../images/outsourcingApply.png';
+import main1 from '../images/main1.png';
+import main2 from '../images/main2.png';
+import main3 from '../images/main3.png';
+import main4 from '../images/main4.png';
+import main5 from '../images/main5.png';
+import main6 from '../images/main6.png';
+import main7 from '../images/main7.png';
+import main8 from '../images/main8.png';
+import main9 from '../images/main9.png';
+import main10 from '../images/main10.png';
+import main11 from '../images/main11.png';
+import main12 from '../images/main12.png';
+import main13 from '../images/main13.png';
+import main14 from '../images/main14.png';
+import main15 from '../images/main15.png';
+import main16 from '../images/main16.png';
+import main17 from '../images/main17.png';
+
 
 export const images = {
   deleteTag: deleteTag,
@@ -93,4 +111,21 @@ export const images = {
   cancelButton: cancelButton,
   crownImg: crownImg,
   outsourcingApply:outsourcingApply,
+  main1: main1,
+  main2: main2,
+  main3: main3,
+  main4: main4,
+  main5: main5,
+  main6: main6,
+  main7: main7,
+  main8: main8,
+  main9: main9,
+  main10: main10,
+  main11: main11,
+  main12: main12,
+  main13: main13,
+  main14: main14,
+  main15: main15,
+  main16: main16,
+  main17: main17,
 };
