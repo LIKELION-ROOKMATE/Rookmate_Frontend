@@ -11,6 +11,7 @@ interface Styles {
   adTextContainer: React.CSSProperties;
   adTextTitle: React.CSSProperties;
   adTextDescription: React.CSSProperties;
+  adTextDescription2: React.CSSProperties;
   mainPageImageContainer: React.CSSProperties;
   mainPageImageItem: React.CSSProperties;
   mainPageImage: React.CSSProperties;
@@ -43,6 +44,11 @@ const styles: Styles = {
     color: "#FFF",
     fontSize: "1.125rem",
     fontWeight: "500",
+  },
+  adTextDescription2: {
+    color: "#FFF",
+    fontSize: "1.125rem",
+    fontWeight: "500",
     cursor: "pointer",
   },
   mainPageImageContainer: {
@@ -64,37 +70,37 @@ const styles: Styles = {
 };
 
 let ImageList = [
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-  images.mainPageExampleImage,
-  images.Outsourcingimg,
-  images.pfstartimg1,
-  images.pfstartimg2,
-  images.pfstartimg3,
-];
+  images.main1,
+  images.main4,
+  images.main7,
+  images.main10,
+  images.main13,
+  images.main17,
+  images.main2,
+  images.main5,
+  images.main8,
+  images.main11,
+  images.main14,
+  images.main3,
+  images.main6,
+  images.main9,
+  images.main12,
+  images.main15,
+  images.main17,
+  images.main4,
+  images.main6,
+  images.main3,
+  images.main7,
+  images.main6,
+  images.main3,
+  images.main1,
+  images.main8,
+  images.main3,
+  images.main12,
+  images.main10,
+  images.main4,
+  images.main8,
+]
 
 const MainPageBody: React.FC = () => {
   const [loadedImage, setLoadedImage] = useState<JSX.Element[]>([]);
@@ -167,7 +173,7 @@ const MainPageBody: React.FC = () => {
         <div style={styles.adTextContainer}>
           <p style={styles.adTextTitle}>2023년 하반기 채용연계형 인턴 채용</p>
           <p style={styles.adTextDescription}>2023.06.23 ~ 2023.07.10</p>
-          <p style={styles.adTextDescription} onClick={handleAdClick}>
+          <p style={styles.adTextDescription2} onClick={handleAdClick}>
             궁금하다면 채용공고 보러가기 {">"}
           </p>
         </div>

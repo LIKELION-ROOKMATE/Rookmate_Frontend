@@ -2,15 +2,19 @@ import "./RegisterUniv.css";
 import React, { useState } from "react";
 import { images } from "../../../assets/images/images";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { log } from 'console';
 
 type RegisterUnivType = { closeModal2: (e: boolean) => void };
 
 const VerificationUniv: React.FC<RegisterUnivType> = ({ closeModal2 }) => {
   const navigate = useNavigate();
-  const [univ, setUniv] = useState("");
-  const [major, setMajor] = useState("");
-  // const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [univ, setUniv] = useState('')
+  const [major, setMajor] = useState('')
+  const [email, setEmail] =  useState('')
+  const [message, setMessage] = useState('')
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken"])
 
   //form값 데이터 반영
   const checkuniv = (event: any) => {
@@ -19,22 +23,30 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({ closeModal2 }) => {
   const checkmajor = (event: any) => {
     setMajor(event.target.value);
   };
-  // const checkemail = (event: any) => {
-  //   setEmail(event.target.value);
-  // };
+  const checkemail = (event: any) => {
+    setEmail(event.target.value);
+  };
 
   //PortfolioMakePage를 넘어가기 위한 조건, 조건만족시 이동
-  const GoPortfolioMakePage = () => {
-    if (univ.trim() === "") {
-      setMessage("대학교를 다시 입력하세요!");
-      return;
-    } else if (major.trim() === "") {
-      setMessage("전공을 다시 입력하세요!");
-      return;
-    }
-
-    navigate("/portfolio/make");
-  };
+  const GoPortfolioMakePage = (e:any) => {
+    e.preventDefault();
+    if(univ.trim() === '' || major.trim() === ''|| email.trim() === '') {
+      setMessage('다시 입력하세요!')
+    } else {
+      console.log(cookies.userId);
+      axios.patch(`http://127.0.0.1:8000/users/${cookies.userId}/`, {
+        univ:univ,
+        major:major,
+        univ_email:email
+      }, {
+        headers:{Authorization: `Bearer ${cookies.accessToken}`
+      }}).then((res)=>{
+        console.log(res)
+        return(navigate("/portfolio/make"))
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }}
 
   //Modal close button
   const closeRegisteruniv = (e: React.MouseEvent) => {
@@ -57,29 +69,14 @@ const VerificationUniv: React.FC<RegisterUnivType> = ({ closeModal2 }) => {
             바랍니다.
           </p>
           <div>
-            <input
-              onChange={checkuniv}
-              style={{ marginRight: "2rem" }}
-              className="Univ_input"
-              type="text"
-              placeholder="   대학교 :"
-            />
-            <input
-              onChange={checkmajor}
-              className="Univ_input"
-              type="text"
-              placeholder="   전공 :"
-            />
+            <input onChange={checkuniv} style={{marginRight : '2rem'}} className='Univ_input' type="text" required placeholder='   대학교 :'/>
+            <input required onChange={checkmajor} className='Univ_input' type="text" placeholder='   전공 :'/>
           </div>
-          <div>
-            <input
-              className="Univ_email"
-              placeholder="  대학교 이메일 :"
-              type="email"
-            />
+          <div className='Univ_email_frame'>
+            <input onChange={checkemail} required className='Univ_email' placeholder='  대학교 이메일 :' type="email" />
           </div>
-          {message}
-          <div className="Univ_button">
+          <p style={{color:'red'}}>{message}</p>
+          <div className='Univ_button'>
             <button>완료</button>
           </div>
         </form>

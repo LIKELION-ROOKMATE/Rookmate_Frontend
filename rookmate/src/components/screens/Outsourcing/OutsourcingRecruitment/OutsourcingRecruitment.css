@@ -52,7 +52,10 @@
   border: 1px solid #000;
 }
 
-#r_subject,
+#r_subject {
+  margin-bottom: 1rem;
+}
+
 #r_revise {
   width: 13.6875rem;
   height: 2.875rem;
@@ -60,7 +63,6 @@
   border: 1px solid #000;
 }
 
-#r_keyword,
 #r_workday {
   width: 19.4375rem;
   height: 2.875rem;
@@ -71,7 +73,7 @@
 
 #r_content {
   width: 34.5625rem;
-  height: 34.625rem;
+  height: 26rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
 }
@@ -83,6 +85,25 @@
   border: 1px solid #000;
   margin: 0 auto;
   margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.option1 {
+  margin-top: 1rem;
+}
+
+.option1, .option2 {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  align-items: center;
+}
+
+.r_option_check label {
+  display: block;
 }
 
 .r_price_container {
@@ -107,6 +128,10 @@
   height: 5.3125rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .r_price_container h4 {
@@ -137,4 +162,16 @@
 
 .r_imgframe {
   margin: 2rem auto;
+}
+
+#r_price_box label {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.recruit hr {
+  border: 1px solid black;
+  width: 80%;
+  margin: 0 auto;
 }
