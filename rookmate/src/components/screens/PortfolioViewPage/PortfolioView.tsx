@@ -1,21 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
-import PortfolioViewTimeline from './components/portfolioViewTimeline';
-import PortfolioViewProfile from './components/portfolioViewProfile';
-import PortfolioViewContent from './components/portfolioViewContent';
-import PortfolioViewUserComment from './components/portfolioViewUserComment';
-import PortfolioViewReview from './components/portfolioViewReview';
+import PortfolioViewTimeline from "./components/portfolioViewTimeline";
+import PortfolioViewProfile from "./components/portfolioViewProfile";
+import PortfolioViewContent from "./components/portfolioViewContent";
+import PortfolioViewUserComment from "./components/portfolioViewUserComment";
+import PortfolioViewReview from "./components/portfolioViewReview";
 //import StartOutsourcingModal from './components/startOutsourcingModal';
-import VerificationModal from '../PortfolioStartPage/VerificationModal';
-import axios from 'axios';
+import VerificationModal from "../PortfolioStartPage/VerificationModal";
+import axios from "axios";
 import { useCookies } from "react-cookie";
 
-const styles:{[key:string]:React.CSSProperties} = {
+const styles: { [key: string]: React.CSSProperties } = {
   displayNone: {
     display: "none",
   },
-  stackBox:{
+  stackBox: {
     display: "flex",
     flexDirection: "row",
 
@@ -23,15 +25,15 @@ const styles:{[key:string]:React.CSSProperties} = {
 
     fontSize: "1rem",
   },
-  stackName:{
+  stackName: {
     width: "20%",
     fontSize: "0.8rem",
 
     marginRight: "5%",
-    
+
     overflowWrap: "break-word",
   },
-  proficiencyBox:{
+  proficiencyBox: {
     position: "relative",
 
     width: "60%",
@@ -43,7 +45,7 @@ const styles:{[key:string]:React.CSSProperties} = {
 
     fontSize: "1rem",
   },
-  proficiency:{
+  proficiency: {
     position: "relative",
     right: "0.1rem",
 
@@ -52,14 +54,14 @@ const styles:{[key:string]:React.CSSProperties} = {
 
     borderRadius: "10px",
   },
-  page:{
+  page: {
     width: "100vw",
     maxWidth: "100rem",
   },
-  modalBackground:{
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
+  modalBackground: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
 
     position: "fixed",
     bottom: "0%",
@@ -67,23 +69,23 @@ const styles:{[key:string]:React.CSSProperties} = {
     width: "100%",
     height: "100%",
 
-    zIndex:"100",
-    backgroundColor:"rgba(0,0,0,0.8)",
+    zIndex: "100",
+    backgroundColor: "rgba(0,0,0,0.8)",
   },
-  portfolioDetail:{
+  portfolioDetail: {
     display: "flex",
     flexDirection: "row",
 
-    width:"100vw",
-    maxWidth:"100rem",
+    width: "100vw",
+    maxWidth: "100rem",
     height: "73.8%",
   },
-  portfolioDetailLeft:{
+  portfolioDetailLeft: {
     paddingLeft: "6.5%",
     boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
     width: "77%",
   },
-  portfolioDetailLeftMenu:{
+  portfolioDetailLeftMenu: {
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
@@ -92,87 +94,98 @@ const styles:{[key:string]:React.CSSProperties} = {
     width: "100%",
     height: "3.5rem",
   },
-  menuButton:{
-    border:"none",
-    paddingLeft:"0",
+  menuButton: {
+    border: "none",
+    paddingLeft: "0",
 
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
 
     fontSize: "1rem",
     fontWeight: "600",
-    cursor:"pointer",
-  }
+    cursor: "pointer",
+  },
 };
 const CurrentUserInfo = {
-  haveOutsourcing:false, 
+  haveOutsourcing: false,
 };
 const userComment = {
-  user1:{
-    id:"kimym8821",
-    profile:images.github,
-    date:"2023-06-26",
-    comment: "I need very long long long long long long long long long long long long long long long long long long long long long long long text",
-    work:"work1",
-    prefer:"12",
-  },  
-  user2:{
-    id:"user2user2",
-    profile:images.github,
-    date:"2023-06-27",
-    comment: "hello world",
-    work:"work1",
-    prefer:"10",
+  user1: {
+    id: "kimym8821",
+    profile: images.github,
+    date: "2023-06-26",
+    comment:
+      "I need very long long long long long long long long long long long long long long long long long long long long long long long text",
+    work: "work1",
+    prefer: "12",
   },
-  user3:{
-    id:"3user3user",
-    profile:images.github,
-    date:"2023-06-28",
+  user2: {
+    id: "user2user2",
+    profile: images.github,
+    date: "2023-06-27",
+    comment: "hello world",
+    work: "work1",
+    prefer: "10",
+  },
+  user3: {
+    id: "3user3user",
+    profile: images.github,
+    date: "2023-06-28",
     comment: "typescript && React",
-    work:"work2",
-    prefer:"8",
+    work: "work2",
+    prefer: "8",
   },
 };
 const userReview = {
-    user1:{
-    id:"kimym8821",
+  user1: {
+    id: "kimym8821",
     profile: images.github,
     score: "매우 만족",
-    workImage:images.mainPageTopAdImage,
-    date:"2023-06-26",
+    workImage: images.mainPageTopAdImage,
+    date: "2023-06-26",
     comment: "user1 comment",
-    prefer:"12",
-  },  
-  user2:{
-    id:"user2user2",
+    prefer: "12",
+  },
+  user2: {
+    id: "user2user2",
     profile: images.github,
     score: "불만족",
-    workImage:images.mainPageTopAdImage,
-    date:"2023-06-27",
+    workImage: images.mainPageTopAdImage,
+    date: "2023-06-27",
     comment: "user2 comment",
-    prefer:"10",
+    prefer: "10",
   },
-  user3:{
-    id:"3user3user",
+  user3: {
+    id: "3user3user",
     profile: images.github,
     score: "만족",
-    workImage:images.mainPageTopAdImage,
-    date:"2023-06-28",
+    workImage: images.mainPageTopAdImage,
+    date: "2023-06-28",
     comment: "user3 comment",
-    prefer:"8",
+    prefer: "8",
   },
 };
 
 const PortfolioView: React.FC = () => {
   //현재 페이지 정보
-  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken", "portfolioId"])
+  // const [portfolioId, setPortfolioId] = useState(1);
+  const [cookies] = useCookies([
+    "userId",
+    "accessToken",
+    "refreshToken",
+    "portfolioId",
+  ]);
   //사용자 기본 정보 관련 state
   const [name, setName] = useState("undefined");
   const [age, setAge] = useState<number>(0);
   const [collage, setCollage] = useState("undefined");
   const [departure, setDeparture] = useState("undefined");
-  const [profileImage, setProfileImage]:any = useState(images.noneProfile);
-  const [modalActive, setModalActive] = useState<boolean>(false)
-  const [snsIdList, setSnsIdList] = useState({git:undefined, instagram:undefined, twitter:undefined,});
+  const [profileImage, setProfileImage]: any = useState(images.noneProfile);
+  const [modalActive, setModalActive] = useState<boolean>(false);
+  const [snsIdList, setSnsIdList] = useState({
+    git: undefined,
+    instagram: undefined,
+    twitter: undefined,
+  });
   const [workElementList, setWorkElementList] = useState<JSX.Element[]>();
   //기술 스택 관련 state
   const [stacks, setStack] = useState<JSX.Element[]>([]);
@@ -185,75 +198,86 @@ const PortfolioView: React.FC = () => {
     competition: true,
   });
   const [viewOption, setViewOption] = useState({
-    "work":true,
-    "comment":false,
-    "review":false,
-  })
+    work: true,
+    comment: false,
+    review: false,
+  });
   // 서버에서 사용자 기본 정보를 받아와서 반영하는 effect
-  useEffect(()=>{
+  useEffect(() => {
     //사용자 기본 정보
-    axios.get(`http://127.0.0.1:8000/users/${cookies.userId}/`)
-    .then((res)=>{
-      const userData = res.data;
-      console.log(userData)
-      if(userData.name) setName(()=>userData.name);
-      if(userData.birth_date){
-        const current = new Date().getFullYear() as number;
-        const birth = new Date(userData.birth_date).getFullYear() as number;
-        setAge(()=>(current-birth + 1));
-      }
-      if(userData.univ) setCollage(()=>userData.univ);
-      if(userData.major) setDeparture(()=>userData.major);
-      setSnsIdList(()=>({
-        git:userData.git,
-        instagram:userData.instagram,
-        twitter:userData.twitter,
-      }))
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+    axios
+      .get(`http://127.0.0.1:8000/users/${cookies.userId}/`)
+      .then((res) => {
+        const userData = res.data;
+        console.log(userData);
+        if (userData.name) setName(() => userData.name);
+        if (userData.birth_date) {
+          const current = new Date().getFullYear() as number;
+          const birth = new Date(userData.birth_date).getFullYear() as number;
+          setAge(() => current - birth + 1);
+        }
+        if (userData.univ) setCollage(() => userData.univ);
+        if (userData.major) setDeparture(() => userData.major);
+        setSnsIdList(() => ({
+          git: userData.git,
+          instagram: userData.instagram,
+          twitter: userData.twitter,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     //사용자 포트폴리오 정보
-    axios.get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/`,{
-      headers:{Authorization: `Bearer ${cookies.accessToken}`},
-    })
-    .then((res)=>{
-      console.log(res.data)
-      setSnsIdList({git:res.data.git, instagram:res.data.instagram, twitter:res.data.twitter,})
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }, [])
+    axios
+      .get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/`, {
+        headers: { Authorization: `Bearer ${cookies.accessToken}` },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSnsIdList({
+          git: res.data.git,
+          instagram: res.data.instagram,
+          twitter: res.data.twitter,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
   useEffect(() => {
     setStack([]);
-    axios.get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/portfolio_abilities/`,{
-      headers:{Authorization: `Bearer ${cookies.accessToken}`}
-    })
-    .then((res)=>{
-      console.log(res.data)
-      const data = res.data;
-      for(let ele in data){
-        const ability = data[ele].ability;
-        const mastery = data[ele].mastery;
-        console.log(ability + " " + mastery)
-        setStack((prev)=>[...prev,
-          (<div style={styles.stackBox}>
-            <p style={styles.stackName}>{ability}</p>
-            <div style={styles.proficiencyBox}>
-              <div style={{...styles.proficiency, width: `${mastery}%` }}>
-                &nbsp;
+    axios
+      .get(
+        `http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/portfolio_abilities/`,
+        {
+          headers: { Authorization: `Bearer ${cookies.accessToken}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        const data = res.data;
+        for (let ele in data) {
+          const ability = data[ele].ability;
+          const mastery = data[ele].mastery;
+          console.log(ability + " " + mastery);
+          setStack((prev) => [
+            ...prev,
+            <div style={styles.stackBox}>
+              <p style={styles.stackName}>{ability}</p>
+              <div style={styles.proficiencyBox}>
+                <div style={{ ...styles.proficiency, width: `${mastery}%` }}>
+                  &nbsp;
+                </div>
               </div>
-            </div>
-          </div>)
-        ]);
-      }
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+            </div>,
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   // toolBox 버튼을 누르면 해당 요소 활성화/비활성화하는 이벤트
   const checkViewListEvent = (
@@ -267,83 +291,119 @@ const PortfolioView: React.FC = () => {
     console.log(viewList.stack);
   };
   //profileDetailLeftMenu에서 활성화할 요소 선택
-  const activeMenu = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+  const activeMenu = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const id = e.currentTarget.id;
-    setViewOption((prev: typeof viewOption)=>({
+    setViewOption((prev: typeof viewOption) => ({
       ...prev,
-      "work":false,
-      "comment":false,
-      "review":false,
-    }))
-    setViewOption((prev: typeof viewOption)=>({
-      ...prev, [id]: true,
-    }))
-  }
+      work: false,
+      comment: false,
+      review: false,
+    }));
+    setViewOption((prev: typeof viewOption) => ({
+      ...prev,
+      [id]: true,
+    }));
+  };
   //외주 관리하기 클릭 시 현재 사용자의 외주 등록 여부에 따라 다른 창으로 이동하도록 함
-  const manageOutsourcingEvent = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
-    if(CurrentUserInfo.haveOutsourcing === true){
-      console.log("have oustourcing")
-    }else{
-      setModalActive(true)
-      console.log("dont have outsourcing")
+  const manageOutsourcingEvent = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (CurrentUserInfo.haveOutsourcing === true) {
+      console.log("have oustourcing");
+    } else {
+      setModalActive(true);
+      console.log("dont have outsourcing");
     }
-  }
+  };
 
-  const setModalEvent = (e:any)=>{
+  const setModalEvent = (e: any) => {
     const target = e.target as HTMLElement;
-    if(target.id === 'modal'){
-      setModalActive(false)
+    if (target.id === "modal") {
+      setModalActive(false);
     }
-  }
+  };
 
-  const closeModal = (props:boolean)=>{
+  const closeModal = (props: boolean) => {
     setModalActive(props);
-  }
+  };
 
   return (
     <div style={styles.page}>
       <TopBar />
-      {modalActive &&
-        <div style={styles.modalBackground} onClick={setModalEvent} id='modal'>
-          <VerificationModal closeModal={closeModal}/>
+      {modalActive && (
+        <div style={styles.modalBackground} onClick={setModalEvent} id="modal">
+          <VerificationModal closeModal={closeModal} />
         </div>
-      }
+      )}
       <PortfolioViewTimeline viewList={viewList} />
       <div style={styles.portfolioDetail}>
-        <PortfolioViewProfile props={{
-          profileImage:profileImage,
-          name:name,
-          age:age,
-          collage:collage,
-          departure:departure,
-          viewList:viewList,
-          stacks:stacks,
-          snsIdList:snsIdList,
-        }}/>
+        <PortfolioViewProfile
+          props={{
+            profileImage: profileImage,
+            name: name,
+            age: age,
+            collage: collage,
+            departure: departure,
+            viewList: viewList,
+            stacks: stacks,
+            snsIdList: snsIdList,
+          }}
+        />
         <div style={styles.portfolioDetailLeft}>
           <div style={styles.portfolioDetailLeftMenu}>
-            <button style={viewOption.work?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="work" onClick={activeMenu}>작업물</button>
-            <button style={viewOption.comment?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="comment" onClick={activeMenu}>댓글</button>
-            <button style={viewOption.review?{...styles.menuButton,color:"black",}:{...styles.menuButton,color:"grey",}} id="review" onClick={activeMenu}>외주후기</button>
+            <button
+              style={
+                viewOption.work
+                  ? { ...styles.menuButton, color: "black" }
+                  : { ...styles.menuButton, color: "grey" }
+              }
+              id="work"
+              onClick={activeMenu}
+            >
+              작업물
+            </button>
+            <button
+              style={
+                viewOption.comment
+                  ? { ...styles.menuButton, color: "black" }
+                  : { ...styles.menuButton, color: "grey" }
+              }
+              id="comment"
+              onClick={activeMenu}
+            >
+              댓글
+            </button>
+            <button
+              style={
+                viewOption.review
+                  ? { ...styles.menuButton, color: "black" }
+                  : { ...styles.menuButton, color: "grey" }
+              }
+              id="review"
+              onClick={activeMenu}
+            >
+              외주후기
+            </button>
           </div>
-          {viewOption.work &&
-            <PortfolioViewContent props={{
-              profileImage:profileImage,
-              name:name,
-              age:age,
-              collage:collage,
-              departure:departure,
-              viewList:viewList,
-              stacks:stacks,
-            }} 
-            checkViewListEvent={checkViewListEvent} manageOutsourcingEvent={manageOutsourcingEvent}/>
-          }
-          {viewOption.comment && 
-            <PortfolioViewUserComment userComment={userComment}/>
-          }
-          {viewOption.review &&
-            <PortfolioViewReview userReview={userReview}/>
-          }
+          {viewOption.work && (
+            <PortfolioViewContent
+              props={{
+                profileImage: profileImage,
+                name: name,
+                age: age,
+                collage: collage,
+                departure: departure,
+                viewList: viewList,
+                stacks: stacks,
+              }}
+              checkViewListEvent={checkViewListEvent}
+              manageOutsourcingEvent={manageOutsourcingEvent}
+            />
+          )}
+          {viewOption.comment && (
+            <PortfolioViewUserComment userComment={userComment} />
+          )}
+          {viewOption.review && <PortfolioViewReview userReview={userReview} />}
         </div>
       </div>
     </div>
