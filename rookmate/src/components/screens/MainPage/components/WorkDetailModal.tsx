@@ -39,7 +39,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
       let x = i - 3 * y;
       updatedCommenterWrite[y][x] = (
         <div className={ModuleCss.comment}>
-          <img src={images.profile} style={{width:"3.4rem", height:"3.4rem",}}/>
+          <img src={images.profile} style={{width:"2.5rem", height:"2.5rem",}}/>
           <div className={ModuleCss.commenterWriteContainer}>
             <p className={ModuleCss.commenterWrite}>작성자(작성자ID)</p>
             <p className={ModuleCss.commenterWrite}>작성자의 코멘트({y})</p>
@@ -70,7 +70,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
         </button>
         <button className={ModuleCss.outsourcingButton} id="outsourcingButton" onClick={handleNavigateOutsourcing}>
           <img src={images.outsourcingApply} style={{width:"1.7rem", height:"2rem",}}/>
-          <span style={{fontSize:"0.5rem",color:"#fff",}}>외주 문의하기</span>
+          <span style={{fontSize:"0.5rem",color:"#fff",}}>외주 문의</span>
         </button>
         <p className={ModuleCss.title}>title</p>
         <div className={ModuleCss.imageAndExplain}>
@@ -122,7 +122,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
         <div className={ModuleCss.commentAndMore}>
           <div className={ModuleCss.commentContainer}>
             <p className={ModuleCss.subTitle}>Comment(10)</p>
-            <div>
+            <div style={{display:"flex",flexDirection:"column",rowGap:"0.3rem",}}>
               {commenterWrite[commentPage]}
             </div>
             <div className={ModuleCss.pagination}>
@@ -133,7 +133,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
                     setCommentPage(()=>(commentPage-1))
                   }
                 >{commentPage} </span>}
-              <span style={{color:"black",cursor:'pointer',}}
+              <span style={{color:"black",cursor:'pointer',fontWeight:"700",}}
                 onClick={()=>
                     setCommentPage(()=>(commentPage))
                 }

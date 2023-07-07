@@ -56,11 +56,18 @@ const styles:{[key:string]:React.CSSProperties} = {
   portfolioDetail:{
     display: "flex",
     flexDirection: "row",
-    width: "100vw",
+    width: "94.9rem",
     height: "73.8%",
   },
 };
 
+const initialStack: { ability: string | null, mastery: number }[]   = [
+  {ability:null,mastery:50},
+  {ability:null,mastery:50},
+  {ability:null,mastery:50},
+  {ability:null,mastery:50},
+  {ability:null,mastery:50},
+]
 const PortfolioEdit: React.FC = () => {
   //사용자 기본 정보 관련 state
   const [userInfo, setUserInfo] = useState({
@@ -74,10 +81,9 @@ const PortfolioEdit: React.FC = () => {
     twitter:undefined,
   })
   const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken", "portfolioId"])
-
   //기술 스택 관련 state
   const [stacks, setStack] = useState<any[]>([]);
-  const [inputStacks, setInputStack] = useState<{[key:number]:{[key:string]:number}}>({});
+  const [inputStacks, setInputStack] = useState<{ ability: string | null, mastery: number }[] >(initialStack);
   //요소들의 표시 여부를 나타내는 state
   const [viewList, setViewList] = useState({
     stack: true,
@@ -96,15 +102,19 @@ const PortfolioEdit: React.FC = () => {
     + e.target.value +'%, rgb(236, 236, 236) '
     + e.target.value + '%, rgb(236, 236, 236) 100%)';
 
+    let updatedStack = initialStack;
     const parent = e.target.parentNode;
     const keyNumber:number = Number(parent.id);//inputStack에 저장할 번호
-    const skillName:string = parent.childNodes[0].value;//기술명 입력받는 input 태그
-    const value = parent.childNodes[1].value;//입력값
-    if(!skillName) return false;
-    setInputStack((prev)=>({...prev, [keyNumber]:{[skillName]:value}}));
+    const ability:string = parent.childNodes[0].value;//기술명 입력받는 input 태그
+    const mastery = parent.childNodes[1].value;//입력값
+    if(!ability) return false;
+    updatedStack[keyNumber] = {ability:ability, mastery:mastery}
+    console.log(updatedStack)
+    setInputStack(()=>updatedStack);
   };
   // 사용자의 기본 정보를 입력받는 effect
   useEffect(() => {
+    //사용자 기본 정보
     axios.get(`http://127.0.0.1:8000/users/${cookies.userId}/`)
     .then((res)=>{
       const prevUserData = res.data;
@@ -139,15 +149,31 @@ const PortfolioEdit: React.FC = () => {
       })
       .then((res)=>{
         const prev = res.data;
-        for(let i=0; i<prev.length; i++){
-          const ability = prev[i].ability;
-          const mastery = prev[i].mastery;
-          setInputStack((prev)=>({...prev,
-            [i]:{[ability]:mastery},
-          }))
+        for(let i=0; i<5; i++){
+          if(!res.data.length) break;
+          const ability = res.data.length<5?prev[i].ability:"none";
+          const mastery = res.data.length<5?prev[i].mastery:0;
+          if(!ability || !mastery) continue;
+          setInputStack((prev)=>[...prev,
+            {ability:ability, mastery:mastery}
+          ])
         }
       })
       .catch((err)=>{
+        console.log(err);
+      })
+      //portfolio 작업물 리스트 갖고옴.
+      axios.get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/works/`,{
+        headers:{Authorization: `Bearer ${cookies.accessToken}`},
+      }).then((res)=>{
+        setWorkImageList(()=>[])
+        const resData = res.data;
+        for(let element=0; element<resData.length; element++){
+          const workData = resData[element].images[0].image;
+          setWorkImageList((prev:any)=>[...prev, workData]);
+        }
+      }).catch((err)=>{
+        console.log("err while get works");
         console.log(err);
       })
     }
@@ -182,22 +208,64 @@ const PortfolioEdit: React.FC = () => {
   }
   // 기술 스택을 저장하는 함수
   const saveSkillStack = (uuid:any)=>{
-    for(let e in inputStacks){
-      const data = inputStacks[e];
-      const skillName = Object.keys(data)[0] as string;
-      const value = Number(data[skillName]);
-      axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
-        ability:skillName,
-        mastery:value,
-      },{
+    console.log(saveSkillStack);
+    axios.get(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
+      headers:{Authorization: `Bearer ${cookies.accessToken}`},
+    }).then(async(res)=>{
+      //array
+      const data = res.data;
+      console.log(data);
+      const length = data.length;
+      for(let i=0; i<length; i++){
+        if(i<5 && length >= 5){
+          const skillId = data[i].uuid;
+          const ability = inputStacks[i].ability;
+          const mastery = inputStacks[i].mastery;
+          if(!skillId || !ability) continue;
+          await axios.patch(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
+            ability:ability, mastery:mastery
+          },{
+            headers:{Authorization: `Bearer ${cookies.accessToken}`},
+          })
+        }else if(i>=5 && length >=5){
+          const skillId = data[i].uuid;
+          if(!skillId) continue;
+          await axios.delete(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
+            headers:{Authorization: `Bearer ${cookies.accessToken}`},
+          })
+        }else if(i<5 && length < 5){
+          const ability = inputStacks[i].ability;
+          const mastery = inputStacks[i].mastery;
+          if(!ability) continue;
+          await axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
+            ability:ability, mastery:mastery
+          },{
+            headers:{Authorization: `Bearer ${cookies.accessToken}`},
+          })
+        }
+      }
+    }).catch((err)=>{
+      console.log(err);
+    })
+  }
+  // 사용자가 선택한 이미지를 저장하는 함수
+  const saveWorkImage = async (uuid:any)=>{
+    const formData = new FormData();
+    const length = workImageList.length>6?6:workImageList.length;
+    for(let e=0; e<length; e++){
+      if(!workImageList[e] || typeof(workImageList[e].file)!="object") continue;
+      console.log(workImageList[e]);
+      formData.append("image",workImageList[e].file);
+      formData.append("field",workImageList[e].field);
+      formData.append("description",workImageList[e].description);
+      await axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/works/`,formData,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
       .then((res)=>{
-        console.log("skill stack success");
+        console.log("work image success!"); 
         console.log(res);
       })
       .catch((err)=>{
-        console.log("skill stack error")
         console.log(err);
       })
     }
@@ -215,11 +283,12 @@ const PortfolioEdit: React.FC = () => {
       axios.post(`http://127.0.0.1:8000/portfolios/`,data,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
-      .then((res)=>{
+      .then(async (res)=>{
         setCookie("portfolioId",res.data.uuid, {path:'/'});
-        uuid = res.data.uuid;
-        console.log(uuid);
-        saveSkillStack(uuid);
+        console.log("uuid : " + res.data.uuid);
+        await saveSkillStack(res.data.uuid);
+        await saveWorkImage(res.data.uuid);
+        navigate("/portfolio/view");
       })
       .catch((err)=>{
         console.log("create fail");
@@ -231,17 +300,17 @@ const PortfolioEdit: React.FC = () => {
       axios.patch(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/`,data,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
-      .then((res)=>{
+      .then(async (res)=>{
         console.log("edit success");
-        saveSkillStack(cookies.portfolioId);
-        console.log(res);
+        await saveSkillStack(cookies.portfolioId);
+        await saveWorkImage(cookies.portfolioId);
+        navigate("/portfolio/view");
       })
       .catch((err)=>{
         console.log("edit fail");
         console.log(err);
       })
     }
-    navigate("/portfolio/view");
   }
   return (
     <div style={styles.page}>
