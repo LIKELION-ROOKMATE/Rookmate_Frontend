@@ -1,9 +1,9 @@
 @import url(./reset.css);
 
-.outsourcingInfoRoot{
+.outsourcingInfoRoot {
   margin: 6rem 13.5rem 0 13.5rem;
 }
-.outsourcingInfoBox{
+.outsourcingInfoBox {
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -11,13 +11,13 @@
   height: 31rem;
 }
 
-.back{
+.back {
   width: 1.2rem;
   height: 2.1rem;
   margin-bottom: 2.25rem;
 }
 
-.outsourcingInfo{
+.outsourcingInfo {
   display: flex;
   flex-wrap: wrap;
 
@@ -26,7 +26,7 @@
   margin-right: 3rem;
 }
 
-.outsourcingInfo .title{
+.outsourcingInfo .title {
   display: flex;
 
   width: 100%;
@@ -37,12 +37,12 @@
   font-weight: 600;
 }
 
-.content-box{
+.content-box {
   display: flex;
   flex-direction: row;
 }
 
-.content-box .profile{
+.content-box .profile {
   width: 3rem;
   height: 3rem;
 
@@ -50,7 +50,7 @@
   padding: 0px;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: column;
   row-gap: 0.3rem;
@@ -60,38 +60,38 @@
   line-height: 1.25rem;
 }
 
-.contentHead{
+.contentHead {
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 
-.userInfo{
+.userInfo {
   display: flex;
   flex-direction: column;
   row-gap: 0.5rem;
 }
 
-.name{
+.name {
   color: #000;
   font-size: 1.125rem;
   font-family: Inter;
   font-weight: 600;
 }
 
-.tools{
+.tools {
   display: flex;
   gap: 0.5rem;
 }
 
-.tools img{
+.tools img {
   width: 1.8rem;
   height: 1.5rem;
 }
 
 /* 외주 이미지들 */
 
-.outsourcingImg{
+.outsourcingImg {
   display: flex;
   flex-direction: row;
   gap: 1.81rem;
@@ -99,18 +99,18 @@
   width: 52%;
 }
 
-.mainImgBox{
+.mainImgBox {
   width: 20rem;
   height: 31rem;
 }
 
-.imageBox > img{
+.imageBox > img {
   width: 100%;
   height: 100%;
   border-radius: 30px;
 }
 
-.subImgBox{
+.subImgBox {
   width: 10rem;
   height: 30rem;
   background-color: black;

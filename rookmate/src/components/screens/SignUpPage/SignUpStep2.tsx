@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
 import { images } from "../../../assets/images/images";
 import TopBar from "../../TopBar";
@@ -210,15 +211,15 @@ const jobList: string[] = [
   "취업 준비생",
   "기타",
 ];
-const jobName: string[] = [
-  "student",
-  "teenager",
-  "employee",
-  "freelancer",
-  "start_up",
-  "job_seeker",
-  "etc",
-];
+// const jobName: string[] = [
+//   "student",
+//   "teenager",
+//   "employee",
+//   "freelancer",
+//   "start_up",
+//   "job_seeker",
+//   "etc",
+// ];
 const optionList: any = [
   "프론트엔드",
   "홈페이지",
@@ -249,7 +250,7 @@ const SignUp = () => {
   const locaition = useLocation();
   const passedEmail = locaition.state.email as string;
   const passedPassword = locaition.state.password as string;
-  const [cookies, setCookie, removeCookie] = useCookies([
+  const [cookies, setCookie] = useCookies([
     "userId",
     "accessToken",
     "refreshToken",

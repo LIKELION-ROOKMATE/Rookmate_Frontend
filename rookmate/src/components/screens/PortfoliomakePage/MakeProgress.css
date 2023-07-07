@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   width: 70rem;
-  margin: 5rem auto ;
+  margin: 5rem auto;
 }
 
 .progress_frame {
@@ -20,7 +20,7 @@
   width: 3.6875rem;
   height: 3.6875rem;
   border-radius: 59px;
-  background: #C0D9FF;
+  background: #c0d9ff;
   display: flex;
   justify-content: center;
 }
