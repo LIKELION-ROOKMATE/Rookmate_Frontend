@@ -6,6 +6,7 @@ import TopBar from "../../TopBar";
 import VerificationModal from "./VerificationModal";
 import axios from 'axios'
 import { Cookies, useCookies } from 'react-cookie'
+import { log } from "console";
 
 
 const PortfoliostartPage: React.FC = () => {
@@ -15,13 +16,18 @@ const PortfoliostartPage: React.FC = () => {
   const navigate = useNavigate();
   const handleStartPortfolio = () => {
     if(cookies.accessToken) {
-      axios.get('http://127.0.0.1:8000/users/').then((res)=>{
+      axios.get(`http://127.0.0.1:8000/users/${cookies.userId}/`,{
+        headers:{Authorization: `Bearer ${cookies.accessToken}`
+      }}).then((res)=>{
         if(res.data.univ) {
           navigate("/portfolio/make")
         } else {
           openModalHandler()
         }
-      })
+      }).catch((err)=>{
+        console.log(err);
+        
+      }) 
     } else {
       openModalHandler()
     }

@@ -43,21 +43,25 @@
   line-height: 2.5rem;
 }
 
-#r_title, #r_workway, #r_hopeprice {
+#r_title, #r_workway, #r_hopeprice, #r_subject {
   width: 34.5625rem;
   height: 2.875rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
 }
 
-#r_subject, #r_revise {
+#r_subject {
+  margin-bottom: 1rem;
+}
+
+#r_revise {
   width: 13.6875rem;
   height: 2.875rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
 }
 
-#r_keyword, #r_workday {
+#r_workday {
   width: 19.4375rem;
   height: 2.875rem;
   border-radius: 0.625rem;
