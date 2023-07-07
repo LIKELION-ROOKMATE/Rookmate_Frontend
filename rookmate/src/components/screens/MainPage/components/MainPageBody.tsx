@@ -42,6 +42,7 @@ const styles: Styles = {
     color: "#FFF",
     fontSize: "1.125rem",
     fontWeight: "500",
+    cursor: "pointer",
   },
   mainPageImageContainer: {
     width: "90%",
@@ -134,7 +135,10 @@ const MainPageBody: React.FC = () => {
       setImageFilter((prev) => "outsourcing");
     }
   };
-
+  const handleAdClick = () => {
+    window.location.href =
+      "https://recruit.posco.com/h22a01-front/H22A1001.html?id=118000";
+  };
   return (
     <div>
       <WorkDetailModal
@@ -151,7 +155,7 @@ const MainPageBody: React.FC = () => {
         <div style={styles.adTextContainer}>
           <p style={styles.adTextTitle}>2023년 하반기 채용연계형 인턴 채용</p>
           <p style={styles.adTextDescription}>2023.06.23 ~ 2023.07.10</p>
-          <p style={styles.adTextDescription}>
+          <p style={styles.adTextDescription} onClick={handleAdClick}>
             궁금하다면 채용공고 보러가기 {">"}
           </p>
         </div>
