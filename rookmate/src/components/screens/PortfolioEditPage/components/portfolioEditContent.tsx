@@ -19,24 +19,13 @@ type PortfolioEditContentType = {
   setModalActive: (element: boolean) => void;
   setWorkImageList: (element: any) => void;
   completeEditEvent: () => void;
-  workImageList: any[];
+  workImageList: any;
 };
 
-interface Styles {
-  portfolioContent: React.CSSProperties;
-  workList: React.CSSProperties;
-  addSomething: React.CSSProperties;
-  templateEditTools: React.CSSProperties;
-  toolBoxGroup: React.CSSProperties;
-  explain: React.CSSProperties;
-  toolBox: React.CSSProperties;
-  toolBoxButton: React.CSSProperties;
-  completeButton: React.CSSProperties;
-}
-const styles: Styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   portfolioContent: {
     width: "77%",
-    height: "100%",
+    height: "100rem",
     minHeight: "50rem",
     boxShadow: "-4px 0px 16px 8px rgba(0, 0, 0, 0.25)",
     padding: "4.5rem 2rem 0 4.5rem",
@@ -44,16 +33,23 @@ const styles: Styles = {
   workList: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "1rem",
+    justifyContent: "center",
+    alignItems: "center",
     width: "100%",
-    height: "66.7%",
+  },
+  workBox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50%",
+    height: "30%",
+    backgroundColor: "#fff",
+    border: "none",
   },
   addSomething: {
-    width: "19rem",
-    height: "19rem",
-    padding: "none",
-    border: "none",
-    backgroundColor: "#fff",
+    height: "30%",
+    objectFit: "cover",
+    overflow: "hidden",
   },
   templateEditTools: {
     display: "flex",
@@ -138,33 +134,56 @@ const PortfolioEditContent: React.FC<PortfolioEditContentType> = ({
     checkViewListEvent(e);
   };
   const handleModal = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (workImageList.length >= 6) {
+      alert("이미지 추가 불가");
+      return false;
+    }
     e.preventDefault();
     setModalActive(true);
   };
 
   useEffect(() => {
-    let updatedWorkListElement: JSX.Element[] = [];
-    updatedWorkListElement.push(
-      <button style={styles.addSomething} onClick={handleModal}>
+    setWorkListElement(() => [
+      <button style={styles.workBox} onClick={handleModal}>
         <img
           src={images.addSomething}
-          style={{ width: "100%", height: "100%", padding: "none" }}
+          style={styles.workImage}
           alt="workImage"
         />
-      </button>
-    );
+      </button>,
+    ]);
     for (let i = 0; i < workImageList.length; i++) {
-      updatedWorkListElement.push(
-        <button style={styles.addSomething} onClick={handleModal}>
-          <img
-            src={workImageList[i]}
-            style={{ width: "100%", height: "100%", padding: "none" }}
-            alt="workImage"
-          />
-        </button>
-      );
+      const imageFile = workImageList[i];
+      console.log(typeof imageFile);
+      console.log(imageFile);
+      if (imageFile && typeof imageFile == "string") {
+        setWorkListElement((prev) => [
+          ...prev,
+          <button style={styles.workBox} onClick={handleModal}>
+            <img
+              src={`http://127.0.0.1:8000${imageFile}`}
+              style={styles.addSomething}
+              alt="workImage"
+            />
+          </button>,
+        ]);
+      } else if (imageFile && typeof imageFile.file == "object") {
+        const imageFileObject = imageFile.file;
+        if (imageFileObject) {
+          const imageFileURL = URL.createObjectURL(imageFileObject);
+          const workElement = (
+            <button style={styles.workBox} onClick={handleModal}>
+              <img
+                src={imageFileURL}
+                style={styles.addSomething}
+                alt="workImage"
+              />
+            </button>
+          );
+          setWorkListElement((prev) => [...prev, workElement]);
+        }
+      }
     }
-    setWorkListElement(updatedWorkListElement);
   }, [workImageList]);
 
   return (

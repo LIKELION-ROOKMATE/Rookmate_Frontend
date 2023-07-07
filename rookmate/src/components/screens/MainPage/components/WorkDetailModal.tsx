@@ -46,7 +46,7 @@ const WorkDetailModal: React.FC<WorkDetailModalType> = ({
         <div className={ModuleCss.comment}>
           <img
             src={images.profile}
-            style={{ width: "3.4rem", height: "3.4rem" }}
+            style={{ width: "2.5rem", height: "2.5rem" }}
             alt="프로필"
           />
           <div className={ModuleCss.commenterWriteContainer}>
@@ -189,7 +189,15 @@ const WorkDetailModal: React.FC<WorkDetailModalType> = ({
         <div className={ModuleCss.commentAndMore}>
           <div className={ModuleCss.commentContainer}>
             <p className={ModuleCss.subTitle}>Comment(10)</p>
-            <div>{commenterWrite[commentPage]}</div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "0.3rem",
+              }}
+            >
+              {commenterWrite[commentPage]}
+            </div>
             <div className={ModuleCss.pagination}>
               <span> &lt; </span>
               {commentPage >= 1 && (
@@ -201,7 +209,7 @@ const WorkDetailModal: React.FC<WorkDetailModalType> = ({
                 </span>
               )}
               <span
-                style={{ color: "black", cursor: "pointer" }}
+                style={{ color: "black", cursor: "pointer", fontWeight: "700" }}
                 onClick={() => setCommentPage(() => commentPage)}
               >
                 {commentPage + 1}{" "}

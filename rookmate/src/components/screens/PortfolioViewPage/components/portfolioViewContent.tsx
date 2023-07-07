@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { images } from "../../../../assets/images/images";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type PortfolioViewContentType = {
   props: {
@@ -21,27 +24,29 @@ type PortfolioViewContentType = {
   manageOutsourcingEvent: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-interface Styles {
-  contentPage: React.CSSProperties;
-  workList: React.CSSProperties;
-  addSomething: React.CSSProperties;
-  outsourcingManageButton: React.CSSProperties;
-}
-
-const styles: Styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   contentPage: {
     width: "100%",
+    height: "85%",
   },
   workList: {
     display: "flex",
+    flexDirection: "row",
     flexWrap: "wrap",
-
+    justifyContent: "center",
     width: "100%",
-    height: "66.7%",
+    height: "50%",
+  },
+  workBox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50%",
+    height: "30%",
   },
   addSomething: {
-    width: "30%",
-    height: "30%",
+    height: "100%",
+    objectFit: "cover",
   },
   outsourcingManageButton: {
     position: "fixed",
@@ -61,27 +66,58 @@ const PortfolioViewContent: React.FC<PortfolioViewContentType> = ({
   checkViewListEvent,
   manageOutsourcingEvent,
 }) => {
+  const [cookies] = useCookies([
+    "userId",
+    "accessToken",
+    "refreshToken",
+    "portfolioId",
+  ]);
+  const [workElementList, setWorkElementList] = useState<JSX.Element[]>([]);
+  const navigate = useNavigate();
   // const handleToolButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
   //   checkViewListEvent(e);
   // };
 
-  // const handleManageOutsourcingButtonClick = (
-  //   e: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //   manageOutsourcingEvent(e);
-  // };
+  useEffect(() => {
+    setWorkElementList(() => []);
+    axios
+      .get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/works/`)
+      .then((res) => {
+        const imageData = res.data;
+        for (let element in imageData) {
+          const src = imageData[element].images[0].image;
+          console.log(src);
+          setWorkElementList((prev) => [
+            ...prev,
+            <div style={styles.workBox}>
+              <img
+                src={`http://127.0.0.1:8000${src}`}
+                style={styles.addSomething}
+                alt="work"
+              />
+            </div>,
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [cookies.portfolioId]);
+  const handleManageOutsourcingButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    axios.get(`http://127.0.0.1:8000/users/${cookies.userId}/`).then((res) => {
+      if (!res.data.univ || !res.data.univ_email || !res.data.major)
+        manageOutsourcingEvent(e);
+      else navigate("/outsourcing/recruitment");
+    });
+  };
   return (
     <div style={styles.contentPage}>
-      <div style={styles.workList}>
-        <img
-          src={images.addSomething}
-          style={styles.addSomething}
-          alt="addSomething"
-        />
-      </div>
+      <div style={styles.workList}>{workElementList}</div>
       <button
         style={styles.outsourcingManageButton}
-        onClick={manageOutsourcingEvent}
+        onClick={handleManageOutsourcingButtonClick}
       >
         <img
           src={images.outsourcingManage}
