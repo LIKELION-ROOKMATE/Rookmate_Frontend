@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../../assets/images/images";
 
@@ -36,7 +36,7 @@ const styles: Styles = {
     width: "100vw",
     maxWidth: "100rem",
     height: "19%",
-    minHeight:"10rem",
+    minHeight: "10rem",
   },
   mainImg: {
     opacity: "0.3",

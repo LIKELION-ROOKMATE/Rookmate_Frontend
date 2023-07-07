@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ReactElement, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../assets/images/images";
 import { useCookies } from "react-cookie";
-import axios from 'axios';
+import axios from "axios";
 
 type LoginPageType = {
-  setViewLoginModal:any,
-}
+  setViewLoginModal: any;
+};
 
-const styles: {[key:string]:React.CSSProperties} = {
-  loginBackground:{
-    position:"fixed",
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    width:"100vw",
-    height:"100vh",
-    backgroundColor:"rgba(0,0,0,0.5)",
-    zIndex:"2",
+const styles: { [key: string]: React.CSSProperties } = {
+  loginBackground: {
+    position: "fixed",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    zIndex: "2",
   },
   loginContainer: {
     display: "flex",
@@ -41,7 +42,7 @@ const styles: {[key:string]:React.CSSProperties} = {
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.25)",
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
   },
   loginText: {
     display: "flex",
@@ -90,11 +91,11 @@ const styles: {[key:string]:React.CSSProperties} = {
     alignItems: "center",
     width: "14.4rem",
     borderRadius: 10,
-    border:"none",
+    border: "none",
     borderColor: "#000",
     height: "2rem",
     backgroundColor: "#ECECEC",
-    cursor:"pointer",
+    cursor: "pointer",
   },
   noAccountContainer: {
     display: "flex",
@@ -129,48 +130,61 @@ const styles: {[key:string]:React.CSSProperties} = {
   },
 };
 
-const LoginPage: React.FC<LoginPageType> = ({setViewLoginModal}): ReactElement => {
+const LoginPage: React.FC<LoginPageType> = ({
+  setViewLoginModal,
+}): ReactElement => {
   const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies(["accessToken", "userId", "refreshToken"]);
+  const [cookie, setCookie] = useCookies([
+    "accessToken",
+    "userId",
+    "refreshToken",
+  ]);
   const emailRef = useRef<any>();
   const passwordRef = useRef<any>();
   const handleSignUpClick = () => {
     navigate("/signup/1");
   };
-  const handleBackgroundClick = (e:any)=>{
+  const handleBackgroundClick = (e: any) => {
     const id = e.target.id;
-    if(id=='loginBackground'){
-      setViewLoginModal((prev:boolean)=>!prev)
+    if (id === "loginBackground") {
+      setViewLoginModal((prev: boolean) => !prev);
     }
   };
-  const handleLoginClick = (e:any)=>{
+  const handleLoginClick = (e: any) => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    axios.post('http://127.0.0.1:8000/users/login/',{
-      email:email,
-      password:password,
-    })
-    .then((res)=>{
-      console.log("login success");
-      const userId = res.data.user.uuid;
-      const accessToken = res.data.token.access;
-      const refreshToken = res.data.token.refresh;
-      setCookie('accessToken', accessToken, { path: '/' });
-      setCookie('refreshToken', refreshToken, { path: '/' });
-      setCookie('userId', userId, {path:'/'});
-      console.log(userId);
-      console.log(accessToken)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      setViewLoginModal(false);
-    })
-    .catch((err)=>{
-      console.log("fail to login");
-      console.log(err);
-      return false;
-    })
-  }
+    axios
+      .post("http://127.0.0.1:8000/users/login/", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        console.log("login success");
+        const userId = res.data.user.uuid;
+        const accessToken = res.data.token.access;
+        const refreshToken = res.data.token.refresh;
+        setCookie("accessToken", accessToken, { path: "/" });
+        setCookie("refreshToken", refreshToken, { path: "/" });
+        setCookie("userId", userId, { path: "/" });
+        console.log(userId);
+        console.log(accessToken);
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${accessToken}`;
+        setViewLoginModal(false);
+      })
+      .catch((err) => {
+        console.log("fail to login");
+        console.log(err);
+        return false;
+      });
+  };
   return (
-    <div style={styles.loginBackground} id='loginBackground' onClick={handleBackgroundClick}>
+    <div
+      style={styles.loginBackground}
+      id="loginBackground"
+      onClick={handleBackgroundClick}
+    >
       <div style={styles.loginContainer}>
         <div style={styles.loginLayout}>
           <img

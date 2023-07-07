@@ -43,21 +43,25 @@
   line-height: 2.5rem;
 }
 
-#r_title, #r_workway, #r_hopeprice {
+#r_title,
+#r_workway,
+#r_hopeprice {
   width: 34.5625rem;
   height: 2.875rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
 }
 
-#r_subject, #r_revise {
+#r_subject,
+#r_revise {
   width: 13.6875rem;
   height: 2.875rem;
   border-radius: 0.625rem;
   border: 1px solid #000;
 }
 
-#r_keyword, #r_workday {
+#r_keyword,
+#r_workday {
   width: 19.4375rem;
   height: 2.875rem;
   border-radius: 0.625rem;
@@ -113,14 +117,17 @@
   width: 8rem;
   height: 3rem;
   border-radius: 6.25rem;
-  background: #7FA3C5;
+  background: #7fa3c5;
   box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
   border: none;
   cursor: pointer;
   margin: 2rem auto;
 }
 
-.recruit input, .recruit textarea, .recruit h3, .recruit h4 {
+.recruit input,
+.recruit textarea,
+.recruit h3,
+.recruit h4 {
   margin-bottom: 1.2rem;
 }
 
