@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ReactElement, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../../assets/images/images";
