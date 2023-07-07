@@ -247,7 +247,7 @@ const PortfolioView: React.FC = () => {
 
   // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
   useEffect(() => {
-    setStack([]);
+    setStack(()=>[]);
     axios
       .get(
         `http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/portfolio_abilities/`,
@@ -256,7 +256,8 @@ const PortfolioView: React.FC = () => {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log("stack")
+        console.log(res);
         const data = res.data;
         for (let ele in data) {
           const ability = data[ele].ability;

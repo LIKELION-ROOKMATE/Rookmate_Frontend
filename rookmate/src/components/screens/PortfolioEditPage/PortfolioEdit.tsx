@@ -253,18 +253,20 @@ const PortfolioEdit: React.FC = () => {
       .get(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`, {
         headers: { Authorization: `Bearer ${cookies.accessToken}` },
       })
-      .then(async (res) => {
+      .then((res) => {
         //array
+        console.log(res.data)
         const data = res.data;
-        console.log(data);
         const length = data.length;
-        for (let i = 0; i < length; i++) {
-          if (i < 5 && length >= 5) {
+        for (let i = 0; i < 5; i++) {
+          console.log(inputStacks);
+          if (i < length) {
+            console.log("set");
             const skillId = data[i].uuid;
             const ability = inputStacks[i].ability;
             const mastery = inputStacks[i].mastery;
             if (!skillId || !ability) continue;
-            await axios.patch(
+            axios.patch(
               `http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,
               {
                 ability: ability,
@@ -273,21 +275,17 @@ const PortfolioEdit: React.FC = () => {
               {
                 headers: { Authorization: `Bearer ${cookies.accessToken}` },
               }
-            );
-          } else if (i >= 5 && length >= 5) {
-            const skillId = data[i].uuid;
-            if (!skillId) continue;
-            await axios.delete(
-              `http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,
-              {
-                headers: { Authorization: `Bearer ${cookies.accessToken}` },
-              }
-            );
-          } else if (i < 5 && length < 5) {
+            ).then((res)=>{
+              console.log(res);
+            }).catch((err)=>{
+              console.log("err in setting stack");
+              console.log(err);
+            })
+          } else if (i >= length) {
             const ability = inputStacks[i].ability;
             const mastery = inputStacks[i].mastery;
             if (!ability) continue;
-            await axios.post(
+            axios.post(
               `http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,
               {
                 ability: ability,
@@ -342,11 +340,11 @@ const PortfolioEdit: React.FC = () => {
         .post(`http://127.0.0.1:8000/portfolios/`, data, {
           headers: { Authorization: `Bearer ${cookies.accessToken}` },
         })
-        .then(async (res) => {
+        .then((res) => {
           setCookie("portfolioId", res.data.uuid, { path: "/" });
           console.log("uuid : " + res.data.uuid);
-          await saveSkillStack(res.data.uuid);
-          await saveWorkImage(res.data.uuid);
+          saveSkillStack(res.data.uuid);
+          saveWorkImage(res.data.uuid);
           navigate("/portfolio/view");
         })
         .catch((err) => {

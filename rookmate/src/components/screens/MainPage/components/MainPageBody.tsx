@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { images } from "../../../../assets/images/images";
 import moduleCss from "../MainPage.module.css";
 import WorkDetailModal from "./WorkDetailModal";
+import axios from 'axios';
 
 interface Styles {
   mainPageTopAdContainer: React.CSSProperties;
@@ -68,7 +69,7 @@ const styles: Styles = {
   },
 };
 
-const ImageList = [
+let ImageList = [
   images.main1,
   images.main4,
   images.main7,
@@ -115,20 +116,31 @@ const MainPageBody: React.FC = () => {
 
   //이미지 목록을 loadedImage에 JSX 형식으로 저장
   useEffect(() => {
-    const updatedLoadedImage: JSX.Element[] = [];
-    for (let ele in ImageList) {
-      const fileUrl = ImageList[ele];
-      updatedLoadedImage.push(
-        <div className={moduleCss.mainPageImageItem} onClick={showModalEvent}>
-          <img
-            src={fileUrl}
-            alt="예시이미지"
-            className={moduleCss.mainPageImage}
-          />
-        </div>
-      );
-    }
-    setLoadedImage((prev) => [...prev, ...updatedLoadedImage]);
+    axios.get(`http://127.0.0.1:8000/works/`)
+    .then((res)=>{
+      const userDatas = res.data;
+      for(let i=0; i<userDatas.length; i++){
+        const userData = userDatas[i].images;
+        for(let j=0; j<userData.length; j++){
+          const image = userData[j].image;
+          ImageList.push(`http://127.0.0.1:8000${image}`);
+        }
+      }
+      const updatedLoadedImage: JSX.Element[] = [];
+      for (let ele in ImageList) {
+        const fileUrl = ImageList[ele];
+        updatedLoadedImage.push(
+          <div className={moduleCss.mainPageImageItem} onClick={showModalEvent}>
+            <img
+              src={fileUrl}
+              alt="예시이미지"
+              className={moduleCss.mainPageImage}
+            />
+          </div>
+        );
+      }
+      setLoadedImage((prev) => [...prev, ...updatedLoadedImage]);
+    })
   }, [ImageList]);
   //이미지 표시 기준을 변경
   const changeImageFilterStandard = (e: any) => {
