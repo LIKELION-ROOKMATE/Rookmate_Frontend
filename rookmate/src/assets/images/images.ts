@@ -64,6 +64,7 @@ import main15 from '../images/main15.png';
 import main16 from '../images/main16.png';
 import main17 from '../images/main17.png';
 
+import twitter from '../images/twitter.png';
 
 export const images = {
   deleteTag: deleteTag,
@@ -128,4 +129,5 @@ export const images = {
   main15: main15,
   main16: main16,
   main17: main17,
+  twitter:twitter,
 };

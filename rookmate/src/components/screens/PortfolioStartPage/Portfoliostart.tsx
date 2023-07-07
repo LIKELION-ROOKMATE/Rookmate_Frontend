@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Portfoliostart.css";
 import { images } from "../../../assets/images/images";
@@ -46,16 +46,16 @@ const PortfoliostartPage: React.FC = () => {
     setOnModal(true);
   };
 
-  const closeModalHandler = (e:boolean) => {
+  const closeModalHandler = (e: boolean) => {
     setOnModal(e);
-  }
+  };
 
   return (
     <div>
       <div>
-        <TopBar/>
+        <TopBar />
       </div>
-      {onModal && <VerificationModal closeModal={closeModalHandler}/>}
+      {onModal && <VerificationModal closeModal={closeModalHandler} />}
       <div className="box box1">
         <div className="box1content">
           <p>아직 포트폴리오를 만들지 않았나요?</p>
@@ -111,7 +111,7 @@ const PortfoliostartPage: React.FC = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="box box3">
         <h3>
           수많은 경쟁자들로 치열한 외주받기?

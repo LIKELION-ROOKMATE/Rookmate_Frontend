@@ -6,11 +6,12 @@
   height: 82vh;
   z-index: 130;
   border-radius: 30px;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.Univ p, .Univ h1 {
+.Univ p,
+.Univ h1 {
   margin-bottom: -2rem;
 }
 
@@ -51,7 +52,7 @@
   width: 44rem;
   height: 2.9375rem;
   border-radius: 10px;
-  border: 1px solid #000
+  border: 1px solid #000;
 }
 
 .Univ_button {
@@ -62,10 +63,10 @@
   width: 7rem;
   height: 3rem;
   border-radius: 100px;
-  background: #7FA3C5;
+  background: #7fa3c5;
   box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
   border: none;
-  color: #FFF;
+  color: #fff;
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 500;
@@ -77,10 +78,10 @@
   width: 7rem;
   height: 3rem;
   border-radius: 100px;
-  background: #5B98D3;
+  background: #5b98d3;
   box-shadow: 4px 4px 8px 1px rgba(0, 0, 0, 0.25);
   border: none;
-  color: #FFF;
+  color: #fff;
   font-size: 1.5rem;
   font-family: Inter;
   font-weight: 500;
@@ -88,12 +89,11 @@
   cursor: pointer;
 }
 
-.exitbutton2 img{
+.exitbutton2 img {
   width: 2rem;
   height: 2rem;
   cursor: pointer;
 }
-
 
 .exitbutton2_container {
   display: flex;
