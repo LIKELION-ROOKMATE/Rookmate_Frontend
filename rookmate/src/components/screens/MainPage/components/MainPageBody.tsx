@@ -10,6 +10,7 @@ interface Styles {
   adTextContainer: React.CSSProperties;
   adTextTitle: React.CSSProperties;
   adTextDescription: React.CSSProperties;
+  adTextDescription2: React.CSSProperties;
   mainPageImageContainer: React.CSSProperties;
   mainPageImageItem: React.CSSProperties;
   mainPageImage: React.CSSProperties;
@@ -39,6 +40,11 @@ const styles: Styles = {
     fontWeight: "700",
   },
   adTextDescription: {
+    color: "#FFF",
+    fontSize: "1.125rem",
+    fontWeight: "500",
+  },
+  adTextDescription2: {
     color: "#FFF",
     fontSize: "1.125rem",
     fontWeight: "500",
@@ -155,7 +161,7 @@ const MainPageBody: React.FC = () => {
         <div style={styles.adTextContainer}>
           <p style={styles.adTextTitle}>2023년 하반기 채용연계형 인턴 채용</p>
           <p style={styles.adTextDescription}>2023.06.23 ~ 2023.07.10</p>
-          <p style={styles.adTextDescription} onClick={handleAdClick}>
+          <p style={styles.adTextDescription2} onClick={handleAdClick}>
             궁금하다면 채용공고 보러가기 {">"}
           </p>
         </div>
