@@ -211,7 +211,7 @@ const PortfolioEdit: React.FC = () => {
     console.log(saveSkillStack);
     axios.get(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
       headers:{Authorization: `Bearer ${cookies.accessToken}`},
-    }).then(async(res)=>{
+    }).then((res)=>{
       //array
       const data = res.data;
       console.log(data);
@@ -222,7 +222,7 @@ const PortfolioEdit: React.FC = () => {
           const ability = inputStacks[i].ability;
           const mastery = inputStacks[i].mastery;
           if(!skillId || !ability) continue;
-          await axios.patch(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
+          axios.patch(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
             ability:ability, mastery:mastery
           },{
             headers:{Authorization: `Bearer ${cookies.accessToken}`},
@@ -230,14 +230,14 @@ const PortfolioEdit: React.FC = () => {
         }else if(i>=5 && length >=5){
           const skillId = data[i].uuid;
           if(!skillId) continue;
-          await axios.delete(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
+          axios.delete(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/${skillId}`,{
             headers:{Authorization: `Bearer ${cookies.accessToken}`},
           })
         }else if(i<5 && length < 5){
           const ability = inputStacks[i].ability;
           const mastery = inputStacks[i].mastery;
           if(!ability) continue;
-          await axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
+          axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/portfolio_abilities/`,{
             ability:ability, mastery:mastery
           },{
             headers:{Authorization: `Bearer ${cookies.accessToken}`},
@@ -249,7 +249,7 @@ const PortfolioEdit: React.FC = () => {
     })
   }
   // 사용자가 선택한 이미지를 저장하는 함수
-  const saveWorkImage = async (uuid:any)=>{
+  const saveWorkImage = (uuid:any)=>{
     const formData = new FormData();
     const length = workImageList.length>6?6:workImageList.length;
     for(let e=0; e<length; e++){
@@ -258,7 +258,7 @@ const PortfolioEdit: React.FC = () => {
       formData.append("image",workImageList[e].file);
       formData.append("field",workImageList[e].field);
       formData.append("description",workImageList[e].description);
-      await axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/works/`,formData,{
+      axios.post(`http://127.0.0.1:8000/portfolios/${uuid}/works/`,formData,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
       .then((res)=>{
@@ -283,11 +283,11 @@ const PortfolioEdit: React.FC = () => {
       axios.post(`http://127.0.0.1:8000/portfolios/`,data,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
-      .then(async (res)=>{
+      .then((res)=>{
         setCookie("portfolioId",res.data.uuid, {path:'/'});
         console.log("uuid : " + res.data.uuid);
-        await saveSkillStack(res.data.uuid);
-        await saveWorkImage(res.data.uuid);
+        saveSkillStack(res.data.uuid);
+        saveWorkImage(res.data.uuid);
         navigate("/portfolio/view");
       })
       .catch((err)=>{
@@ -300,10 +300,10 @@ const PortfolioEdit: React.FC = () => {
       axios.patch(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/`,data,{
         headers:{Authorization: `Bearer ${cookies.accessToken}`},
       })
-      .then(async (res)=>{
+      .then((res)=>{
         console.log("edit success");
-        await saveSkillStack(cookies.portfolioId);
-        await saveWorkImage(cookies.portfolioId);
+        saveSkillStack(cookies.portfolioId);
+        saveWorkImage(cookies.portfolioId);
         navigate("/portfolio/view");
       })
       .catch((err)=>{

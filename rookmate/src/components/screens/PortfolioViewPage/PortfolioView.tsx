@@ -173,7 +173,7 @@ const PortfolioView: React.FC = () => {
   const [profileImage, setProfileImage]:any = useState(images.noneProfile);
   const [modalActive, setModalActive] = useState<boolean>(false)
   const [snsIdList, setSnsIdList] = useState({git:undefined, instagram:undefined, twitter:undefined,});
-  const [workElementList, setWorkElementList] = useState<JSX.Element[]>();
+  const [workElementList, setWorkElementList] = useState<JSX.Element[]>([]);
   //기술 스택 관련 state
   const [stacks, setStack] = useState<JSX.Element[]>([]);
   //요소들의 표시 여부를 나타내는 state

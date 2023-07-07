@@ -38,7 +38,7 @@ const WorkDetailModal:React.FC<WorkDetailModalType> = ({visible, setWorkModalVis
       let y = Math.floor(i/3);
       let x = i - 3 * y;
       updatedCommenterWrite[y][x] = (
-        <div className={ModuleCss.comment}>
+        <div className={ModuleCss.comment} key={i}>
           <img src={images.profile} style={{width:"2.5rem", height:"2.5rem",}}/>
           <div className={ModuleCss.commenterWriteContainer}>
             <p className={ModuleCss.commenterWrite}>작성자(작성자ID)</p>

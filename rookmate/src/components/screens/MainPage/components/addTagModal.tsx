@@ -51,7 +51,7 @@ const AddTagModal:React.FC<AddTagModalType> = ({props,setTagModalVisible})=>{
       const tag = searchedTag[i] as string;
       if(props.addedTag.includes(tag)) continue;
       updatedTagElements.push(
-        <div className={ModuleCss.searchedTag} onClick={handleAddSearchedTag} id={tag}>
+        <div className={ModuleCss.searchedTag} onClick={handleAddSearchedTag} id={tag} key={i}>
           <span className={ModuleCss.searchedTagName} id={tag}>{tag}</span>
         </div>
       )

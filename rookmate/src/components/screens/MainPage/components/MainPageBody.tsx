@@ -111,7 +111,7 @@ const MainPageBody: React.FC = () => {
     for(let ele in ImageList){
       const fileUrl = ImageList[ele]
       updatedLoadedImage.push(
-        <div className={moduleCss.mainPageImageItem} onClick={showModalEvent}>
+        <div className={moduleCss.mainPageImageItem} onClick={showModalEvent} key={ele}>
           <img src={fileUrl} alt="예시이미지" className={moduleCss.mainPageImage}/>
         </div>
       )

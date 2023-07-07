@@ -80,6 +80,7 @@ const TopBar: React.FC = () => {
         }
       })
       .then((res)=>{
+        console.log(res);
         if(res.data.length===0){
           navigate("/portfolio/start");
         }else{
@@ -89,11 +90,11 @@ const TopBar: React.FC = () => {
           })
           .then((res)=>{
             setCookie('portfolioId', res.data[0].uuid, {path:'/'});
+            navigate("/portfolio/view");
           })
           .catch((err)=>{
             console.log(err);
           })
-          navigate("/portfolio/view");
         }
       })
     }
