@@ -168,7 +168,12 @@ const userReview = {
 const PortfolioView: React.FC = () => {
   //현재 페이지 정보
   // const [portfolioId, setPortfolioId] = useState(1);
-  const [cookies] = useCookies(["userId", "accessToken", "refreshToken"]);
+  const [cookies] = useCookies([
+    "userId",
+    "accessToken",
+    "refreshToken",
+    "portfolioId",
+  ]);
   //사용자 기본 정보 관련 state
   const [name, setName] = useState("undefined");
   const [age, setAge] = useState<number>(0);
@@ -176,9 +181,14 @@ const PortfolioView: React.FC = () => {
   const [departure, setDeparture] = useState("undefined");
   const [profileImage, setProfileImage]: any = useState(images.noneProfile);
   const [modalActive, setModalActive] = useState<boolean>(false);
-
+  const [snsIdList, setSnsIdList] = useState({
+    git: undefined,
+    instagram: undefined,
+    twitter: undefined,
+  });
+  const [workElementList, setWorkElementList] = useState<JSX.Element[]>();
   //기술 스택 관련 state
-  const [stacks, setStack] = useState([]);
+  const [stacks, setStack] = useState<JSX.Element[]>([]);
   //요소들의 표시 여부를 나타내는 state
   const [viewList, setViewList] = useState({
     stack: true,
@@ -194,6 +204,7 @@ const PortfolioView: React.FC = () => {
   });
   // 서버에서 사용자 기본 정보를 받아와서 반영하는 effect
   useEffect(() => {
+    //사용자 기본 정보
     axios
       .get(`http://127.0.0.1:8000/users/${cookies.userId}/`)
       .then((res) => {
@@ -207,6 +218,27 @@ const PortfolioView: React.FC = () => {
         }
         if (userData.univ) setCollage(() => userData.univ);
         if (userData.major) setDeparture(() => userData.major);
+        setSnsIdList(() => ({
+          git: userData.git,
+          instagram: userData.instagram,
+          twitter: userData.twitter,
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //사용자 포트폴리오 정보
+    axios
+      .get(`http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/`, {
+        headers: { Authorization: `Bearer ${cookies.accessToken}` },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSnsIdList({
+          git: res.data.git,
+          instagram: res.data.instagram,
+          twitter: res.data.twitter,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -215,29 +247,37 @@ const PortfolioView: React.FC = () => {
 
   // 서버에서 사용자 기술 스택 받아와서 반영하는 effect
   useEffect(() => {
-    const initialStack: any = [];
-    //get Data : dataList
-    const skillStack: string[] = [
-      "Spring",
-      "django",
-      "Java",
-      "React",
-      "Algorithm",
-    ];
-    const dataList: number[] = [40, 50, 60, 30, 80];
-    for (let i = 0; i < dataList.length; i++) {
-      initialStack.push(
-        <div style={styles.stackBox}>
-          <p style={styles.stackName}>{skillStack[i]}</p>
-          <div style={styles.proficiencyBox}>
-            <div style={{ ...styles.proficiency, width: `${dataList[i]}%` }}>
-              &nbsp;
-            </div>
-          </div>
-        </div>
-      );
-    }
-    setStack(initialStack);
+    setStack([]);
+    axios
+      .get(
+        `http://127.0.0.1:8000/portfolios/${cookies.portfolioId}/portfolio_abilities/`,
+        {
+          headers: { Authorization: `Bearer ${cookies.accessToken}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        const data = res.data;
+        for (let ele in data) {
+          const ability = data[ele].ability;
+          const mastery = data[ele].mastery;
+          console.log(ability + " " + mastery);
+          setStack((prev) => [
+            ...prev,
+            <div style={styles.stackBox}>
+              <p style={styles.stackName}>{ability}</p>
+              <div style={styles.proficiencyBox}>
+                <div style={{ ...styles.proficiency, width: `${mastery}%` }}>
+                  &nbsp;
+                </div>
+              </div>
+            </div>,
+          ]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   // toolBox 버튼을 누르면 해당 요소 활성화/비활성화하는 이벤트
   const checkViewListEvent = (
@@ -306,6 +346,7 @@ const PortfolioView: React.FC = () => {
             departure: departure,
             viewList: viewList,
             stacks: stacks,
+            snsIdList: snsIdList,
           }}
         />
         <div style={styles.portfolioDetailLeft}>

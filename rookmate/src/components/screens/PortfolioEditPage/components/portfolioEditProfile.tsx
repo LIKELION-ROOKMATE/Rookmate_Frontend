@@ -157,7 +157,11 @@ const PortfolioEditProfile: React.FC<PortfolioEditProfileType> = ({
         <div style={styles.title}>SNS</div>
         <div style={styles.snsList}>
           <div style={styles.snsElement}>
-            <img src={images.instagram} alt="instagram" />
+            <img
+              src={images.instagram}
+              alt="instagram"
+              style={{ width: "1.5rem", height: "1.5rem" }}
+            />
             <input
               style={styles.snsId}
               placeholder="id : "
@@ -166,16 +170,24 @@ const PortfolioEditProfile: React.FC<PortfolioEditProfileType> = ({
             />
           </div>
           <div style={styles.snsElement}>
-            <img src={images.github} alt="github" />
+            <img
+              src={images.github}
+              alt="git"
+              style={{ width: "1.5rem", height: "1.5rem" }}
+            />
             <input
               style={styles.snsId}
               placeholder="id : "
-              id="github"
+              id="git"
               onChange={handleSnsId}
             />
           </div>
           <div style={styles.snsElement}>
-            <img src={images.facebook} alt="facebook" />
+            <img
+              src={images.twitter}
+              alt="facebook"
+              style={{ width: "1.5rem", height: "1.5rem" }}
+            />
             <input
               style={styles.snsId}
               placeholder="id : "

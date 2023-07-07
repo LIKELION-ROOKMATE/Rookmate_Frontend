@@ -16,25 +16,11 @@ type PortfolioViewProfileType = {
       competition: boolean;
     };
     stacks: any;
+    snsIdList: any;
   };
 };
 
-interface Styles {
-  displayNone: React.CSSProperties;
-  profile: React.CSSProperties;
-  profileImage: React.CSSProperties;
-  userInfo: React.CSSProperties;
-  divisorLine: React.CSSProperties;
-  stackBox: React.CSSProperties;
-  title: React.CSSProperties;
-  sns: React.CSSProperties;
-  snsList: React.CSSProperties;
-  snsElement: React.CSSProperties;
-  snsImage: React.CSSProperties;
-  snsId: React.CSSProperties;
-}
-
-const styles: Styles = {
+const styles: { [key: string]: React.CSSProperties } = {
   displayNone: {
     display: "none",
   },
@@ -76,8 +62,7 @@ const styles: Styles = {
   sns: {},
   snsList: {
     display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "row",
+    flexDirection: "column",
     rowGap: "1.2rem",
     width: "100%",
     marginBottom: "1rem",
@@ -125,25 +110,39 @@ const PortfolioViewProfile: React.FC<PortfolioViewProfileType> = ({
       </div>
       <div style={styles.divisorLine}></div>
 
-      <div style={props.viewList.sns ? styles.sns : styles.displayNone}>
+      <div style={styles.sns}>
         <div style={styles.title}>SNS</div>
         <div style={styles.snsList}>
-          <div style={styles.snsElement}>
-            <img src={images.kakao} alt="kakao" />
-            <p style={styles.snsId}>ID</p>
-          </div>
-          <div style={styles.snsElement}>
-            <img src={images.instagram} alt="instagram" />
-            <p style={styles.snsId}>ID</p>
-          </div>
-          <div style={styles.snsElement}>
-            <img src={images.github} alt="github" />
-            <p style={styles.snsId}>ID</p>
-          </div>
-          <div style={styles.snsElement}>
-            <img src={images.facebook} alt="facebook" />
-            <p style={styles.snsId}>ID</p>
-          </div>
+          {props.snsIdList.instagram && (
+            <div style={styles.snsElement}>
+              <img
+                src={images.instagram}
+                alt="instagram"
+                style={{ width: "1.5rem", height: "1.5rem" }}
+              />
+              <p style={styles.snsId}>{props.snsIdList.instagram}</p>
+            </div>
+          )}
+          {props.snsIdList.git && (
+            <div style={styles.snsElement}>
+              <img
+                src={images.github}
+                alt="github"
+                style={{ width: "1.5rem", height: "1.5rem" }}
+              />
+              <p style={styles.snsId}>{props.snsIdList.git}</p>
+            </div>
+          )}
+          {props.snsIdList.twitter && (
+            <div style={styles.snsElement}>
+              <img
+                src={images.twitter}
+                alt="twitter"
+                style={{ width: "1.5rem", height: "1.5rem" }}
+              />
+              <p style={styles.snsId}>{props.snsIdList.twitter}</p>
+            </div>
+          )}
         </div>
       </div>
       <div style={styles.divisorLine}></div>
