@@ -5,7 +5,8 @@ import TopBar from "../../TopBar";
 import moduleStyle from "./ModuleStyle.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import axios from "axios";
+import axios from 'axios';
+import { async } from 'q';
 
 const styles: { [key: string]: React.CSSProperties } = {
   signupForm: {
@@ -232,12 +233,7 @@ const SignUp = () => {
   const locaition = useLocation();
   const passedEmail = locaition.state.email as string;
   const passedPassword = locaition.state.password as string;
-  const [cookies, setCookie] = useCookies([
-    "userId",
-    "accessToken",
-    "refreshToken",
-    "portfolioId",
-  ]);
+  const [cookies, setCookie, removeCookie] = useCookies(["userId", "accessToken", "refreshToken", "portfolioId"]);
   // 관심 분야 선택 관련 state
   const [optionElement, setOptionElement] = useState<JSX.Element[]>([]);
   const [optionListVisible, setOptionListVisible] = useState<boolean>(false);
@@ -363,106 +359,90 @@ const SignUp = () => {
     setjobElement(tmpJobElement);
   }, [jobListVisible, checkedJob]);
 
-  const RegisterUser = async (e: any) => {
+  const RegisterUser =  async (e:any)=>{
     const name = nameRef.current.value;
     const birth = birthRef.current.value;
     const phoneNumber = phoneNumberRef.current.value;
-    const job = Number(checkedJob);
-    let field: number[] = [];
-    for (let ele in checkedItem) {
-      if (checkedItem[ele]) field.push(optionList.indexOf(ele));
+    const job = Number(checkedJob)
+    let field:number[] = [];
+    for(let ele in checkedItem){
+      if(checkedItem[ele]) field.push(optionList.indexOf(ele))
     }
-    if (
-      !name ||
-      !birth ||
-      !phoneNumber ||
-      checkCount === 0 ||
-      checkedJob === ""
-    ) {
-      if (!name) setPlaceholder((prev) => ({ ...prev, name: "필수정보" }));
-      if (!birth)
-        setPlaceholder((prev) => ({
-          ...prev,
-          birth: "YYYY - MM - DD ( 필수정보 )",
-        }));
-      if (!phoneNumber)
-        setPlaceholder((prev) => ({ ...prev, phoneNumber: "필수정보" }));
-      if (checkedJob === "")
-        setPlaceholder((prev) => ({ ...prev, job: "직업 선택 필수" }));
+    if(!name || !birth || !phoneNumber || checkCount===0 || checkedJob===""){
+      if(!name) setPlaceholder((prev)=>({...prev, name:"필수정보"}))
+      if(!birth) setPlaceholder((prev)=>({...prev, birth:"YYYY - MM - DD ( 필수정보 )"}))
+      if(!phoneNumber) setPlaceholder((prev)=>({...prev, phoneNumber:"필수정보"}))
+      if(checkedJob==="")  setPlaceholder((prev)=>({...prev, job:"직업 선택 필수"}))
       return false;
     }
-    const univ_email =
-      univEmailRef.current.value !== "" ? univEmailRef.current.value : null;
-    const univ = univRef.current.value !== "" ? univRef.current.value : null;
-    const major = majorRef.current.value !== "" ? majorRef.current.value : null;
+    const univ_email = univEmailRef.current.value!=""?univEmailRef.current.value:null;
+    const univ = univRef.current.value!=""?univRef.current.value:null;
+    const major = majorRef.current.value!=""?majorRef.current.value:null;
     console.log(univ);
     const detailData = {
-      name: name,
-      phone_number: phoneNumber,
-      birth_date: birth,
-      field: field,
-      job: job,
-      univ_email: univ_email,
-      univ: univ,
-      major: major,
-    };
+      name:name,
+      phone_number:phoneNumber,
+      birth_date:birth,
+      field:field,
+      job:job,
+      univ_email:univ_email,
+      univ:univ,
+      major:major
+    }
 
     let codeBreaker = false;
-    await axios
-      .get(`http://127.0.0.1:8000/users/`)
-      .then(async (res) => {
-        const users = res.data;
-        for (let i = 0; i < users.length; i++) {
-          if (users[i].phone_number === phoneNumber) {
-            alert("전화번호가 중복됨");
-            navigate("/");
-            codeBreaker = true;
-            return false;
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // 사용자 회원가입 처리
-    if (!codeBreaker) {
-      await axios
-        .post("http://127.0.0.1:8000/users/registration/", {
-          email: passedEmail,
-          password: passedPassword,
-        })
-        .then(async (res) => {
-          const userId = res.data.user.uuid;
-          const accessToken = res.data.token.access;
-          const refreshToken = res.data.token.refresh;
-          const cookieCallback = () => {
-            setCookie("userId", userId, { path: "/" });
-            setCookie("accessToken", accessToken, { path: "/" });
-            setCookie("refreshToken", refreshToken, { path: "/" });
-          };
-          cookieCallback();
-          console.log("cookies : " + cookies);
-          axios
-            .patch(`http://127.0.0.1:8000/users/${userId}/`, detailData, {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            })
-            .then((res) => {
-              navigate("/");
-            })
-            .catch((err) => {
-              console.log("fail to detail : ");
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          console.log("fail to login : ");
-          console.log(err);
+    await axios.get(`http://127.0.0.1:8000/users/`)
+    .then(async (res)=>{
+      const users = res.data;
+      for(let i=0; i<users.length; i++){
+        if(users[i].phone_number === phoneNumber){
+          alert("전화번호가 중복됨")
+          navigate("/");
+          codeBreaker = true;
           return false;
-        });
+        }
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+    // 사용자 회원가입 처리
+    if(!codeBreaker){
+      await axios.post("http://127.0.0.1:8000/users/registration/", {
+        email:passedEmail,
+        password:passedPassword
+      })
+      .then(async (res)=>{
+        const userId = res.data.user.uuid;
+        const accessToken = res.data.token.access;
+        const refreshToken = res.data.token.refresh;
+        const cookieCallback = ()=>{
+          setCookie('userId', userId, {path:'/'});
+          setCookie('accessToken', accessToken, {path:'/'});
+          setCookie('refreshToken', refreshToken, {path:'/'});
+        }
+        cookieCallback();
+        console.log("cookies : " + cookies);
+        axios.patch(`http://127.0.0.1:8000/users/${userId}/`,detailData,{
+          headers:{Authorization: `Bearer ${accessToken}`}
+        })
+        .then((res)=>{
+          navigate("/");
+        })
+        .catch((err)=>{
+          console.log("fail to detail : ")
+          console.log(err);
+        })
+      })
+      .catch((err)=>{
+        console.log("fail to login : ")
+        console.log(err);
+        return false;
+      })
     }
     // 사용자 필수정보/추가정보 보내기
-  };
-  return (
+  }
+  return(
     <div>
       <TopBar />
       <div style={styles.signupForm}>
@@ -568,9 +548,7 @@ const SignUp = () => {
             <div style={styles.majorOptions}>{jobElement}</div>
           )}
         </div>
-        <button style={styles.submitButton} onClick={RegisterUser}>
-          회원가입
-        </button>
+        <button style={styles.submitButton} onClick={RegisterUser}>회원가입</button>
 
         <div
           style={{
@@ -631,9 +609,7 @@ const SignUp = () => {
             }}
           />
         </div>
-        <button style={styles.formSubmitButton} onClick={RegisterUser}>
-          완료
-        </button>
+        <button style={styles.formSubmitButton} onClick={RegisterUser}>완료</button>
       </div>
     </div>
   );
